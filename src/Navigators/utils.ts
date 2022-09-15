@@ -5,36 +5,41 @@
  * You can add other navigation functions that you need and export them
  */
 import {
-  CommonActions,
-  createNavigationContainerRef,
+    CommonActions,
+    createNavigationContainerRef,
 } from '@react-navigation/native'
 
-export const navigationRef = createNavigationContainerRef()
-
-export const navigate = (name, params) => {
-  if (navigationRef.isReady()) {
-    navigationRef.navigate(name, params)
-  }
+type RootStackParamList = {
+    Startup: undefined
+    Home: undefined
 }
 
-export const navigateAndReset = (routes = [], index = 0) => {
-  if (navigationRef.isReady()) {
-    navigationRef.dispatch(
-      CommonActions.reset({
-        index,
-        routes,
-      }),
-    )
-  }
+export const navigationRef = createNavigationContainerRef<RootStackParamList>()
+
+export function navigate(name: keyof RootStackParamList, params: any) {
+    if (navigationRef.isReady()) {
+        navigationRef.navigate(name, params)
+    }
 }
 
-export const navigateAndSimpleReset = (name, index = 0) => {
-  if (navigationRef.isReady()) {
-    navigationRef.dispatch(
-      CommonActions.reset({
-        index,
-        routes: [{ name }],
-      }),
-    )
-  }
+export function navigateAndReset(routes = [], index = 0) {
+    if (navigationRef.isReady()) {
+        navigationRef.dispatch(
+            CommonActions.reset({
+                index,
+                routes,
+            }),
+        )
+    }
+}
+
+export function navigateAndSimpleReset(name: string, index = 0) {
+    if (navigationRef.isReady()) {
+        navigationRef.dispatch(
+            CommonActions.reset({
+                index,
+                routes: [{ name }],
+            }),
+        )
+    }
 }

@@ -2,13 +2,9 @@
  * This file contains all application's style relative to fonts
  */
 import { StyleSheet } from 'react-native'
+import { ThemeVariables } from './theme'
 
-/**
- *
- * @param Theme can be spread like {Colors, NavigationColors, Gutters, Layout, Common, ...args}
- * @return {*}
- */
-export default function ({ FontSize, Colors }) {
+export default function ({ FontSize, Colors }: ThemeVariables) {
   return StyleSheet.create({
     textSmall: {
       fontSize: 14,
@@ -30,6 +26,10 @@ export default function ({ FontSize, Colors }) {
       fontWeight: "500",
       lineHeight: 24
     },
+    textRegular: {
+      fontSize: FontSize.regular,
+      color: Colors.text,
+    },
     textMedium: {
       fontSize: 18,
       fontWeight: "500",
@@ -45,7 +45,16 @@ export default function ({ FontSize, Colors }) {
       fontWeight: "500",
       lineHeight: 48
     },
-
+    titleRegular: {
+      fontSize: FontSize.regular * 2,
+      fontWeight: 'bold',
+      color: Colors.text,
+    },
+    titleLarge: {
+      fontSize: FontSize.large * 2,
+      fontWeight: 'bold',
+      color: Colors.text,
+    },
     textCenter: {
       textAlign: 'center',
     },

@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next'
 import { Brand } from '@/Components'
 import { useTheme } from '@/Hooks'
 import { useLazyFetchOneQuery } from '@/Services/modules/users'
-import { changeTheme } from '@/Store/Theme'
+import { changeTheme, ThemeState } from '@/Store/Theme'
 
 const ExampleContainer = () => {
   const { t } = useTranslation()
@@ -27,7 +27,7 @@ const ExampleContainer = () => {
     fetchOne(userId)
   }, [fetchOne, userId])
 
-  const onChangeTheme = ({ theme, darkMode }) => {
+  const onChangeTheme = ({ theme, darkMode }: Partial<ThemeState>) => {
     dispatch(changeTheme({ theme, darkMode }))
   }
 

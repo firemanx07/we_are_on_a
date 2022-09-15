@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native'
+import { ThemeVariables } from './theme'
 
 /**
  * Generate Styles depending on MetricsSizes vars availabled at ./Theme/Variables
@@ -13,56 +14,75 @@ import { StyleSheet } from 'react-native'
  * <value>: is the value of the <size>
  */
 
-/**
- *
- * @param Theme can be spread like {Colors, NavigationColors, Gutters, Layout, Common, ...args}
- * @return {*}
- */
-export default function ({ MetricsSizes }) {
-  return StyleSheet.create({
-    ...Object.entries(MetricsSizes).reduce(
-      (acc, [key, value]) => ({
-        ...acc,
-        /* Margins */
-        [`${key}BMargin`]: {
-          marginBottom: value,
-        },
-        [`${key}TMargin`]: {
-          marginTop: value,
-        },
-        [`${key}RMargin`]: {
-          marginRight: value,
-        },
-        [`${key}LMargin`]: {
-          marginLeft: value,
-        },
-        [`${key}VMargin`]: {
-          marginVertical: value,
-        },
-        [`${key}HMargin`]: {
-          marginHorizontal: value,
-        },
-        /* Paddings */
-        [`${key}BPadding`]: {
-          paddingBottom: value,
-        },
-        [`${key}TPadding`]: {
-          paddingTop: value,
-        },
-        [`${key}RPadding`]: {
-          paddingRight: value,
-        },
-        [`${key}LPadding`]: {
-          paddingLeft: value,
-        },
-        [`${key}VPadding`]: {
-          paddingVertical: value,
-        },
-        [`${key}HPadding`]: {
-          paddingHorizontal: value,
-        },
-      }),
-      {},
-    ),
-  })
+type Margins =
+    | 'BMargin'
+    | 'TMargin'
+    | 'RMargin'
+    | 'LMargin'
+    | 'VMargin'
+    | 'HMargin'
+type Paddings =
+    | 'BPadding'
+    | 'TPadding'
+    | 'RPadding'
+    | 'LPadding'
+    | 'VPadding'
+    | 'HPadding'
+
+type MarginKeys = `${keyof ThemeVariables['MetricsSizes']}${Margins}`
+type PaddingKeys = `${keyof ThemeVariables['MetricsSizes']}${Paddings}`
+
+type Gutters = {
+    [key in MarginKeys | PaddingKeys]: {
+        [k in string]: number
+    }
+}
+
+export default function ({ MetricsSizes }: ThemeVariables): Gutters {
+    return StyleSheet.create(
+        Object.entries(MetricsSizes).reduce(
+            (acc, [key, value]) => ({
+                ...acc,
+                /* Margins */
+                [`${key}BMargin`]: {
+                    marginBottom: value,
+                },
+                [`${key}TMargin`]: {
+                    marginTop: value,
+                },
+                [`${key}RMargin`]: {
+                    marginRight: value,
+                },
+                [`${key}LMargin`]: {
+                    marginLeft: value,
+                },
+                [`${key}VMargin`]: {
+                    marginVertical: value,
+                },
+                [`${key}HMargin`]: {
+                    marginHorizontal: value,
+                },
+                /* Paddings */
+                [`${key}BPadding`]: {
+                    paddingBottom: value,
+                },
+                [`${key}TPadding`]: {
+                    paddingTop: value,
+                },
+                [`${key}RPadding`]: {
+                    paddingRight: value,
+                },
+                [`${key}LPadding`]: {
+                    paddingLeft: value,
+                },
+                [`${key}VPadding`]: {
+                    paddingVertical: value,
+                },
+                [`${key}HPadding`]: {
+                    paddingHorizontal: value,
+                },
+            }),
+            {},
+        ) as Gutters,
+    )
 }

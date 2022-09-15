@@ -6,8 +6,9 @@ plugins.push(
     'module-resolver',
     {
       root: ['./src'],
-      extensions: ['.js', '.json'],
+      extensions: ['.ios.js', '.android.js', '.js', '.ts', '.tsx', '.json'],
       alias: {
+        tests: ['./tests/'],
         '@': './src',
       },
     },

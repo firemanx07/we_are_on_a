@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native'
+import { CommonParams } from '@/Theme/theme'
 
-export default function ({ Colors, Gutters, Layout }) {
+export default function <C>({ Colors, Gutters, Layout }: CommonParams<C>) {
   const base = {
     ...Layout.center,
     ...Gutters.largeHPadding,
