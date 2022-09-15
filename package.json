@@ -3,11 +3,17 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "install-pods": "cd ios && pod install && cd ../",
     "android": "react-native run-android",
-    "ios": "react-native run-ios",
-    "start": "react-native start",
     "test": "jest",
-    "lint": "eslint .",
+    "test:watch": "jest --watchAll",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint . --ext .js,.ts,.tsx",
+    "lint:fix": "yarn lint --fix",
+    "prettier:write": "yarn prettier --write **/*.{js,jsx,ts,tsx,json}",
+    "sanity": "yarn lint && yarn tsc && yarn test",
+    "ios": "react-native run-ios --simulator \"iPhone 12\"",
+    "start": "react-native start",
     "type-check": "tsc"
   },
   "dependencies": {
