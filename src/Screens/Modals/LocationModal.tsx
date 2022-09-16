@@ -86,7 +86,7 @@ const LocationModal = () => {
           </View>
               <View style={[Layout.colCenter ,Gutters.largeBMargin ,Common.button.largeButton]}>
                   <Text style={[textLarge,textPrimary, Gutters.smallBMargin ]}>{t('location.title')}</Text>
-                  <Text style={[textCenter,Gutters.largeHPadding]}>{t('location.description')}</Text>
+                  <Text style={[textCenter,textGrey100,Gutters.largeHPadding]}>{t('location.description')}</Text>
               </View>
 
           </View>
