@@ -114,10 +114,10 @@ const formatTheme = <F, G, I, L, C>(
  * baseTheme <- currentTheme <- currentDarkTheme
  */
 const mergeVariables = (
-    themeConfig: Partial<ThemeVariables>,
-    darkThemeConfig: Partial<ThemeVariables>,
+    themeConfig: Partial<ThemeVariables> ={},
+    darkThemeConfig: Partial<ThemeVariables>={},
 ) => {
-  return Object.entries(DefaultVariables).reduce((acc, [group, vars]) => {
+  return Object.entries(DefaultVariables || {}).reduce((acc, [group, vars]) => {
     const theme:
         | Record<keyof typeof DefaultVariables, typeof vars>
         | undefined = (themeConfig as any)[group]

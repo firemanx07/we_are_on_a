@@ -67,5 +67,8 @@ export default function ({ FontSize, Colors }: ThemeVariables) {
     textRight: {
       textAlign: 'right',
     },
+  textWhite:{
+      color:Colors.white
+  }
   })
 }

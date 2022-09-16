@@ -8,6 +8,7 @@ import {
     CommonActions,
     createNavigationContainerRef,
 } from '@react-navigation/native'
+import {StatusBar} from "react-native";
 
 type RootStackParamList = {
     Startup: undefined
@@ -41,5 +42,6 @@ export function navigateAndSimpleReset(name: string, index = 0) {
                 routes: [{ name }],
             }),
         )
+        StatusBar.setHidden(false)
     }
 }
