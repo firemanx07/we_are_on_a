@@ -1,5 +1,10 @@
 export default {
-  welcome: 'Welcome to React Native the_chefs_guid by TheCodingMachine',
+  welcome:
+      {
+        top:'WE ARE ONA PRESENTS',
+        bottom:'PARTNERED WITH'
+
+      },
   actions: {
     continue: 'Continue',
   },
