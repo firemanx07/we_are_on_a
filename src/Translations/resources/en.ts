@@ -2,7 +2,11 @@ export default {
   welcome:
       {
         top:'WE ARE ONA PRESENTS',
-        bottom:'PARTNERED WITH'
+        bottom:'PARTNERED WITH',
+        onBoarding:{
+            button:'Explore the guide',
+            description:'A collection of best Restaurants curated by local chefs'
+        }
 
       },
   actions: {

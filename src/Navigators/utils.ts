@@ -42,6 +42,6 @@ export function navigateAndSimpleReset(name: string, index = 0) {
                 routes: [{ name }],
             }),
         )
-        StatusBar.setHidden(false)
+        // StatusBar.setHidden(false)
     }
 }

@@ -19,7 +19,7 @@ const StartupContainer = () => {
             }, 2000),
         )
         await setDefaultTheme({theme: 'default', darkMode: null})
-        navigateAndSimpleReset('Main')
+        navigateAndSimpleReset('onBoarding')
     }
 
     useEffect(() => {
@@ -30,11 +30,11 @@ const StartupContainer = () => {
     return (
         <View style={[Layout.fill, Layout.colCenter, Common.backgroundPrimary]}>
             <Text
-                style={[Fonts.textCenter, Fonts.textWhite, {paddingBottom: Dim.getDimension(162)}]}>{t('welcome.top')}</Text>
+                style={[Fonts.textCenter, Fonts.textBeige200, {marginBottom: Dim.getDimension(162)}]}>{t('welcome.top')}</Text>
             <Brand width={Dim.getHorizontalDimension(270)} height={Dim.getDimension(300)}/>
             <View style={[Layout.row, Layout.justifyContentBetween,
-                {width: Dim.getHorizontalDimension(190.5), alignItems: 'baseline', paddingTop: Dim.getDimension(182)}]}>
-                <Text style={[Fonts.textCenter, Fonts.textWhite]}>{t('welcome.bottom')}</Text>
+                {width: Dim.getHorizontalDimension(190.5), alignItems: 'baseline', marginTop: Dim.getDimension(182)}]}>
+                <Text style={[Fonts.textCenter, Fonts.textBeige200]}>{t('welcome.bottom')}</Text>
                 <Image style={{width: Dim.getHorizontalDimension(49), height: Dim.getDimension(27)}}
                        source={Images.evian}/>
             </View>

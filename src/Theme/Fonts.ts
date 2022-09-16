@@ -69,6 +69,12 @@ export default function ({ FontSize, Colors }: ThemeVariables) {
     },
   textWhite:{
       color:Colors.white
+  } ,
+    textBeige100:{
+      color:Colors.beige_100
+  } ,
+    textBeige200:{
+      color:Colors.beige_200
   }
   })
 }

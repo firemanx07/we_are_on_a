@@ -6,6 +6,7 @@ import { StartupContainer } from '@/Containers'
 import { useTheme } from '@/Hooks'
 import MainNavigator from './Main'
 import { navigationRef } from './utils'
+import WelcomeScreen from "@/Screens/WelcomeScreen";
 
 const Stack = createStackNavigator()
 
@@ -20,6 +21,7 @@ const ApplicationNavigator = () => {
                 <StatusBar barStyle={darkMode ? 'light-content' : 'dark-content'} />
                 <Stack.Navigator screenOptions={{ headerShown: false }}>
                     <Stack.Screen name="Startup" component={StartupContainer} />
+                    <Stack.Screen name={"onBoarding"} component={WelcomeScreen}/>
                     <Stack.Screen
                         name="Main"
                         component={MainNavigator}
