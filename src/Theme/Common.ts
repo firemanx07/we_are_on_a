@@ -17,6 +17,12 @@ export default function <C>({ Colors, ...args }: CommonParams<C>) {
       backgroundReset: {
         backgroundColor: Colors.transparent,
       },
+      backgroundBeige100:{
+        backgroundColor: Colors.beige_100,
+      },
+      posAbs:{
+        position:'absolute'
+      },
       textInput: {
         borderWidth: 1,
         borderColor: Colors?.text,

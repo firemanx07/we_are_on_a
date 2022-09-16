@@ -41,7 +41,7 @@ export default function ({ FontSize, Colors }: ThemeVariables) {
       lineHeight: 32
     },
     textLarge: {
-      fontSize: 40,
+      fontSize: 32,
       fontWeight: "500",
       lineHeight: 48
     },
@@ -75,6 +75,12 @@ export default function ({ FontSize, Colors }: ThemeVariables) {
   } ,
     textBeige200:{
       color:Colors.beige_200
+  } ,
+    textGrey100:{
+      color:Colors.grey_100
+  } ,
+    textPrimary:{
+      color:Colors.primary
   }
   })
 }

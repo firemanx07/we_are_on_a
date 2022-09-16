@@ -9,6 +9,12 @@ export default {
         }
 
       },
+    location:{
+      button:'Allow location',
+      skip:'skip',
+      title:'Enable location',
+      description:'It will allow us to show restaurants around you',
+    },
   actions: {
     continue: 'Continue',
   },

@@ -1,11 +1,12 @@
 import React from 'react'
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native'
+import {Image, StatusBar, StyleSheet, Text, TouchableOpacity, View} from 'react-native'
 import {useTranslation} from 'react-i18next'
 import {useTheme} from '@/Hooks'
 import {Brand} from '@/Components'
 import {Dim} from "@/helpers/Dim";
 import BackgroundImageContainer from "@/Containers/BackgroundImageContainer";
 import LinearGradient from 'react-native-linear-gradient'
+import {navigate} from "@/Navigators/utils";
 
 const WelcomeScreen = () => {
     const {Layout, Gutters, Fonts, Common, Images, Colors} = useTheme()
@@ -25,6 +26,10 @@ const WelcomeScreen = () => {
 
                 <TouchableOpacity
                     style={[Common.button.outlineRounded, Gutters.regularBMargin, Common.button.largeButton, styles.marginT32]}
+                    onPress={()=>{
+                        navigate("location",[])
+                        StatusBar.setHidden(false)
+                    }}
                 >
                     <Text style={[Fonts.textRegular, Fonts.textMedium]}>{t('welcome.onBoarding.button')}</Text>
                 </TouchableOpacity>

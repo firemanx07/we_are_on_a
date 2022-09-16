@@ -7,6 +7,7 @@ import { useTheme } from '@/Hooks'
 import MainNavigator from './Main'
 import { navigationRef } from './utils'
 import WelcomeScreen from "@/Screens/WelcomeScreen";
+import LocationModal from "@/Screens/Modals/LocationModal";
 
 const Stack = createStackNavigator()
 
@@ -22,6 +23,7 @@ const ApplicationNavigator = () => {
                 <Stack.Navigator screenOptions={{ headerShown: false }}>
                     <Stack.Screen name="Startup" component={StartupContainer} />
                     <Stack.Screen name={"onBoarding"} component={WelcomeScreen}/>
+                    <Stack.Screen name={"location"} component={LocationModal}/>
                     <Stack.Screen
                         name="Main"
                         component={MainNavigator}

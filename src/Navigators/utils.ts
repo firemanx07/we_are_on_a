@@ -13,6 +13,7 @@ import {StatusBar} from "react-native";
 type RootStackParamList = {
     Startup: undefined
     Home: undefined
+    location:undefined
 }
 
 export const navigationRef = createNavigationContainerRef<RootStackParamList>()
