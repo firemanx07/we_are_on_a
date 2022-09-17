@@ -8,23 +8,23 @@ export default function ({ FontSize, Colors }: ThemeVariables) {
   return StyleSheet.create({
     textSmall: {
       fontSize: 14,
-      fontWeight: "400",
-      lineHeight: 20
+      fontWeight: '400',
+      lineHeight: 20,
     },
     textSmall500: {
       fontSize: 14,
-      fontWeight: "500",
-      lineHeight: 20
+      fontWeight: '500',
+      lineHeight: 20,
     },
     textNormal: {
       fontSize: 16,
-      fontWeight: "400",
-      lineHeight: 24
+      fontWeight: '400',
+      lineHeight: 24,
     },
     textNormal500: {
       fontSize: 16,
-      fontWeight: "500",
-      lineHeight: 24
+      fontWeight: '500',
+      lineHeight: 24,
     },
     textRegular: {
       fontSize: FontSize.regular,
@@ -32,18 +32,18 @@ export default function ({ FontSize, Colors }: ThemeVariables) {
     },
     textMedium: {
       fontSize: 18,
-      fontWeight: "500",
-      lineHeight: 24
+      fontWeight: '500',
+      lineHeight: 24,
     },
     textMedium24: {
       fontSize: 24,
-      fontWeight: "500",
-      lineHeight: 32
+      fontWeight: '500',
+      lineHeight: 32,
     },
     textLarge: {
       fontSize: 32,
-      fontWeight: "500",
-      lineHeight: 48
+      fontWeight: '500',
+      lineHeight: 48,
     },
     titleRegular: {
       fontSize: FontSize.regular * 2,
@@ -67,20 +67,20 @@ export default function ({ FontSize, Colors }: ThemeVariables) {
     textRight: {
       textAlign: 'right',
     },
-  textWhite:{
-      color:Colors.white
-  } ,
-    textBeige100:{
-      color:Colors.beige_100
-  } ,
-    textBeige200:{
-      color:Colors.beige_200
-  } ,
-    textGrey100:{
-      color:Colors.grey_100
-  } ,
-    textPrimary:{
-      color:Colors.primary
-  }
+    textWhite: {
+      color: Colors.white,
+    },
+    textBeige100: {
+      color: Colors.beige_100,
+    },
+    textBeige200: {
+      color: Colors.beige_200,
+    },
+    textGrey100: {
+      color: Colors.grey_100,
+    },
+    textPrimary: {
+      color: Colors.primary,
+    },
   })
 }

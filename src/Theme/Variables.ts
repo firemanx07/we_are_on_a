@@ -13,14 +13,14 @@ export const Colors = {
   transparent: 'rgba(0,0,0,0)',
   inputBackground: '#FFFFFF',
   white: '#ffffff',
-  beige_100:'#F7F6F2',
+  beige_100: '#F7F6F2',
   text: '#111111',
   primary: '#22211F',
   grey_200: '#484641',
   grey_100: '#8D8C8A',
   beige_200: '#EEEBE6',
   brown: '#C38351',
-  error:'#E34F4F',
+  error: '#E34F4F',
 }
 
 export const NavigationColors = {

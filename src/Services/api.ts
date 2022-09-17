@@ -10,10 +10,10 @@ import {
 const baseQuery = fetchBaseQuery({ baseUrl: Config.API_URL })
 
 const baseQueryWithInterceptor: BaseQueryFn<
-    string | FetchArgs,
-    unknown,
-    FetchBaseQueryError
-    > = async (args, api, extraOptions) => {
+  string | FetchArgs,
+  unknown,
+  FetchBaseQueryError
+> = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions)
   if (result.error && result.error.status === 401) {
   }

@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native'
 import { CommonParams } from '@/Theme/theme'
-import {Dim} from "@/helpers/Dim";
+import { Dim } from '@/helpers/Dim'
 
 export default function <C>({ Colors, Gutters, Layout }: CommonParams<C>) {
   const base = {
@@ -27,9 +27,8 @@ export default function <C>({ Colors, Gutters, Layout }: CommonParams<C>) {
       ...rounded,
       backgroundColor: Colors.beige_100,
     },
-    largeButton:{
-      width:Dim.getHorizontalDimension(326)
-    }
-
+    largeButton: {
+      width: Dim.getHorizontalDimension(326),
+    },
   })
 }

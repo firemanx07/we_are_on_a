@@ -1,20 +1,18 @@
 export default {
-  welcome:
-      {
-        top:'WE ARE ONA PRESENTS',
-        bottom:'PARTNERED WITH',
-        onBoarding:{
-            button:'Explore the guide',
-            description:'A collection of best Restaurants curated by local chefs'
-        }
-
-      },
-    location:{
-      button:'Allow location',
-      skip:'skip',
-      title:'Enable location',
-      description:'It will allow us to show restaurants around you',
+  welcome: {
+    top: 'WE ARE ONA PRESENTS',
+    bottom: 'PARTNERED WITH',
+    onBoarding: {
+      button: 'Explore the guide',
+      description: 'A collection of best Restaurants curated by local chefs',
     },
+  },
+  location: {
+    button: 'Allow location',
+    skip: 'skip',
+    title: 'Enable location',
+    description: 'It will allow us to show restaurants around you',
+  },
   actions: {
     continue: 'Continue',
   },

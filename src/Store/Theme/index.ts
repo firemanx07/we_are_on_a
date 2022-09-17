@@ -14,8 +14,8 @@ const slice = createSlice({
       }
     },
     setDefaultTheme: (
-        state,
-        { payload: { theme, darkMode } }: ThemePayload,
+      state,
+      { payload: { theme, darkMode } }: ThemePayload,
     ) => {
       if (!state.theme) {
         if (typeof theme !== 'undefined') {
@@ -41,8 +41,8 @@ type DarkProps<T> = {
 type PropsWithoutDark<T> = Omit<T, DarkProps<T>>
 
 export type ThemeState = {
-      theme: 'default' | keyof PropsWithoutDark<typeof themes>
-    darkMode: boolean | null
+  theme: 'default' | keyof PropsWithoutDark<typeof themes>
+  darkMode: boolean | null
 }
 
 type ThemePayload = {
