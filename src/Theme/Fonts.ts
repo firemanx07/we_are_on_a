@@ -10,7 +10,7 @@ export default function ({ FontSize, Colors }: ThemeVariables) {
       fontSize: 12,
       fontWeight: '400',
       lineHeight: 16,
-    } ,
+    },
     textSmall: {
       fontSize: 14,
       fontWeight: '400',
@@ -87,8 +87,8 @@ export default function ({ FontSize, Colors }: ThemeVariables) {
     textPrimary: {
       color: Colors.primary,
     },
-    textError:{
-      color: Colors.error
+    textError: {
+      color: Colors.error,
     },
   })
 }

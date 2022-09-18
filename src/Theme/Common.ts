@@ -43,6 +43,16 @@ export default function <C>({ Colors, ...args }: CommonParams<C>) {
       borderError: {
         borderColor: Colors.error,
       },
+      elevationLow: {
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+      },
     }),
   }
 }

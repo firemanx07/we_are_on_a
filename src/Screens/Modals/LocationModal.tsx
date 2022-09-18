@@ -82,7 +82,7 @@ const LocationModal = () => {
       style: [Common.posAbs, styles.myLocation],
     },
   ]
-  const LocationDetails = () => (
+  const LocationDetails = (
     <View
       style={[
         Layout.fill,
@@ -138,7 +138,7 @@ const LocationModal = () => {
         {Mask2.map((elem, index) => (
           <Image key={`Pin-${index}`} {...elem} />
         ))}
-        <LocationDetails />
+        {LocationDetails}
       </View>
     </View>
   )

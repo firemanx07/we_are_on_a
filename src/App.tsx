@@ -2,9 +2,11 @@ import 'react-native-gesture-handler'
 import React from 'react'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/lib/integration/react'
-import { store, persistor } from '@/Store'
+import { persistor, store } from '@/Store'
 import ApplicationNavigator from '@/Navigators/Application'
 import './Translations'
+import OverlayLoader from '@/Components/OverlayLoader'
+import { Colors } from '@/Theme/Variables'
 
 const App = () => (
   <Provider store={store}>
@@ -15,7 +17,10 @@ const App = () => (
      * for example `loading={<SplashScreen />}`.
      * @see https://github.com/rt2zz/redux-persist/blob/master/docs/PersistGate.md
      */}
-    <PersistGate loading={null} persistor={persistor}>
+    <PersistGate
+      loading={<OverlayLoader backgroundColor={Colors.primary} />}
+      persistor={persistor}
+    >
       <ApplicationNavigator />
     </PersistGate>
   </Provider>
