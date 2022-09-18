@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import {
   Platform,
   TextInput,
@@ -7,11 +7,11 @@ import {
   View,
   ViewStyle,
 } from 'react-native'
-import {useTheme} from '@/Hooks'
-import {TouchableOpacity as TouchableOpacityIOS} from 'react-native-gesture-handler'
+import { useTheme } from '@/Hooks'
+import { TouchableOpacity as TouchableOpacityIOS } from 'react-native-gesture-handler'
 import Search from '@/Assets/Images/svg/search_icon.svg'
 import Close from '@/Assets/Images/svg/close.svg'
-import {Dim} from '@/helpers/Dim'
+import { Dim } from '@/helpers/Dim'
 
 interface SearchBoxProps {
   value: string
@@ -26,7 +26,7 @@ interface SearchBoxProps {
 
 const SearchBar = (props: SearchBoxProps) => {
   const searchViewRef = useRef<TextInput>(null)
-  const { Fonts, Colors, Common, Layout ,Gutters } = useTheme()
+  const { Fonts, Colors, Common, Layout, Gutters } = useTheme()
   const [isFocused, setIsFocused] = useState<Boolean>(false)
   // On Android, TouchableOpacity from react-native-gesture-handler only registers a tap when tapping on the background
   // On iOS we have the same issue with the one from react-native
@@ -35,10 +35,11 @@ const SearchBar = (props: SearchBoxProps) => {
   if (Platform.OS === 'android') {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
-      if (props.autoFocus !== undefined && props.autoFocus)
+      if (props.autoFocus !== undefined && props.autoFocus) {
         setTimeout(function () {
           searchViewRef.current?.focus()
         }, 100)
+      }
     }, [props.autoFocus])
   }
   const handleFocus = () => {
@@ -53,10 +54,15 @@ const SearchBar = (props: SearchBoxProps) => {
       fill={isFocused ? Colors.primary : Colors.grey_200}
     />
   )
-  const rightIcon =(
-      <TouchableOpacity onPress={() => props.onChangeText("")}>
-      <Close  width={Dim.getHorizontalDimension(24)} height={Dim.getHorizontalDimension(24)} fill={Colors.primary} />
-      </TouchableOpacity>    )
+  const rightIcon = (
+    <TouchableOpacity onPress={() => props.onChangeText('')}>
+      <Close
+        width={Dim.getHorizontalDimension(24)}
+        height={Dim.getHorizontalDimension(24)}
+        fill={Colors.primary}
+      />
+    </TouchableOpacity>
+  )
   return (
     <View
       style={[
@@ -70,7 +76,12 @@ const SearchBar = (props: SearchBoxProps) => {
       {leftIcon}
       <TextInput
         ref={searchViewRef}
-        style={[Fonts.textPrimary, props.style?.text , Layout.scrollSpaceBetween ,Gutters.smallLMargin]}
+        style={[
+          Fonts.textPrimary,
+          props.style?.text,
+          Layout.scrollSpaceBetween,
+          Gutters.smallLMargin,
+        ]}
         value={props.value}
         placeholder={props.placeholder}
         placeholderTextColor={Colors.grey_100}
@@ -85,4 +96,3 @@ const SearchBar = (props: SearchBoxProps) => {
   )
 }
 export default SearchBar
-
