@@ -29,7 +29,7 @@ export default function <C>({ Colors, ...args }: CommonParams<C>) {
         borderColor: 'transparent',
         backgroundColor: Colors?.inputBackground,
         color: Colors?.primary,
-      //  minHeight: Dim.getDimension(32),
+        minHeight: Dim.getDimension(48),
         paddingLeft: Dim.getHorizontalDimension(8),
         paddingRight: Dim.getHorizontalDimension(8),
       },

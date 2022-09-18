@@ -26,7 +26,7 @@ interface SearchBoxProps {
   isError?:Boolean;
 }
 
-const SearchBar = (props: SearchBoxProps) => {
+const TextInputField = (props: SearchBoxProps) => {
   const { Fonts, Colors, Common, Layout ,Gutters } = useTheme()
   const [isFocused, setIsFocused] = useState<Boolean>(false)
   const handleFocus = () => {
@@ -67,5 +67,5 @@ const SearchBar = (props: SearchBoxProps) => {
       </View>
   )
 }
-export default SearchBar
+export default TextInputField
 
