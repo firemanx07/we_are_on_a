@@ -5,13 +5,11 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   extends: [
     '@react-native-community',
-    'universe',
-    'universe/shared/typescript-analysis',
     'plugin:react-hooks/recommended',
     'prettier',
-    'plugin:prettier/recommended'
+    'plugin:prettier/recommended',
   ],
-  plugins: ['jest','react', 'react-hooks', 'prettier'],
+  plugins: ['jest', 'react', 'react-hooks', 'prettier'],
   rules: {
     semi: ['error', 'never'],
     'object-curly-spacing': ['error', 'always'],
