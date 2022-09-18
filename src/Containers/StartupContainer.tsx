@@ -1,11 +1,11 @@
-import React, {useEffect} from 'react'
-import {Image, StatusBar, Text, View} from 'react-native'
-import {useTranslation} from 'react-i18next'
-import {useTheme} from '@/Hooks'
-import {Brand} from '@/Components'
-import {setDefaultTheme} from '@/Store/Theme'
-import {navigateAndSimpleReset} from '@/Navigators/utils'
-import {Dim} from '@/helpers/Dim'
+import React, { useEffect } from 'react'
+import { Image, StatusBar, Text, View } from 'react-native'
+import { useTranslation } from 'react-i18next'
+import { useTheme } from '@/Hooks'
+import { Brand } from '@/Components'
+import { setDefaultTheme } from '@/Store/Theme'
+import { navigateAndSimpleReset } from '@/Navigators/utils'
+import { Dim } from '@/helpers/Dim'
 
 const StartupContainer = () => {
   const { Layout, Fonts, Common, Images } = useTheme()
