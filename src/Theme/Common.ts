@@ -53,6 +53,11 @@ export default function <C>({ Colors, ...args }: CommonParams<C>) {
         shadowRadius: 3.84,
         elevation: 5,
       },
+      roundedBorder: {
+        borderRadius: Dim.getHorizontalDimension(100),
+        borderColor: Colors.primary,
+        borderWidth: 1,
+      },
     }),
   }
 }

@@ -18,7 +18,7 @@ interface SearchBoxProps {
   placeholder: string
   onChangeText: (text: string) => void
   autoFocus?: boolean
-  style?: { container?: ViewStyle; text?: TextStyle; shadow?: ViewStyle }
+  style?: { container?: ViewStyle[]; text?: TextStyle; shadow?: ViewStyle }
   // When set, it makes the searchbar behave like a button
   onPress?: () => void
   onFocus?: () => void
@@ -71,6 +71,7 @@ const SearchBar = (props: SearchBoxProps) => {
         Layout.justifyContentAround,
         Common.roundedInputContainer,
         isFocused && Common.borderFocus,
+        props.style && props.style?.container,
       ]}
     >
       {leftIcon}

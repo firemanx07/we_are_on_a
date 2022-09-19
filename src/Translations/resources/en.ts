@@ -13,6 +13,12 @@ export default {
     title: 'Enable location',
     description: 'It will allow us to show restaurants around you',
   },
+  city: {
+    picker: {
+      header: 'Pick a city',
+      location: 'Enable my Location',
+    },
+  },
   actions: {
     continue: 'Continue',
   },

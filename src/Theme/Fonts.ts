@@ -50,6 +50,13 @@ export default function ({ FontSize, Colors }: ThemeVariables) {
       fontWeight: '500',
       lineHeight: 48,
     },
+    titleSmall: {
+      fontSize: 11,
+      fontWeight: '400',
+      color: Colors.primary,
+      lineHeight: 16,
+      letterSpacing: -1,
+    },
     titleRegular: {
       fontSize: FontSize.regular * 2,
       fontWeight: 'bold',
