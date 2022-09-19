@@ -12,6 +12,7 @@ import {
 import { useTranslation } from 'react-i18next'
 import { useTheme } from '@/Hooks'
 import { Dim } from '@/helpers/Dim'
+import PinMarker from '@/Components/PinMarker'
 
 const LocationModal = () => {
   const { Layout, Gutters, Fonts, Common, Images } = useTheme()
@@ -139,6 +140,9 @@ const LocationModal = () => {
           <Image key={`Pin-${index}`} {...elem} />
         ))}
         {LocationDetails}
+        <View style={[Common.posAbs, Layout.fullSize, Common.backgroundReset]}>
+          <PinMarker text={"Miami's"} source={Images.onBoarding} isFavourite />
+        </View>
       </View>
     </View>
   )
