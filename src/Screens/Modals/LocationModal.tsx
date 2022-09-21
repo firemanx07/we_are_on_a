@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback, useRef } from 'react'
 import {
   Image,
   ImageSourcePropType,
@@ -13,6 +13,10 @@ import { useTranslation } from 'react-i18next'
 import { useTheme } from '@/Hooks'
 import { Dim } from '@/helpers/Dim'
 import CityPicker from '@/Components/CityPicker'
+import BottomSheetConatiner from '@/Containers/BottomSheetContainer'
+import { Modals, Pages } from '@/enums/Pages'
+import { BottomSheetModal } from '@gorhom/bottom-sheet'
+import { navigate } from '@/Navigators/utils'
 
 const LocationModal = () => {
   const { Layout, Gutters, Fonts, Common, Images } = useTheme()
@@ -83,6 +87,11 @@ const LocationModal = () => {
       style: [Common.posAbs, styles.myLocation],
     },
   ]
+  const bottomSheetRef = useRef<BottomSheetModal>(null)
+  const handlePresentModalPress = useCallback(() => {
+    bottomSheetRef.current?.present()
+    navigate(Pages.Menu, [])
+  }, [])
   const LocationDetails = (
     <View
       style={[
@@ -107,6 +116,7 @@ const LocationModal = () => {
             Common.button.largeButton,
             styles.marginT16,
           ]}
+          onPress={handlePresentModalPress}
         >
           <Text style={[textRegular, textMedium, textGrey100]}>
             {t('location.skip')}
@@ -140,9 +150,13 @@ const LocationModal = () => {
           <Image key={`Pin-${index}`} {...elem} />
         ))}
         {LocationDetails}
-        <View style={[Common.posAbs, Layout.fullSize, Common.backgroundReset]}>
+        <BottomSheetConatiner
+          ref={bottomSheetRef}
+          name={Modals.CityPicker}
+          snapPoints={['95%']}
+        >
           <CityPicker />
-        </View>
+        </BottomSheetConatiner>
       </View>
     </View>
   )

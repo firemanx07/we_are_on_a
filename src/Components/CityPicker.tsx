@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native'
+import { Text, TouchableOpacity, View } from 'react-native'
 import CustomMenuHeader from '@/Components/CustomMenuHeader'
 import ArrowDown from '@/Assets/Images/svg/carret_down.svg'
 import Accordion from '@/Components/Accordion'
@@ -8,11 +8,18 @@ import { useTheme } from '@/Hooks'
 import SearchBar from '@/Components/SearchBar'
 import { Dim } from '@/helpers/Dim'
 import { useTranslation } from 'react-i18next'
+import {
+  BottomSheetScrollView,
+  BottomSheetView,
+  useBottomSheetModal,
+} from '@gorhom/bottom-sheet'
+import { Modals } from '@/enums/Pages'
 
 const CityPicker = () => {
   const [searchTerm, setSearchTerm] = useState<string>('')
   const { t } = useTranslation()
   const { Common, Layout, Colors, Fonts, Gutters } = useTheme()
+  const { dismiss } = useBottomSheetModal()
   const { textRegular, textMedium, textBeige100, textPrimary, textCenter } =
     Fonts
 
@@ -20,12 +27,15 @@ const CityPicker = () => {
     setSearchTerm(val)
   }
   return (
-    <View style={[Layout.colVCenter, Layout.fill, Common.backgroundBeige100]}>
+    <BottomSheetView
+      style={[Layout.colVCenter, Layout.fill, Common.backgroundBeige100]}
+    >
       <CustomMenuHeader
         backgroundColor={Colors.beige_100}
         text={t('city.picker.header')}
         textStyle={[textCenter, textMedium, textPrimary]}
         Icon={ArrowDown}
+        onPress={() => dismiss(Modals.CityPicker)}
       />
       <SearchBar
         value={searchTerm}
@@ -39,7 +49,7 @@ const CityPicker = () => {
         placeholder={'Search...'}
         onChangeText={handleSearch}
       />
-      <ScrollView
+      <BottomSheetScrollView
         showsVerticalScrollIndicator={false}
         style={[{ width: Dim.getHorizontalDimension(358) }]}
       >
@@ -61,7 +71,7 @@ const CityPicker = () => {
           <ListItem counter={81} title={'Paris'} distance={10} />
           <ListItem counter={81} title={'Paris'} distance={10} />
         </Accordion>
-      </ScrollView>
+      </BottomSheetScrollView>
       <View
         style={[
           Common.posAbs,
@@ -77,7 +87,7 @@ const CityPicker = () => {
           </Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </BottomSheetView>
   )
 }
 export default CityPicker

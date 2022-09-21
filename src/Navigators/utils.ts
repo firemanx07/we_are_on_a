@@ -7,12 +7,15 @@
 import {
   CommonActions,
   createNavigationContainerRef,
+  DrawerActions,
 } from '@react-navigation/native'
 
 type RootStackParamList = {
   Startup: undefined
   Home: undefined
   location: undefined
+  Main: undefined
+  Menu: undefined
 }
 
 export const navigationRef = createNavigationContainerRef<RootStackParamList>()
@@ -43,5 +46,11 @@ export function navigateAndSimpleReset(name: string, index = 0) {
       }),
     )
     // StatusBar.setHidden(false)
+  }
+}
+
+export function toggleDrawer() {
+  if (navigationRef.isReady()) {
+    navigationRef.dispatch(DrawerActions.toggleDrawer())
   }
 }

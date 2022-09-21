@@ -18,5 +18,9 @@ export default function ({}: ThemeVariables) {
       Rectangle5: require('@/Assets/Images/LocationModal/Rectangle-5.png'),
       Rectangle6: require('@/Assets/Images/LocationModal/Rectangle-6.png'),
     },
+    menu: {
+      close: require('@/Assets/Images/closeMenu.png'),
+      logoPartners: require('@/Assets/Images/LogoPartners.png'),
+    },
   }
 }

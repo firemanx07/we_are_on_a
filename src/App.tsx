@@ -7,6 +7,7 @@ import ApplicationNavigator from '@/Navigators/Application'
 import './Translations'
 import OverlayLoader from '@/Components/OverlayLoader'
 import { Colors } from '@/Theme/Variables'
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 
 const App = () => (
   <Provider store={store}>
@@ -21,7 +22,9 @@ const App = () => (
       loading={<OverlayLoader backgroundColor={Colors.primary} />}
       persistor={persistor}
     >
-      <ApplicationNavigator />
+      <BottomSheetModalProvider>
+        <ApplicationNavigator />
+      </BottomSheetModalProvider>
     </PersistGate>
   </Provider>
 )

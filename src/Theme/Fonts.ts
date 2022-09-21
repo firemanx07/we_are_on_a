@@ -48,7 +48,6 @@ export default function ({ FontSize, Colors }: ThemeVariables) {
     textLarge: {
       fontSize: 32,
       fontWeight: '500',
-      lineHeight: 48,
     },
     titleSmall: {
       fontSize: 11,
