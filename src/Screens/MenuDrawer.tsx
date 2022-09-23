@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { ExampleContainer } from '@/Containers'
 import { useTheme } from '@/Hooks'
 import { Image, Text, TouchableOpacity, View } from 'react-native'
@@ -11,7 +11,18 @@ type HomeProps = {}
 const MenuDrawer = ({}: HomeProps) => {
   const { Fonts, Gutters, Colors, Layout, Images, Common } = useTheme()
 
+  const [isLoggedIn, setIsLoggedIn] = useState<Boolean>(false)
+
   const { textBeige100, textNormal500, textCenter, textLarge } = Fonts
+  const args: [string, () => void] = !isLoggedIn
+    ? ['Signup', () => setIsLoggedIn(true)]
+    : ['My Account', () => console.log('hey')]
+  const rightbutton = (
+    <TouchableOpacity onPress={args[1]}>
+      <Text style={[textBeige100, textNormal500]}>{args[0]}</Text>
+    </TouchableOpacity>
+  )
+
   const CustomDrawerItem = (label: string, onPress: () => void) => {
     return (
       <TouchableOpacity style={Gutters.tinyVPadding} onPress={onPress}>
@@ -38,7 +49,7 @@ const MenuDrawer = ({}: HomeProps) => {
         <TouchableOpacity onPress={() => toggleDrawer()}>
           <Image source={Images.menu.close} />
         </TouchableOpacity>
-        <Text style={[textBeige100, textNormal500]}>Signup</Text>
+        {rightbutton}
       </View>
 
       <Brand

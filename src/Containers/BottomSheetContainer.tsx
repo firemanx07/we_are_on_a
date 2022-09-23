@@ -2,6 +2,7 @@ import React, { useCallback, useMemo } from 'react'
 import {
   BottomSheetBackdropProps,
   BottomSheetModal,
+  useBottomSheetModal,
 } from '@gorhom/bottom-sheet'
 import { Colors } from '@/Theme/Variables'
 import Animated, {
@@ -9,6 +10,7 @@ import Animated, {
   interpolate,
   useAnimatedStyle,
 } from 'react-native-reanimated'
+import { TouchableOpacity } from 'react-native'
 
 interface BottomSheetConatinerParams {
   name: string
@@ -37,6 +39,7 @@ const BottomSheetConatiner = React.forwardRef<
     style,
   }: BottomSheetBackdropProps) => {
     // animated variables
+    const { dismiss } = useBottomSheetModal()
     const containerAnimatedStyle = useAnimatedStyle(() => ({
       opacity: interpolate(
         animatedIndex.value,
@@ -58,16 +61,20 @@ const BottomSheetConatiner = React.forwardRef<
       [style, containerAnimatedStyle],
     )
 
-    return <Animated.View style={containerStyle} />
+    return (
+      <Animated.View style={containerStyle}>
+        <TouchableOpacity
+          style={{ flex: 1 }}
+          onPress={() => dismiss(props.name)}
+        />
+      </Animated.View>
+    )
   }
 
   return (
     <BottomSheetModal
       ref={ref}
       name={props.name}
-      enablePanDownToClose
-      enableContentPanningGesture
-      enableHandlePanningGesture
       snapPoints={snapPoints}
       backgroundStyle={{
         backgroundColor: Colors.beige_100,
