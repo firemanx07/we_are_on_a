@@ -1,10 +1,14 @@
-import React, { useState } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 import { ExampleContainer } from '@/Containers'
 import { useTheme } from '@/Hooks'
 import { Image, Text, TouchableOpacity, View } from 'react-native'
-import { toggleDrawer } from '@/Navigators/utils'
+import { navigate, toggleDrawer } from '@/Navigators/utils'
 import { Brand } from '@/Components'
 import { Dim } from '@/helpers/Dim'
+import BottomSheetConatiner from '@/Containers/BottomSheetContainer'
+import Settings from './Settings'
+import { BottomSheetModal } from '@gorhom/bottom-sheet'
+import { Pages } from '@/enums/Pages'
 
 type HomeProps = {}
 
@@ -12,11 +16,16 @@ const MenuDrawer = ({}: HomeProps) => {
   const { Fonts, Gutters, Colors, Layout, Images, Common } = useTheme()
 
   const [isLoggedIn, setIsLoggedIn] = useState<Boolean>(false)
+  const bottomSheetRef = useRef<BottomSheetModal>(null)
+  const handlePresentModalPress = useCallback(() => {
+    bottomSheetRef.current?.present()
+    navigate(Pages.Menu, [])
+  }, [])
 
   const { textBeige100, textNormal500, textCenter, textLarge } = Fonts
   const args: [string, () => void] = !isLoggedIn
     ? ['Signup', () => setIsLoggedIn(true)]
-    : ['My Account', () => console.log('hey')]
+    : ['My Account', handlePresentModalPress]
   const rightbutton = (
     <TouchableOpacity onPress={args[1]}>
       <Text style={[textBeige100, textNormal500]}>{args[0]}</Text>
@@ -72,6 +81,13 @@ const MenuDrawer = ({}: HomeProps) => {
       >
         <Image source={Images.menu.logoPartners} />
       </View>
+      <BottomSheetConatiner
+        ref={bottomSheetRef}
+        name={'Settings'}
+        snapPoints={['90%']}
+      >
+        <Settings />
+      </BottomSheetConatiner>
     </ExampleContainer>
   )
 }

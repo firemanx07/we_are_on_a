@@ -18,6 +18,7 @@ type CustomMenuHeaderProps = {
   Icon?: React.ElementType
   IconType?: 'arrow' | 'menu'
   onPress?: () => void
+  rightComponent?: JSX.Element
 }
 const CustomMenuHeader = ({
   text,
@@ -27,6 +28,7 @@ const CustomMenuHeader = ({
   backgroundColor,
   IconType,
   onPress,
+  rightComponent
 }: CustomMenuHeaderProps) => {
   const { Layout, Gutters, Colors } = useTheme()
   return (
@@ -60,6 +62,7 @@ const CustomMenuHeader = ({
       <View style={[Layout.fill, Layout.column]}>
         <Text style={textStyle}>{text}</Text>
       </View>
+      {rightComponent}
     </View>
   )
 }

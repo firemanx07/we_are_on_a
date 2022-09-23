@@ -16,6 +16,7 @@ type RootStackParamList = {
   location: undefined
   Main: undefined
   Menu: undefined
+  SettingDetail: undefined
 }
 
 export const navigationRef = createNavigationContainerRef<RootStackParamList>()

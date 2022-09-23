@@ -5,6 +5,7 @@ import { useTheme } from '@/Hooks'
 import HomeScreen from '@/Screens/HomeScreen'
 import Settings from '@/Screens/Settings'
 import MainNavigator from '@/Navigators/Main'
+import { ExampleContainer } from '@/Containers'
 
 const Drawer = createDrawerNavigator()
 
@@ -26,6 +27,7 @@ const DrawerNavigator = () => {
     >
       <Drawer.Screen name="Main" component={MainNavigator} />
       <Drawer.Screen name="Settings" component={Settings} />
+      <Drawer.Screen name={'SettingDetail'} component={ExampleContainer} />
     </Drawer.Navigator>
   )
 }
