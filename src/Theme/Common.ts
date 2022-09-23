@@ -54,7 +54,7 @@ export default function <C>({ Colors, ...args }: CommonParams<C>) {
         elevation: 5,
       },
       roundedBorder: {
-        borderRadius: Dim.getHorizontalDimension(100),
+        borderRadius: Dim.getDimension(8),
         borderColor: Colors.primary,
         borderWidth: 1,
       },
