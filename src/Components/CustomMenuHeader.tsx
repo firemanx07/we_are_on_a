@@ -28,7 +28,7 @@ const CustomMenuHeader = ({
   backgroundColor,
   IconType,
   onPress,
-  rightComponent
+  rightComponent,
 }: CustomMenuHeaderProps) => {
   const { Layout, Gutters, Colors } = useTheme()
   return (
