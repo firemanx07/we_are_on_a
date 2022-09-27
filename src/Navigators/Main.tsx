@@ -8,7 +8,7 @@ const Tab = createBottomTabNavigator()
 // @refresh reset
 const MainNavigator = () => {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator screenOptions={{ tabBarStyle: { display: 'none' } }}>
       <Tab.Screen
         name={Pages.Home}
         component={HomeScreen}

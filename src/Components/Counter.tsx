@@ -1,8 +1,14 @@
 import React from 'react'
-import { Text } from 'react-native'
+import { StyleProp, Text, TextStyle } from 'react-native'
 import { useTheme } from '@/Hooks'
 
-const Counter = ({ num }: { num: number }) => {
+const Counter = ({
+  num,
+  styles,
+}: {
+  num: number
+  styles?: StyleProp<TextStyle>
+}) => {
   const { Fonts, Common, Gutters } = useTheme()
   return (
     <Text
@@ -11,6 +17,7 @@ const Counter = ({ num }: { num: number }) => {
         Fonts.titleSmall,
         Common.roundedBorder,
         Gutters.tinyHPadding,
+        styles,
       ]}
     >
       {num}

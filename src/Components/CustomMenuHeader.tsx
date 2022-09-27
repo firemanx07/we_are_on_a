@@ -13,12 +13,13 @@ import { Dim } from '@/helpers/Dim'
 type CustomMenuHeaderProps = {
   text: string
   textStyle: StyleProp<TextStyle>
-  containerStyle?: ViewStyle
+  containerStyle?: ViewStyle[]
   backgroundColor?: ColorValue
   Icon?: React.ElementType
   IconType?: 'arrow' | 'menu'
   onPress?: () => void
   rightComponent?: JSX.Element
+  centerComponent?: JSX.Element
 }
 const CustomMenuHeader = ({
   text,
@@ -29,6 +30,7 @@ const CustomMenuHeader = ({
   IconType,
   onPress,
   rightComponent,
+  centerComponent,
 }: CustomMenuHeaderProps) => {
   const { Layout, Gutters, Colors } = useTheme()
   return (
@@ -45,22 +47,18 @@ const CustomMenuHeader = ({
       {!!Icon && (
         <TouchableOpacity onPress={onPress}>
           {IconType === 'menu' ? (
-            <View
-              style={{
-                backgroundColor: Colors.primary,
-                padding: 2.5,
-                borderRadius: Dim.getDimension(20),
-              }}
-            >
-              <Icon fill={Colors.white} />
-            </View>
+            <Icon fill={Colors.primary} />
           ) : (
             <Icon stroke={Colors.primary} />
           )}
         </TouchableOpacity>
       )}
-      <View style={[Layout.fill, Layout.column]}>
-        <Text style={textStyle}>{text}</Text>
+      <View style={[Layout.fill, Layout.column, Layout.center]}>
+        {!!centerComponent ? (
+          centerComponent
+        ) : (
+          <Text style={textStyle}>{text}</Text>
+        )}
       </View>
       {rightComponent}
     </View>

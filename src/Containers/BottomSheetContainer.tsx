@@ -10,12 +10,18 @@ import Animated, {
   interpolate,
   useAnimatedStyle,
 } from 'react-native-reanimated'
-import { TouchableOpacity } from 'react-native'
+import { StyleProp, TouchableOpacity, ViewStyle } from 'react-native'
 
 interface BottomSheetConatinerParams {
   name: string
   children: React.ReactNode
   snapPoints: string[]
+  index?: number
+  disableDrop?: boolean
+  disablePanDownToClose?: boolean
+  handleChange?: (index: number) => void
+  onAnimate?: (fromIndex: number, toIndex: number) => void
+  indicatorStyle?: StyleProp<ViewStyle>
 }
 
 const BottomSheetConatiner = React.forwardRef<
@@ -31,6 +37,7 @@ const BottomSheetConatiner = React.forwardRef<
   // callbacks
   const handleSheetChanges = useCallback((index: number) => {
     console.log('handleSheetChanges', index)
+    !!props.handleChange && props.handleChange(index)
   }, [])
 
   // renders
@@ -74,12 +81,16 @@ const BottomSheetConatiner = React.forwardRef<
   return (
     <BottomSheetModal
       ref={ref}
+      enablePanDownToClose={!props.disablePanDownToClose}
+      index={props.index}
       name={props.name}
       snapPoints={snapPoints}
+      onAnimate={props.onAnimate}
+      handleIndicatorStyle={props.indicatorStyle}
       backgroundStyle={{
         backgroundColor: Colors.beige_100,
       }}
-      backdropComponent={CustomBackdrop}
+      backdropComponent={(!props.disableDrop && CustomBackdrop) || null}
       onChange={handleSheetChanges}
     >
       {props.children}

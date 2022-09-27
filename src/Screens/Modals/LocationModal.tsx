@@ -90,7 +90,6 @@ const LocationModal = () => {
   const bottomSheetRef = useRef<BottomSheetModal>(null)
   const handlePresentModalPress = useCallback(() => {
     bottomSheetRef.current?.present()
-    navigate(Pages.Menu, [])
   }, [])
   const LocationDetails = (
     <View
@@ -154,6 +153,9 @@ const LocationModal = () => {
           ref={bottomSheetRef}
           name={Modals.CityPicker}
           snapPoints={['95%']}
+          onAnimate={(from, to) => {
+            if (to) navigate(Pages.Menu, [])
+          }}
         >
           <CityPicker />
         </BottomSheetConatiner>

@@ -43,6 +43,9 @@ export default function <C>({ Colors, ...args }: CommonParams<C>) {
       borderError: {
         borderColor: Colors.error,
       },
+      borderBeige_100: {
+        borderColor: Colors.beige_100,
+      },
       elevationLow: {
         shadowColor: '#000',
         shadowOffset: {

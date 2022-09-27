@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
 import CustomMenuHeader from '@/Components/CustomMenuHeader'
 import ArrowDown from '@/Assets/Images/svg/carret_down.svg'
@@ -26,6 +26,9 @@ const CityPicker = () => {
   const handleSearch = (val: string) => {
     setSearchTerm(val)
   }
+  useEffect(() => {
+    dismiss('Explorer')
+  }, [])
   return (
     <BottomSheetView
       style={[Layout.colVCenter, Layout.fill, Common.backgroundBeige100]}

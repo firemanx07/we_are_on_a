@@ -19,6 +19,7 @@ export const Colors = {
   grey_200: '#484641',
   grey_100: '#8D8C8A',
   beige_200: '#EEEBE6',
+  beige_300: '#E8E5DF',
   brown: '#C38351',
   error: '#E34F4F',
 }
