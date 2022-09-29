@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import CustomMenuHeader from '@/Components/CustomMenuHeader'
 import Menu from '@/Assets/Images/svg/MenuIcon.svg'
 import RestaurantIcon from '@/Assets/Images/svg/restaurentIcon.svg'
@@ -15,11 +15,13 @@ import { useDrawerStatus } from '@react-navigation/drawer'
 import LinearGradient from 'react-native-linear-gradient'
 import { Dim } from '@/helpers/Dim'
 import FilterButton from '@/Components/FilterButton'
+import AnimatedCustomHandle from '@/Components/AnimatedCustomHandle'
 type HomeProps = {}
 
 const HomeScreen = ({}: HomeProps) => {
   const bottomSheetRef = useRef<BottomSheetModal>(null)
   const isDrawerOpen = useDrawerStatus() === 'open'
+  const [isFullScreen, setIsFullScreen] = useState<boolean>(false)
   const navigation = useNavigation()
   const { Fonts, Gutters, Common, Colors, Layout } = useTheme()
   const { textMedium, textMedium24, textPrimary, textCenter } = Fonts
@@ -34,7 +36,6 @@ const HomeScreen = ({}: HomeProps) => {
   React.useEffect(() => {
     const unsubscribe = navigation.addListener('blur', () => {
       bottomSheetRef.current?.close()
-      console.log('blur')
     })
 
     return unsubscribe
@@ -49,46 +50,57 @@ const HomeScreen = ({}: HomeProps) => {
       }, 200)
     }
   }, [isDrawerOpen])
+  const getMainHeader = () => (
+    <>
+      <CustomMenuHeader
+        text={'HOME'}
+        textStyle={[textCenter, textMedium, textPrimary]}
+        Icon={Menu}
+        IconType={'menu'}
+        containerStyle={[Gutters.largeTMargin]}
+        onPress={() => toggleDrawer()}
+        rightComponent={
+          <TouchableOpacity>
+            <RestaurantIcon fill={Colors.primary} />
+          </TouchableOpacity>
+        }
+        centerComponent={<LogoMenu fill={Colors.primary} />}
+      />
+      <ScrollView
+        style={[Gutters.regularTMargin, Gutters.smallLMargin]}
+        horizontal
+        contentContainerStyle={[
+          Layout.rowHCenter,
+          Layout.justifyContentBetween,
+          Layout.fullWidth,
+        ]}
+      >
+        <FilterButton Icon={Search} />
+        <FilterButton text={'Chefs'} />
+        <FilterButton text={'Cuisine'} counter={2} isSelected />
+        <FilterButton text={'Categories'} />
+      </ScrollView>
+    </>
+  )
 
   return (
     <>
-      <LinearGradient
-        colors={[Colors.beige_100, Colors.beige_100 + '55', 'transparent']}
-        style={[
-          Layout.fullWidth,
-          Common.posAbs,
-          { zIndex: 10, height: Dim.getDimension(164) },
-        ]}
-      >
-        <CustomMenuHeader
-          text={'HOME'}
-          textStyle={[textCenter, textMedium, textPrimary]}
-          Icon={Menu}
-          IconType={'menu'}
-          containerStyle={[Gutters.largeTMargin]}
-          onPress={() => toggleDrawer()}
-          rightComponent={
-            <TouchableOpacity>
-              <RestaurantIcon fill={Colors.primary} />
-            </TouchableOpacity>
+      {!isFullScreen && (
+        <LinearGradient
+          colors={
+            isFullScreen
+              ? [Colors.beige_100, Colors.beige_100]
+              : [Colors.beige_100, Colors.beige_100 + '55', 'transparent']
           }
-          centerComponent={<LogoMenu fill={Colors.primary} />}
-        />
-        <ScrollView
-          style={[Gutters.regularTMargin, Gutters.smallLMargin]}
-          horizontal
-          contentContainerStyle={[
-            Layout.rowHCenter,
-            Layout.justifyContentBetween,
+          style={[
             Layout.fullWidth,
+            Common.posAbs,
+            { zIndex: 10, height: Dim.getDimension(164) },
           ]}
         >
-          <FilterButton Icon={Search} />
-          <FilterButton text={'Chefs'} />
-          <FilterButton text={'Cuisine'} counter={2} isSelected />
-          <FilterButton text={'Categories'} />
-        </ScrollView>
-      </LinearGradient>
+          {getMainHeader()}
+        </LinearGradient>
+      )}
       <MapView
         style={{ flex: 1 }}
         initialRegion={{
@@ -105,6 +117,12 @@ const HomeScreen = ({}: HomeProps) => {
         name={'Explorer'}
         snapPoints={['25%', '100%']}
         indicatorStyle={[{ backgroundColor: Colors.brown + '20' }]}
+        handleComponent={p =>
+          AnimatedCustomHandle({
+            ...p,
+            close: () => bottomSheetRef.current?.collapse(),
+          })
+        }
       >
         <View style={[Layout.rowHCenter, Gutters.regularHPadding]}>
           <Text style={[textMedium24, { color: Colors.brown }]}>

@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo } from 'react'
 import {
   BottomSheetBackdropProps,
+  BottomSheetHandleProps,
   BottomSheetModal,
   useBottomSheetModal,
 } from '@gorhom/bottom-sheet'
@@ -19,9 +20,12 @@ interface BottomSheetConatinerParams {
   index?: number
   disableDrop?: boolean
   disablePanDownToClose?: boolean
+  enableDismissOnClose?: boolean
   handleChange?: (index: number) => void
   onAnimate?: (fromIndex: number, toIndex: number) => void
   indicatorStyle?: StyleProp<ViewStyle>
+  handleStyle?: StyleProp<ViewStyle>
+  handleComponent?: React.FC<BottomSheetHandleProps>
 }
 
 const BottomSheetConatiner = React.forwardRef<
@@ -36,7 +40,7 @@ const BottomSheetConatiner = React.forwardRef<
 
   // callbacks
   const handleSheetChanges = useCallback((index: number) => {
-    console.log('handleSheetChanges', index)
+    // console.log('handleSheetChanges', index)
     !!props.handleChange && props.handleChange(index)
   }, [])
 
@@ -92,6 +96,9 @@ const BottomSheetConatiner = React.forwardRef<
       }}
       backdropComponent={(!props.disableDrop && CustomBackdrop) || null}
       onChange={handleSheetChanges}
+      handleStyle={props.handleStyle}
+      handleComponent={props.handleComponent}
+      enableDismissOnClose={props.enableDismissOnClose}
     >
       {props.children}
     </BottomSheetModal>
