@@ -19,7 +19,7 @@ target 'the_chefs_guid' do
 
   # Flags change depending on the env values.
   flags = get_default_flags()
-  
+
   # React Native Maps dependencies
   rn_maps_path = '../node_modules/react-native-maps'
   pod 'react-native-google-maps', :path => rn_maps_path
@@ -30,7 +30,7 @@ target 'the_chefs_guid' do
     :production => production,
     :hermes_enabled => flags[:hermes_enabled],
     :fabric_enabled => flags[:fabric_enabled],
-    :flipper_configuration => FlipperConfiguration.enabled,
+    :flipper_configuration => FlipperConfiguration.enabled(["Debug"], { 'Flipper' => '0.159.0' }),
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
@@ -42,6 +42,10 @@ target 'the_chefs_guid' do
 
   post_install do |installer|
     react_native_post_install(installer)
-    __apply_Xcode_12_5_M1_post_install_workaround(installer)
+     installer.pods_project.targets.each do |target|
+         target.build_configurations.each do |config|
+           config.build_settings['APPLICATION_EXTENSION_API_ONLY'] = 'NO'
+        end
+    end
   end
-end
+ end

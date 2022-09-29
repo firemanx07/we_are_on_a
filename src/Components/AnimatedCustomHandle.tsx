@@ -54,23 +54,25 @@ const Handle: React.FC<HandleProps> = ({ style, animatedIndex, close }) => {
       [20, 0],
       Extrapolate.CLAMP,
     )
+    const heightHeader = interpolate(
+      animatedIndex.value,
+      [0, 1],
+      [8, 200],
+      Extrapolate.CLAMP,
+    )
 
     return {
       borderTopLeftRadius: borderTopRadius,
       borderTopRightRadius: borderTopRadius,
-    }
-  })
-  const ContainerAnimatedHeight = useAnimatedStyle(() => {
-    const heightHeader = interpolate(
-      animatedIndex.value,
-      [0, 1],
-      [4, 164],
-      Extrapolate.CLAMP,
-    )
-    return {
       height: heightHeader,
     }
-  }, [])
+  })
+  // const ContainerAnimatedHeight = useAnimatedStyle(() => {
+  //
+  //   return {
+  //
+  //   }
+  // }, [])
   const leftIndicatorStyle = useMemo(
     () => ({
       ...styles.indicator,
@@ -96,18 +98,12 @@ const Handle: React.FC<HandleProps> = ({ style, animatedIndex, close }) => {
   // render
   return (
     <Animated.View
-      style={[containerStyle, containerAnimatedStyle, ContainerAnimatedHeight]}
+      style={[containerStyle, containerAnimatedStyle]}
       renderToHardwareTextureAndroid={true}
     >
       <Animated.View style={[leftIndicatorStyle, leftIndicatorAnimatedStyle]} />
 
-      <Animated.View
-        style={[
-          Layout.fullWidth,
-          Common.posAbs,
-          { top: Dim.getDimension(16), height: Dim.getDimension(164) },
-        ]}
-      >
+      <Animated.View style={[Layout.fullWidth, { top: Dim.getDimension(24) }]}>
         <CustomMenuHeader
           text={'HOME'}
           textStyle={[textCenter, textMedium, textPrimary]}
@@ -149,6 +145,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: Colors.beige_100,
     paddingVertical: 14,
+    overflow: 'hidden',
   },
   indicator: {
     position: 'absolute',
