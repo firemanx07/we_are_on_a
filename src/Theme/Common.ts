@@ -21,6 +21,9 @@ export default function <C>({ Colors, ...args }: CommonParams<C>) {
       backgroundBeige100: {
         backgroundColor: Colors.beige_100,
       },
+      backgroundBrown: {
+        backgroundColor: Colors.brown,
+      },
       posAbs: {
         position: 'absolute',
       },

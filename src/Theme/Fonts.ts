@@ -96,5 +96,8 @@ export default function ({ FontSize, Colors }: ThemeVariables) {
     textError: {
       color: Colors.error,
     },
+    textBrown: {
+      color: Colors.brown,
+    },
   })
 }

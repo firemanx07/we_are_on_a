@@ -3,13 +3,12 @@ import { SafeAreaView, StatusBar } from 'react-native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { NavigationContainer } from '@react-navigation/native'
 import { StartupContainer } from '@/Containers'
-import { useTheme } from '@/Hooks'
-import MainNavigator from './Main'
 import { navigationRef } from './utils'
 import WelcomeScreen from '@/Screens/WelcomeScreen'
 import LocationModal from '@/Screens/Modals/LocationModal'
-import { Pages } from '@/enums/Pages'
+import { Pages, Stacks } from "@/enums/Pages";
 import DrawerNavigator from '@/Navigators/DrawerNavigator'
+import { useTheme } from '@/Hooks'
 
 const Stack = createStackNavigator()
 
@@ -26,7 +25,7 @@ const ApplicationNavigator = () => {
           <Stack.Screen name={Pages.StartUp} component={StartupContainer} />
           <Stack.Screen name={Pages.onBoarding} component={WelcomeScreen} />
           <Stack.Screen name={Pages.location} component={LocationModal} />
-          <Stack.Screen name={Pages.Menu} component={DrawerNavigator} />
+          <Stack.Screen name={Stacks.Menu} component={DrawerNavigator} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>

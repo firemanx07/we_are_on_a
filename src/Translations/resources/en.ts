@@ -22,6 +22,21 @@ export default {
   actions: {
     continue: 'Continue',
   },
+  signUp: {
+    title: 'Join us so you can fully experience the Guide',
+    button: 'Signup',
+    cta1: {
+      title: 'Concierge',
+      desc: 'Let us book the best tables in town for you',
+    },
+    cta2: {
+      title: 'My Wishlist ',
+      desc: 'Save your favorite restaurants',
+    },
+    notice: 'By continuing, I accept cgv & cgu',
+    loginMessage: 'You have an account?',
+    loginButton: 'Login',
+  },
   example: {
     helloUser: 'I am a fake user, my name is {{name}}',
     labels: {

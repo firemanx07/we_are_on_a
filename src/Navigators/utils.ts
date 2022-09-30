@@ -9,14 +9,17 @@ import {
   createNavigationContainerRef,
   DrawerActions,
 } from '@react-navigation/native'
+import { Pages, Stacks } from '@/enums/Pages'
 
-type RootStackParamList = {
-  Startup: undefined
-  Home: undefined
-  location: undefined
-  Main: undefined
-  Menu: undefined
-  SettingDetail: undefined
+export interface RootStackParamList extends Record<string, any> {
+  Main: { screen: string; params?: any }
+  Menu: { screen: string; params?: any }
+  Drawer: {}
+  [Pages.StartUp]: undefined
+  [Pages.Home]: undefined
+  [Pages.location]: undefined
+  [Pages.SettingDetail]: undefined
+  [Pages.Register]: undefined
 }
 
 export const navigationRef = createNavigationContainerRef<RootStackParamList>()
@@ -54,4 +57,22 @@ export function toggleDrawer() {
   if (navigationRef.isReady()) {
     navigationRef.dispatch(DrawerActions.toggleDrawer())
   }
+}
+
+/***
+ * navigate to the screen 'page' of the 'stackName' stack. Animation settings must be handled in stack definition
+ * @param navigation
+ * @param stackName - Name of the navigation stack
+ * @param page
+ * @param params - Route parameters.
+ * @param animation
+ */
+export function pushScreen<ParamType extends keyof RootStackParamList>(
+  stackName: Stacks,
+  page: ParamType,
+  params?: RootStackParamList[ParamType],
+  animation?: boolean,
+) {
+  const parameters = { animationEnabled: animation ?? true, ...params }
+  navigationRef.navigate(stackName, { screen: page, params: parameters })
 }

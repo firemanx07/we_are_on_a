@@ -5,7 +5,16 @@ export enum Pages {
   onBoarding = 'onBoarding',
   location = 'location',
   Menu = 'Menu',
+  Register = 'Register',
+  SettingDetail = 'SettingDetail',
+  Settings = 'Settings',
 }
 export enum Modals {
   CityPicker = 'CityPicker',
+}
+
+export enum Stacks {
+  Main = 'Main',
+  Menu = 'Menu',
+  SignUpNav = 'SignUpNav',
 }

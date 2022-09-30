@@ -93,7 +93,7 @@ const Handle: React.FC<HandleProps> = ({ style, animatedIndex, close }) => {
 
   //#endregion
 
-  const { Fonts, Gutters, Common, Colors, Layout } = useTheme()
+  const { Fonts, Gutters, Colors, Layout } = useTheme()
   const { textMedium, textPrimary, textCenter } = Fonts
   // render
   return (
