@@ -2,7 +2,7 @@ import React from 'react'
 import BackgroundImageContainer from '@/Containers/BackgroundImageContainer'
 import { useTheme } from '@/Hooks'
 import LinearGradient from 'react-native-linear-gradient'
-import { Image, StatusBar, Text, TouchableOpacity, View } from 'react-native'
+import { Image, Text, TouchableOpacity, View } from 'react-native'
 import { Dim } from '@/helpers/Dim'
 import { navigate, toggleDrawer } from '@/Navigators/utils'
 import { Brand } from '@/Components'
@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next'
 import ButtonWithDescription from '@/Components/ButtonWithDescription'
 import Bell from '@/Assets/Images/svg/Bell-white.svg'
 import FavoriteEmpty from '@/Assets/Images/svg/favorite_empty.svg'
+import { Pages } from '@/enums/Pages'
 
 const RegisterScreen = () => {
   const { Images, Colors, Layout, Gutters, Fonts, Common } = useTheme()
@@ -21,7 +22,7 @@ const RegisterScreen = () => {
     dismissAll()
   })
   return (
-    <BackgroundImageContainer source={Images.onBoarding}>
+    <BackgroundImageContainer source={Images.register.background}>
       <LinearGradient
         style={[Layout.fill, Layout.colVCenter, Layout.justifyContentAround]}
         colors={[
@@ -42,10 +43,16 @@ const RegisterScreen = () => {
           <TouchableOpacity onPress={() => toggleDrawer()}>
             <Image source={Images.menu.close} />
           </TouchableOpacity>
-          <View style={{ alignSelf: 'center' }}>
+          <View
+            style={[
+              Layout.fill,
+              Layout.rowCenter,
+              { marginLeft: Dim.getHorizontalDimension(-45) },
+            ]}
+          >
             <Brand
-              width={Dim.getHorizontalDimension(60)}
-              height={Dim.getDimension(45)}
+              width={Dim.getHorizontalDimension(100)}
+              height={Dim.getDimension(75)}
             />
           </View>
           <View />
@@ -77,7 +84,9 @@ const RegisterScreen = () => {
               Common.button.largeButton,
               Gutters.regularTMargin,
             ]}
-            onPress={() => {}}
+            onPress={() => {
+              navigate(Pages.RegisterForm, [])
+            }}
           >
             <Text style={[Fonts.textRegular, Fonts.textMedium]}>
               {t('signUp.button')}

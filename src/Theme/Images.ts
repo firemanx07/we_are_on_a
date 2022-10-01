@@ -22,5 +22,9 @@ export default function ({}: ThemeVariables) {
       close: require('@/Assets/Images/closeMenu.png'),
       logoPartners: require('@/Assets/Images/LogoPartners.png'),
     },
+    register: {
+      background: require('@/Assets/Images/register.png'),
+      emailRegister: require('@/Assets/Images/emailRegister.png'),
+    },
   }
 }

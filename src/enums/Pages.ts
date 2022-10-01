@@ -8,6 +8,7 @@ export enum Pages {
   Register = 'Register',
   SettingDetail = 'SettingDetail',
   Settings = 'Settings',
+  RegisterForm = 'RegisterForm',
 }
 export enum Modals {
   CityPicker = 'CityPicker',

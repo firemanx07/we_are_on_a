@@ -36,6 +36,18 @@ export default {
     notice: 'By continuing, I accept cgv & cgu',
     loginMessage: 'You have an account?',
     loginButton: 'Login',
+    form: {
+      title: 'Please introduce yourself !',
+      name: {
+        placeholder: 'Full Name',
+        label: 'What is your Full Name?',
+      },
+      email: {
+        placeholder: 'Your Email',
+        label: 'What is your Email?',
+      },
+      newsLetterLabel: 'I accept to receive the ONA newsletter',
+    },
   },
   example: {
     helloUser: 'I am a fake user, my name is {{name}}',

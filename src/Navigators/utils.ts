@@ -76,3 +76,9 @@ export function pushScreen<ParamType extends keyof RootStackParamList>(
   const parameters = { animationEnabled: animation ?? true, ...params }
   navigationRef.navigate(stackName, { screen: page, params: parameters })
 }
+
+export const goBack = () => {
+  if (navigationRef.isReady() && navigationRef.canGoBack()) {
+    navigationRef.goBack()
+  }
+}

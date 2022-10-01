@@ -3,13 +3,14 @@ import {
   Platform,
   Text,
   TextInput,
+  TextInputProps,
   TextStyle,
   View,
   ViewStyle,
 } from 'react-native'
 import { useTheme } from '@/Hooks'
 
-interface SearchBoxProps {
+type TextProps = TextInputProps & {
   value: string
   placeholder: string
   onChangeText: (text: string) => void
@@ -21,7 +22,7 @@ interface SearchBoxProps {
   isError?: Boolean
 }
 
-const TextInputField = (props: SearchBoxProps) => {
+const TextInputField = (props: TextProps) => {
   const { Fonts, Colors, Common, Layout, Gutters } = useTheme()
   const [isFocused, setIsFocused] = useState<Boolean>(false)
   const handleFocus = () => {
@@ -58,6 +59,8 @@ const TextInputField = (props: SearchBoxProps) => {
           onBlur={handleBlur}
           editable={props.editable}
           autoFocus={Platform.OS === 'ios' ? props.autoFocus ?? false : false}
+          keyboardType={props.keyboardType}
+          {...{ props }}
         />
       </View>
       {props.isError && (
