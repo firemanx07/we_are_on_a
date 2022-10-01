@@ -87,7 +87,7 @@ const SignUpFormScreen = () => {
             Common.button.rounded,
             Common.button.largeButton,
             Gutters.largeTMargin,
-            { alignSelf: 'center' },
+            Layout.selfCenter,
           ]}
         >
           <Text

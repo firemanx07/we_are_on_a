@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import {
   Transition,
   Transitioning,
@@ -6,8 +6,8 @@ import {
 } from 'react-native-reanimated'
 
 interface Props {
-  First: React.ElementType<any>
-  Second: React.ElementType<any>
+  First: React.ElementType
+  Second: React.ElementType
   onToggle?: () => void
   isToggled?: boolean
   resetPress?: (val: boolean) => void
@@ -23,13 +23,14 @@ export const ToggleIcon: React.FC<Props> = ({
   const ref = React.useRef<TransitioningView | null>(null)
   const [toggled, setToggled] = React.useState(false)
 
+  const toggle = useCallback(() => setToggled(!toggled), [toggled])
   useEffect(() => {
     if (isToggled) {
       toggle()
       resetPress && resetPress(false)
     }
-  }, [isToggled])
-  const toggle = () => setToggled(!toggled)
+  }, [resetPress, isToggled, toggle])
+
   const onPress = () => {
     toggle()
     ref.current?.animateNextTransition()

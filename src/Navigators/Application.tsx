@@ -6,7 +6,7 @@ import { StartupContainer } from '@/Containers'
 import { navigationRef } from './utils'
 import WelcomeScreen from '@/Screens/WelcomeScreen'
 import LocationModal from '@/Screens/Modals/LocationModal'
-import { Pages, Stacks } from "@/enums/Pages";
+import { Pages, Stacks } from '@/enums/Pages'
 import DrawerNavigator from '@/Navigators/DrawerNavigator'
 import { useTheme } from '@/Hooks'
 

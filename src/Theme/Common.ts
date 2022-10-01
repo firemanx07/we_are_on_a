@@ -64,6 +64,9 @@ export default function <C>({ Colors, ...args }: CommonParams<C>) {
         borderColor: Colors.primary,
         borderWidth: 1,
       },
+      zIndex: {
+        zIndex: 10,
+      },
     }),
   }
 }

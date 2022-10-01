@@ -37,7 +37,8 @@ const RegisterScreen = () => {
             Layout.fullWidth,
             Gutters.regularHPadding,
             Layout.justifyContentBetween,
-            { flexBasis: 1, marginTop: Dim.getDimension(60) },
+            Layout.basis,
+            { marginTop: Dim.getDimension(60) },
           ]}
         >
           <TouchableOpacity onPress={() => toggleDrawer()}>

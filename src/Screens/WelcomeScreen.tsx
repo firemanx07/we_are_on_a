@@ -25,7 +25,7 @@ const WelcomeScreen = () => {
   return (
     <BackgroundImageContainer source={Images.onBoarding}>
       <LinearGradient
-        style={[Layout.fill, Layout.colCenter, { justifyContent: 'flex-end' }]}
+        style={[Layout.fill, Layout.colVCenter, Layout.justifyContentEnd]}
         colors={[
           Colors.primary + '80',
           Colors.primary + '80',

@@ -28,7 +28,7 @@ const CityPicker = () => {
   }
   useEffect(() => {
     dismiss('Explorer')
-  }, [])
+  }, [dismiss])
   return (
     <BottomSheetView
       style={[Layout.colVCenter, Layout.fill, Common.backgroundBeige100]}

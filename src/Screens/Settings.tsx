@@ -2,18 +2,39 @@ import React from 'react'
 import { ExampleContainer } from '@/Containers'
 import { StyleSheet, Text, TouchableOpacity } from 'react-native'
 import CustomMenuHeader from '@/Components/CustomMenuHeader'
-import { useTranslation } from 'react-i18next'
 import { useTheme } from '@/Hooks'
 import { BottomSheetView, useBottomSheetModal } from '@gorhom/bottom-sheet'
 import ArrowDown from '@/Assets/Images/svg/carret_down.svg'
-import { Modals } from '@/enums/Pages'
-import { Colors } from '@/Theme/Variables'
+import { Colors as themeColor } from '@/Theme/Variables'
 import { Dim } from '@/helpers/Dim'
 import { navigate } from '@/Navigators/utils'
 
+const SettingsItem = ({
+  label,
+  onPress,
+}: {
+  label: string
+  onPress: () => void
+}) => {
+  const { Layout, Colors } = useTheme()
+  return (
+    <TouchableOpacity onPress={onPress}>
+      <BottomSheetView
+        style={[
+          styles.container,
+          Layout.rowHCenter,
+          Layout.justifyContentBetween,
+        ]}
+      >
+        <Text>{label}</Text>
+        <ArrowDown stroke={Colors.primary} style={Layout.rotate90Inverse} />
+      </BottomSheetView>
+    </TouchableOpacity>
+  )
+}
 const Settings = () => {
-  const { t } = useTranslation()
-  const { Common, Layout, Colors, Fonts } = useTheme()
+  // const { t } = useTranslation()
+  const { Fonts } = useTheme()
   const { dismiss } = useBottomSheetModal()
   const { textNormal500, textMedium, textGrey100, textPrimary, textCenter } =
     Fonts
@@ -23,28 +44,7 @@ const Settings = () => {
       <Text style={[textGrey100, textNormal500]}>Logout</Text>
     </TouchableOpacity>
   )
-  const SettingsItem = ({
-    label,
-    onPress,
-  }: {
-    label: string
-    onPress: () => void
-  }) => {
-    return (
-      <TouchableOpacity onPress={onPress}>
-        <BottomSheetView
-          style={[
-            styles.container,
-            Layout.rowHCenter,
-            Layout.justifyContentBetween,
-          ]}
-        >
-          <Text>{label}</Text>
-          <ArrowDown stroke={Colors.primary} style={Layout.rotate90Inverse} />
-        </BottomSheetView>
-      </TouchableOpacity>
-    )
-  }
+
   return (
     <ExampleContainer>
       <CustomMenuHeader
@@ -72,7 +72,7 @@ export default Settings
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    backgroundColor: Colors.beige_200,
+    backgroundColor: themeColor.beige_200,
     paddingHorizontal: Dim.getHorizontalDimension(24),
     paddingTop: Dim.getDimension(18),
     paddingBottom: Dim.getDimension(18),

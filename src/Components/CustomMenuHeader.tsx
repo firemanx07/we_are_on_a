@@ -54,7 +54,7 @@ const CustomMenuHeader = ({
         </TouchableOpacity>
       )}
       <View style={[Layout.fill, Layout.column, Layout.center]}>
-        {!!centerComponent ? (
+        {centerComponent ? (
           centerComponent
         ) : (
           <Text style={textStyle}>{text}</Text>

@@ -22,7 +22,7 @@ const ButtonWithDescription = ({
   title,
   description,
   onPress,
-  style
+  style,
 }: ButtonWithDescProps) => {
   const { Layout, Fonts, Common, Gutters } = useTheme()
 
@@ -36,7 +36,7 @@ const ButtonWithDescription = ({
           Gutters.regularVPadding,
           Gutters.smallHPadding,
           { borderRadius: Dim.getDimension(16) },
-          style
+          style,
         ]}
       >
         <Icon />

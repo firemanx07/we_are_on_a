@@ -57,6 +57,9 @@ export default function ({}: ThemeVariables) {
     alignItemsStretch: {
       alignItems: 'stretch',
     },
+    alignItemsBaseLine: {
+      alignItems: 'baseline',
+    },
     justifyContentCenter: {
       justifyContent: 'center',
     },
@@ -65,6 +68,9 @@ export default function ({}: ThemeVariables) {
     },
     justifyContentBetween: {
       justifyContent: 'space-between',
+    },
+    justifyContentEnd: {
+      justifyContent: 'flex-end',
     },
     scrollSpaceAround: {
       flexGrow: 1,
@@ -76,6 +82,9 @@ export default function ({}: ThemeVariables) {
     },
     selfStretch: {
       alignSelf: 'stretch',
+    },
+    selfCenter: {
+      alignSelf: 'center',
     },
     /* Sizes Layouts */
     fill: {
@@ -93,6 +102,9 @@ export default function ({}: ThemeVariables) {
     },
     shrink: {
       flexShrink: 1,
+    },
+    basis: {
+      flexBasis: 1,
     },
     /* Operation Layout */
     mirror: {

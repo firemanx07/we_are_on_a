@@ -12,6 +12,7 @@ import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 const App = () => (
+  // eslint-disable-next-line react-native/no-inline-styles
   <GestureHandlerRootView style={{ flex: 1 }}>
     <Provider store={store}>
       {/**

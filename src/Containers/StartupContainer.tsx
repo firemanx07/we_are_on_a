@@ -46,9 +46,9 @@ const StartupContainer = () => {
         style={[
           Layout.row,
           Layout.justifyContentBetween,
+          Layout.alignItemsBaseLine,
           {
             width: Dim.getHorizontalDimension(190.5),
-            alignItems: 'baseline',
             marginTop: Dim.getDimension(182),
           },
         ]}

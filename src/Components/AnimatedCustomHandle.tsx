@@ -11,7 +11,7 @@ import Animated, {
   interpolate,
   useAnimatedStyle,
 } from 'react-native-reanimated'
-import { Colors } from '@/Theme/Variables'
+import { Colors as themeColors } from '@/Theme/Variables'
 import CustomMenuHeader from '@/Components/CustomMenuHeader'
 import FilterButton from '@/Components/FilterButton'
 import { useTheme } from '@/Hooks'
@@ -22,16 +22,16 @@ import Search from '@/Assets/Images/svg/search_icon.svg'
 import { Dim } from '@/helpers/Dim'
 
 // @ts-ignore
-export const transformOrigin = ({ x, y }, ...transformations) => {
-  'worklet'
-  return [
-    { translateX: x },
-    { translateY: y },
-    ...transformations,
-    { translateX: x * -1 },
-    { translateY: y * -1 },
-  ]
-}
+// export const transformOrigin = ({ x, y }, ...transformations) => {
+//   'worklet'
+//   return [
+//     { translateX: x },
+//     { translateY: y },
+//     ...transformations,
+//     { translateX: x * -1 },
+//     { translateY: y * -1 },
+//   ]
+// }
 
 interface HandleProps extends BottomSheetHandleProps {
   style?: StyleProp<ViewStyle>
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: Colors.beige_100,
+    backgroundColor: themeColors.beige_100,
     paddingVertical: 14,
     overflow: 'hidden',
   },
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     width: Dim.getHorizontalDimension(29),
     height: 4,
     borderRadius: 4,
-    backgroundColor: Colors.brown + '20',
+    backgroundColor: themeColors.brown + '20',
     alignSelf: 'center',
   },
 })

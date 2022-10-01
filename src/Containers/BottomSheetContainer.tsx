@@ -12,6 +12,7 @@ import Animated, {
   useAnimatedStyle,
 } from 'react-native-reanimated'
 import { StyleProp, TouchableOpacity, ViewStyle } from 'react-native'
+import { useTheme } from '@/Hooks'
 
 interface BottomSheetConatinerParams {
   name: string
@@ -28,6 +29,42 @@ interface BottomSheetConatinerParams {
   handleComponent?: React.FC<BottomSheetHandleProps>
 }
 
+const CustomBackdrop = ({
+  animatedIndex,
+  style,
+  name,
+}: BottomSheetBackdropProps & { name: string }) => {
+  // animated variables
+  const { Layout } = useTheme()
+  const { dismiss } = useBottomSheetModal()
+  const containerAnimatedStyle = useAnimatedStyle(() => ({
+    opacity: interpolate(
+      animatedIndex.value,
+      [-1, -0.5, 0],
+      [0, 0.5, 0.9],
+      Extrapolate.CLAMP,
+    ),
+  }))
+
+  // styles
+  const containerStyle = useMemo(
+    () => [
+      style,
+      {
+        backgroundColor: Colors.primary,
+      },
+      containerAnimatedStyle,
+    ],
+    [style, containerAnimatedStyle],
+  )
+
+  return (
+    <Animated.View style={containerStyle}>
+      <TouchableOpacity style={Layout.fill} onPress={() => dismiss(name)} />
+    </Animated.View>
+  )
+}
+
 const BottomSheetConatiner = React.forwardRef<
   BottomSheetModal,
   BottomSheetConatinerParams
@@ -39,48 +76,15 @@ const BottomSheetConatiner = React.forwardRef<
   const snapPoints = useMemo(() => props.snapPoints, [props.snapPoints])
 
   // callbacks
-  const handleSheetChanges = useCallback((index: number) => {
-    // console.log('handleSheetChanges', index)
-    !!props.handleChange && props.handleChange(index)
-  }, [])
+  const handleSheetChanges = useCallback(
+    (index: number) => {
+      // console.log('handleSheetChanges', index)
+      !!props.handleChange && props.handleChange(index)
+    },
+    [props],
+  )
 
   // renders
-  const CustomBackdrop = ({
-    animatedIndex,
-    style,
-  }: BottomSheetBackdropProps) => {
-    // animated variables
-    const { dismiss } = useBottomSheetModal()
-    const containerAnimatedStyle = useAnimatedStyle(() => ({
-      opacity: interpolate(
-        animatedIndex.value,
-        [-1, -0.5, 0],
-        [0, 0.5, 0.9],
-        Extrapolate.CLAMP,
-      ),
-    }))
-
-    // styles
-    const containerStyle = useMemo(
-      () => [
-        style,
-        {
-          backgroundColor: Colors.primary,
-        },
-        containerAnimatedStyle,
-      ],
-      [style, containerAnimatedStyle],
-    )
-
-    return (
-      <Animated.View style={containerStyle}>
-        <TouchableOpacity
-          style={{ flex: 1 }}
-          onPress={() => dismiss(props.name)}
-        />
-      </Animated.View>
-    )
-  }
 
   return (
     <BottomSheetModal
@@ -94,7 +98,11 @@ const BottomSheetConatiner = React.forwardRef<
       backgroundStyle={{
         backgroundColor: Colors.beige_100,
       }}
-      backdropComponent={(!props.disableDrop && CustomBackdrop) || null}
+      backdropComponent={
+        (!props.disableDrop &&
+          (p => CustomBackdrop({ name: props.name, ...p }))) ||
+        null
+      }
       onChange={handleSheetChanges}
       handleStyle={props.handleStyle}
       handleComponent={props.handleComponent}

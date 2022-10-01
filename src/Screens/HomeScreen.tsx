@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 import CustomMenuHeader from '@/Components/CustomMenuHeader'
 import Menu from '@/Assets/Images/svg/MenuIcon.svg'
 import RestaurantIcon from '@/Assets/Images/svg/restaurentIcon.svg'
@@ -16,12 +16,13 @@ import LinearGradient from 'react-native-linear-gradient'
 import { Dim } from '@/helpers/Dim'
 import FilterButton from '@/Components/FilterButton'
 import AnimatedCustomHandle from '@/Components/AnimatedCustomHandle'
+
 type HomeProps = {}
 
 const HomeScreen = ({}: HomeProps) => {
   const bottomSheetRef = useRef<BottomSheetModal>(null)
   const isDrawerOpen = useDrawerStatus() === 'open'
-  const [isFullScreen, setIsFullScreen] = useState<boolean>(false)
+  // const [isFullScreen, setIsFullScreen] = useState<boolean>(false)
   const navigation = useNavigation()
   const { Fonts, Gutters, Common, Colors, Layout } = useTheme()
   const { textMedium, textMedium24, textPrimary, textCenter } = Fonts
@@ -31,14 +32,14 @@ const HomeScreen = ({}: HomeProps) => {
       setTimeout(() => {
         bottomSheetRef.current?.collapse()
       }, 1000)
-    }, [bottomSheetRef.current]),
+    }, []),
   )
   React.useEffect(() => {
     const unsubscribe = navigation.addListener('blur', () => {
       bottomSheetRef.current?.close()
     })
 
-    return unsubscribe
+    return () => unsubscribe()
   }, [navigation])
   useEffect(() => {
     if (isDrawerOpen) {
@@ -85,24 +86,19 @@ const HomeScreen = ({}: HomeProps) => {
 
   return (
     <>
-      {!isFullScreen && (
-        <LinearGradient
-          colors={
-            isFullScreen
-              ? [Colors.beige_100, Colors.beige_100]
-              : [Colors.beige_100, Colors.beige_100 + '55', 'transparent']
-          }
-          style={[
-            Layout.fullWidth,
-            Common.posAbs,
-            { zIndex: 10, height: Dim.getDimension(164) },
-          ]}
-        >
-          {getMainHeader()}
-        </LinearGradient>
-      )}
+      <LinearGradient
+        colors={[Colors.beige_100, Colors.beige_100 + '55', 'transparent']}
+        style={[
+          Layout.fullWidth,
+          Common.posAbs,
+          Common.zIndex,
+          { height: Dim.getDimension(164) },
+        ]}
+      >
+        {getMainHeader()}
+      </LinearGradient>
       <MapView
-        style={{ flex: 1 }}
+        style={Layout.fill}
         initialRegion={{
           latitude: 37.78825,
           longitude: -122.4324,
