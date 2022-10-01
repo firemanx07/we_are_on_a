@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import {
+  NativeSyntheticEvent,
   Platform,
   Text,
   TextInput,
+  TextInputFocusEventData,
   TextInputProps,
   TextStyle,
   View,
@@ -29,7 +31,10 @@ const TextInputField = (props: TextProps) => {
     props.onFocus && props?.onFocus()
     setIsFocused(true)
   }
-  const handleBlur = () => setIsFocused(false)
+  const handleBlur = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+    props.onBlur && props.onBlur(e)
+    setIsFocused(false)
+  }
 
   return (
     <View style={Layout.colHCenter}>

@@ -9,6 +9,7 @@ export enum Pages {
   SettingDetail = 'SettingDetail',
   Settings = 'Settings',
   RegisterForm = 'RegisterForm',
+  ConfirmLinkPage = 'ConfirmLinkPage',
 }
 export enum Modals {
   CityPicker = 'CityPicker',

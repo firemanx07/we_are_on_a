@@ -14,6 +14,9 @@ import TitleDetailConatiner from '@/Containers/TitleDetailConatiner'
 import TextInputField from '@/Components/TextInputField'
 import { Dim } from '@/helpers/Dim'
 import AnimatedCheckBox from '@/Components/AnimatedCheckBox'
+import { navigate } from '@/Navigators/utils'
+import { Pages } from '@/enums/Pages'
+import { handleName, handleValidEmail } from '@/helpers/validators'
 
 const SignUpFormScreen = () => {
   const { Layout, Gutters, Fonts, Common } = useTheme()
@@ -21,6 +24,14 @@ const SignUpFormScreen = () => {
   const { dismissAll } = useBottomSheetModal()
   const [fullName, setFullname] = useState<string>('')
   const [email, setEmail] = useState<string>('')
+  const [errorForm, setErrorForm] = useState<boolean[]>([false, false])
+  const handleSubmit = () => {
+    let isValidEmail = handleValidEmail(email)
+    let isValidFullName = handleName(fullName)
+    isValidEmail && isValidFullName
+      ? navigate(Pages.ConfirmLinkPage, { email })
+      : setErrorForm([!isValidFullName, !isValidEmail])
+  }
   useFocusEffect(() => {
     dismissAll()
   })
@@ -47,6 +58,9 @@ const SignUpFormScreen = () => {
             onChangeText={val => {
               setFullname(val)
             }}
+            onBlur={() => {
+              setErrorForm([!handleName(fullName), errorForm[1]])
+            }}
             placeholder={t('signUp.form.name.placeholder')}
             value={fullName}
             autoCapitalize={'words'}
@@ -54,6 +68,8 @@ const SignUpFormScreen = () => {
             returnKeyType={'next'}
             autoComplete={'name'}
             autoFocus={true}
+            isError={errorForm[0]}
+            errorMessage={t('signUp.form.name.error')}
           />
         </View>
         <View
@@ -72,12 +88,16 @@ const SignUpFormScreen = () => {
             onChangeText={val => {
               setEmail(val)
             }}
+            onBlur={() => {
+              setErrorForm([errorForm[0], !handleValidEmail(email)])
+            }}
             placeholder={t('signUp.form.email.placeholder')}
             value={email}
-            autoCapitalize={'words'}
-            textContentType={'name'}
-            returnKeyType={'next'}
-            autoComplete={'name'}
+            textContentType={'emailAddress'}
+            returnKeyType={'done'}
+            autoComplete={'email'}
+            isError={errorForm[1]}
+            errorMessage={t('signUp.form.email.error')}
           />
         </View>
         <AnimatedCheckBox label={t('signUp.form.newsLetterLabel')} />
@@ -89,6 +109,7 @@ const SignUpFormScreen = () => {
             Gutters.largeTMargin,
             Layout.selfCenter,
           ]}
+          onPress={handleSubmit}
         >
           <Text
             style={[Fonts.textRegular, Fonts.textMedium, Fonts.textBeige100]}

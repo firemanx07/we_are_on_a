@@ -41,12 +41,20 @@ export default {
       name: {
         placeholder: 'Full Name',
         label: 'What is your Full Name?',
+        error: 'Enter a valid name',
       },
       email: {
         placeholder: 'Your Email',
         label: 'What is your Email?',
+        error: 'Enter a valid email',
       },
       newsLetterLabel: 'I accept to receive the ONA newsletter',
+    },
+    confirm: {
+      sendTo: 'We’ve sent you an email to',
+      notice:
+        'Click on the link within to validate your account.\nThe link is only valid for 24 hours and can only be used once.',
+      button: 'Open my mailbox',
     },
   },
   example: {

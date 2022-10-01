@@ -1,19 +1,31 @@
 import React from 'react'
-import { View, Image } from 'react-native'
+import {
+  View,
+  Image,
+  StyleProp,
+  ViewStyle,
+  ImageSourcePropType,
+} from 'react-native'
 import { useTheme } from '@/Hooks'
 
 type Props = {
   height?: number | string
   width?: number | string
   mode?: 'contain' | 'cover' | 'stretch' | 'repeat' | 'center'
+  style?: StyleProp<ViewStyle>
+  imageSource?: ImageSourcePropType
 }
 
-const Brand = ({ height, width, mode }: Props) => {
+const Brand = ({ height, width, mode, imageSource, style }: Props) => {
   const { Layout, Images } = useTheme()
 
   return (
-    <View style={{ height, width }}>
-      <Image style={Layout.fullSize} source={Images.logo} resizeMode={mode} />
+    <View style={[{ height, width }, style]}>
+      <Image
+        style={Layout.fullSize}
+        source={imageSource ?? Images.logo}
+        resizeMode={mode}
+      />
     </View>
   )
 }
