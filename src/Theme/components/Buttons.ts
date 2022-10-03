@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native'
 import { CommonParams } from '@/Theme/theme'
+import { Dim } from '@/helpers/Dim'
 
 export default function <C>({ Colors, Gutters, Layout }: CommonParams<C>) {
   const base = {
@@ -10,7 +11,7 @@ export default function <C>({ Colors, Gutters, Layout }: CommonParams<C>) {
   }
   const rounded = {
     ...base,
-    borderRadius: 20,
+    borderRadius: Dim.getDimension(72),
   }
 
   return StyleSheet.create({
@@ -24,9 +25,10 @@ export default function <C>({ Colors, Gutters, Layout }: CommonParams<C>) {
     },
     outlineRounded: {
       ...rounded,
-      backgroundColor: Colors.transparent,
-      borderWidth: 2,
-      borderColor: Colors.primary,
+      backgroundColor: Colors.beige_100,
+    },
+    largeButton: {
+      width: Dim.getHorizontalDimension(326),
     },
   })
 }

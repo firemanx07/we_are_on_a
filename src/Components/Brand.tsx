@@ -1,9 +1,14 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { View, Image } from 'react-native'
 import { useTheme } from '@/Hooks'
 
-const Brand = ({ height, width, mode }) => {
+type Props = {
+  height?: number | string
+  width?: number | string
+  mode?: 'contain' | 'cover' | 'stretch' | 'repeat' | 'center'
+}
+
+const Brand = ({ height, width, mode }: Props) => {
   const { Layout, Images } = useTheme()
 
   return (
@@ -13,16 +18,10 @@ const Brand = ({ height, width, mode }) => {
   )
 }
 
-Brand.propTypes = {
-  height: PropTypes.number,
-  mode: PropTypes.oneOf(['contain', 'cover', 'stretch', 'repeat', 'center']),
-  width: PropTypes.number,
-}
-
 Brand.defaultProps = {
   height: 200,
-  mode: 'contain',
   width: 200,
+  mode: 'contain',
 }
 
 export default Brand

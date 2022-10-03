@@ -91,6 +91,9 @@ export default function ({}: ThemeVariables) {
     fullHeight: {
       height: '100%',
     },
+    shrink: {
+      flexShrink: 1,
+    },
     /* Operation Layout */
     mirror: {
       transform: [{ scaleX: -1 }],

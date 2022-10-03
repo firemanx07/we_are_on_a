@@ -5,7 +5,7 @@ const Colors = {
   beige_200: '#EEEBE6',
   beige_100: '#F7F6F2',
   brown: '#C38351',
-  error:'#E34F4F'
+  error: '#E34F4F',
 }
 
 const NavigationColors = {

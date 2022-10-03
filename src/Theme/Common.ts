@@ -6,6 +6,7 @@
 import { StyleSheet } from 'react-native'
 import buttonStyles from './components/Buttons'
 import { CommonParams } from './theme'
+import { Dim } from '@/helpers/Dim'
 
 export default function <C>({ Colors, ...args }: CommonParams<C>) {
   return {
@@ -17,15 +18,45 @@ export default function <C>({ Colors, ...args }: CommonParams<C>) {
       backgroundReset: {
         backgroundColor: Colors.transparent,
       },
-      textInput: {
+      backgroundBeige100: {
+        backgroundColor: Colors.beige_100,
+      },
+      posAbs: {
+        position: 'absolute',
+      },
+      textInputContainer: {
         borderWidth: 1,
-        borderColor: Colors?.text,
+        borderColor: 'transparent',
         backgroundColor: Colors?.inputBackground,
-        color: Colors?.text,
-        minHeight: 50,
-        textAlign: 'center',
-        marginTop: 10,
-        marginBottom: 10,
+        color: Colors?.primary,
+        minHeight: Dim.getDimension(48),
+        paddingLeft: Dim.getHorizontalDimension(8),
+        paddingRight: Dim.getHorizontalDimension(8),
+      },
+      roundedInputContainer: {
+        borderRadius: Dim.getDimension(99),
+        width: Dim.getHorizontalDimension(358),
+      },
+      borderFocus: {
+        borderColor: Colors.brown,
+      },
+      borderError: {
+        borderColor: Colors.error,
+      },
+      elevationLow: {
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+      },
+      roundedBorder: {
+        borderRadius: Dim.getDimension(8),
+        borderColor: Colors.primary,
+        borderWidth: 1,
       },
     }),
   }
