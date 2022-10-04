@@ -7,6 +7,7 @@ import { Dim } from '@/helpers/Dim'
 import { Text, TouchableOpacity, View } from 'react-native'
 import { useTypedRoute } from '@/Hooks/useTypedRoute'
 import { Pages } from '@/enums/Pages'
+import { openLink } from '@/helpers/linking'
 
 const EmailConifirmationPage = () => {
   const { Layout, Gutters, Fonts, Common, Images } = useTheme()
@@ -46,7 +47,7 @@ const EmailConifirmationPage = () => {
           Gutters.largeTMargin,
           Layout.selfCenter,
         ]}
-        onPress={() => {}}
+        onPress={() => openLink('message://')}
       >
         <Text style={[Fonts.textRegular, Fonts.textMedium, Fonts.textBeige100]}>
           {t('signUp.confirm.button')}

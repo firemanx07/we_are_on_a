@@ -57,6 +57,25 @@ export default {
       button: 'Open my mailbox',
     },
   },
+  login: {
+    title: 'Welcome back,\n' + 'Nice to see you again',
+    button: 'Login',
+    signupMessage: 'Don’t have an account yet?',
+    signupButton: 'Signup',
+    fields: {
+      email: {
+        placeholder: 'Your Email',
+        label: 'What is your Email?',
+        error: 'Enter a valid email',
+      },
+    },
+    confirm: {
+      sendTo: 'We’ve sent you an email to',
+      notice:
+        'Click on the link within to validate your account.\nThe link is only valid for 24 hours and can only be used once.',
+      button: 'Open my mailbox',
+    },
+  },
   example: {
     helloUser: 'I am a fake user, my name is {{name}}',
     labels: {

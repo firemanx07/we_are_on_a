@@ -55,6 +55,7 @@ const TitleDetailContainer = (props: {
       <ScrollView
         style={Layout.fill}
         scrollEnabled={!props.disableScroll}
+        keyboardShouldPersistTaps={'handled'}
         contentContainerStyle={[
           Layout.fill,
           Layout.column,

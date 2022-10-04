@@ -86,6 +86,9 @@ export default function ({}: ThemeVariables) {
     selfCenter: {
       alignSelf: 'center',
     },
+    selfEnd: {
+      alignSelf: 'flex-end',
+    },
     /* Sizes Layouts */
     fill: {
       flex: 1,
@@ -102,6 +105,9 @@ export default function ({}: ThemeVariables) {
     },
     shrink: {
       flexShrink: 1,
+    },
+    grow: {
+      flexGrow: 1,
     },
     basis: {
       flexBasis: 1,

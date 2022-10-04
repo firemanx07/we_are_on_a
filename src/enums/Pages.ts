@@ -10,6 +10,7 @@ export enum Pages {
   Settings = 'Settings',
   RegisterForm = 'RegisterForm',
   ConfirmLinkPage = 'ConfirmLinkPage',
+  Login = 'Login',
 }
 export enum Modals {
   CityPicker = 'CityPicker',

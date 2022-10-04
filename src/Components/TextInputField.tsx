@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import {
   NativeSyntheticEvent,
   Platform,
+  StyleProp,
   Text,
   TextInput,
   TextInputFocusEventData,
@@ -22,6 +23,7 @@ type TextProps = TextInputProps & {
   onFocus?: () => void
   errorMessage?: string
   isError?: Boolean
+  errorTextStyle?: StyleProp<TextStyle>
 }
 
 const TextInputField = (props: TextProps) => {
@@ -75,6 +77,7 @@ const TextInputField = (props: TextProps) => {
             Fonts.textPrimary,
             Gutters.tinyTMargin,
             Gutters.regularLMargin,
+            props.errorTextStyle
           ]}
         >
           {props.errorMessage}

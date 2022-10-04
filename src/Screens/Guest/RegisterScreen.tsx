@@ -2,10 +2,8 @@ import React from 'react'
 import BackgroundImageContainer from '@/Containers/BackgroundImageContainer'
 import { useTheme } from '@/Hooks'
 import LinearGradient from 'react-native-linear-gradient'
-import { Image, Text, TouchableOpacity, View } from 'react-native'
-import { Dim } from '@/helpers/Dim'
-import { navigate, toggleDrawer } from '@/Navigators/utils'
-import { Brand } from '@/Components'
+import { Text, TouchableOpacity, View } from 'react-native'
+import { navigate } from '@/Navigators/utils'
 import { useBottomSheetModal } from '@gorhom/bottom-sheet'
 import { useFocusEffect } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
@@ -13,6 +11,7 @@ import ButtonWithDescription from '@/Components/ButtonWithDescription'
 import Bell from '@/Assets/Images/svg/Bell-white.svg'
 import FavoriteEmpty from '@/Assets/Images/svg/favorite_empty.svg'
 import { Pages } from '@/enums/Pages'
+import CloseHeader from '@/Components/CloseHeader'
 
 const RegisterScreen = () => {
   const { Images, Colors, Layout, Gutters, Fonts, Common } = useTheme()
@@ -31,33 +30,7 @@ const RegisterScreen = () => {
           Colors.primary + 'F2',
         ]}
       >
-        <View
-          style={[
-            Layout.rowHCenter,
-            Layout.fullWidth,
-            Gutters.regularHPadding,
-            Layout.justifyContentBetween,
-            Layout.basis,
-            { marginTop: Dim.getDimension(60) },
-          ]}
-        >
-          <TouchableOpacity onPress={() => toggleDrawer()}>
-            <Image source={Images.menu.close} />
-          </TouchableOpacity>
-          <View
-            style={[
-              Layout.fill,
-              Layout.rowCenter,
-              { marginLeft: Dim.getHorizontalDimension(-45) },
-            ]}
-          >
-            <Brand
-              width={Dim.getHorizontalDimension(100)}
-              height={Dim.getDimension(75)}
-            />
-          </View>
-          <View />
-        </View>
+        <CloseHeader />
         <View style={[Layout.fullWidth, Layout.center]}>
           <Text style={[Fonts.textWhite, Fonts.textLarge, Fonts.textCenter]}>
             {t('signUp.title')}
@@ -89,7 +62,9 @@ const RegisterScreen = () => {
               navigate(Pages.RegisterForm, [])
             }}
           >
-            <Text style={[Fonts.textRegular, Fonts.textMedium]}>
+            <Text
+              style={[Fonts.textRegular, Fonts.textMedium, Fonts.textPrimary]}
+            >
               {t('signUp.button')}
             </Text>
           </TouchableOpacity>
@@ -99,13 +74,19 @@ const RegisterScreen = () => {
             {t('signUp.notice')}
           </Text>
         </View>
-        <View style={[Layout.rowCenter]}>
+        <View
+          style={[
+            Layout.rowCenter,
+            Gutters.regularBMargin,
+            Gutters.tinyBPadding,
+          ]}
+        >
           <Text
             style={[Fonts.textWhite, Fonts.textCenter, Fonts.textNormal500]}
           >
             {t('signUp.loginMessage')}
           </Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigate(Pages.Login, {})}>
             <Text
               style={[
                 Fonts.textBrown,
