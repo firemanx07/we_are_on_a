@@ -18,7 +18,7 @@ export interface RootStackParamList extends Record<string, any> {
   [Pages.StartUp]: undefined
   [Pages.Home]: undefined
   [Pages.location]: undefined
-  [Pages.SettingDetail]: undefined
+  [Pages.SettingDetail]: { title: string }
   [Pages.Register]: undefined
   [Pages.Login]: undefined
   [Pages.ConfirmLinkPage]: { email: string }

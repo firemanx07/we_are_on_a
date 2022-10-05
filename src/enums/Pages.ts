@@ -21,3 +21,10 @@ export enum Stacks {
   Menu = 'Menu',
   SignUpNav = 'SignUpNav',
 }
+
+export enum SettingsTitles {
+  PERSONAL_INFO = ' Personal Info',
+  PAYMENT_METHODS = ' Payment Methods',
+  Food_Preferences = ' Food Preferences',
+  NOTIFICATIONS = ' Notifications',
+}

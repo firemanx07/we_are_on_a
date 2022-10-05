@@ -6,6 +6,8 @@ import {
   ImageSourcePropType,
   Image,
   Text,
+  StyleProp,
+  ViewStyle,
 } from 'react-native'
 import AnimatedCheckbox from 'react-native-checkbox-reanimated'
 import { useTheme } from '@/Hooks'
@@ -16,9 +18,10 @@ type AnimatedCheckProps = {
   imageSource?: ImageSourcePropType
   label?: string
   num?: number
+  style?: StyleProp<ViewStyle>
 }
 const AnimatedCheckBox = React.forwardRef<any, AnimatedCheckProps>(
-  ({ imageSource, label, num }, ref) => {
+  ({ imageSource, label, num, style }, ref) => {
     const [checked, setChecked] = useState<boolean>(false)
     useImperativeHandle(
       ref,
@@ -44,6 +47,7 @@ const AnimatedCheckBox = React.forwardRef<any, AnimatedCheckProps>(
           Layout.rowHCenter,
           Layout.justifyContentBetween,
           Gutters.smallHPadding,
+          style,
         ]}
       >
         <View style={[Layout.rowHCenter]}>

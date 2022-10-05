@@ -30,5 +30,8 @@ export default function <C>({ Colors, Gutters, Layout }: CommonParams<C>) {
     largeButton: {
       width: Dim.getHorizontalDimension(326),
     },
+    xlargeButton: {
+      width: Dim.getHorizontalDimension(358),
+    },
   })
 }

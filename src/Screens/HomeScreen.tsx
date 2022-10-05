@@ -1,30 +1,41 @@
-import React, { useCallback, useEffect, useRef } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import CustomMenuHeader from '@/Components/CustomMenuHeader'
 import Menu from '@/Assets/Images/svg/MenuIcon.svg'
 import RestaurantIcon from '@/Assets/Images/svg/restaurentIcon.svg'
 import LogoMenu from '@/Assets/Images/svg/Logo.svg'
 import Search from '@/Assets/Images/svg/search_icon.svg'
 import { useTheme } from '@/Hooks'
-import { BottomSheetModal } from '@gorhom/bottom-sheet'
+import { BottomSheetFlatList, BottomSheetModal } from '@gorhom/bottom-sheet'
 import { toggleDrawer } from '@/Navigators/utils'
 import MapView from 'react-native-maps'
 import BottomSheetConatiner from '@/Containers/BottomSheetContainer'
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native'
+import {
+  ImageSourcePropType,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native'
 import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { useDrawerStatus } from '@react-navigation/drawer'
 import LinearGradient from 'react-native-linear-gradient'
 import { Dim } from '@/helpers/Dim'
 import FilterButton from '@/Components/FilterButton'
 import AnimatedCustomHandle from '@/Components/AnimatedCustomHandle'
+import SmallCard from '@/Components/SmallCard'
+import FiltersModal from '@/Screens/Modals/FiltersModal'
+import { CUISINE, FiltersEnumType } from '@/enums/Filters'
 
 type HomeProps = {}
 
 const HomeScreen = ({}: HomeProps) => {
   const bottomSheetRef = useRef<BottomSheetModal>(null)
+  const filterSheetRef = useRef<BottomSheetModal>(null)
   const isDrawerOpen = useDrawerStatus() === 'open'
   // const [isFullScreen, setIsFullScreen] = useState<boolean>(false)
   const navigation = useNavigation()
-  const { Fonts, Gutters, Common, Colors, Layout } = useTheme()
+  const [filterType, setFilterType] = useState<FiltersEnumType>('CUISINE')
+  const { Fonts, Gutters, Common, Colors, Layout, Images } = useTheme()
   const { textMedium, textMedium24, textPrimary, textCenter } = Fonts
   useFocusEffect(
     useCallback(() => {
@@ -51,6 +62,36 @@ const HomeScreen = ({}: HomeProps) => {
       }, 200)
     }
   }, [isDrawerOpen])
+  // variables
+  const data = React.useMemo(
+    () =>
+      Array(12)
+        .fill(0)
+        .map((_, index) => ({
+          source: Images.onBoarding,
+          title: 'Test Rest' + index,
+          hasFavorite: true,
+        })),
+    [Images.onBoarding],
+  )
+
+  // render
+  const renderItem = useCallback(
+    ({
+      item,
+    }: {
+      item: { source: ImageSourcePropType; title: string; hasFavorite: boolean }
+    }) => {
+      return <SmallCard {...item} />
+    },
+    [],
+  )
+
+  const handleFilterButton = (type: FiltersEnumType) => {
+    setFilterType(type)
+    filterSheetRef.current && filterSheetRef.current.present()
+  }
+
   const getMainHeader = () => (
     <>
       <CustomMenuHeader
@@ -70,16 +111,28 @@ const HomeScreen = ({}: HomeProps) => {
       <ScrollView
         style={[Gutters.regularTMargin, Gutters.smallLMargin]}
         horizontal
+        showsHorizontalScrollIndicator={false}
         contentContainerStyle={[
           Layout.rowHCenter,
           Layout.justifyContentBetween,
-          Layout.fullWidth,
         ]}
       >
         <FilterButton Icon={Search} />
         <FilterButton text={'Chefs'} />
-        <FilterButton text={'Cuisine'} counter={2} isSelected />
-        <FilterButton text={'Categories'} />
+        <FilterButton
+          text={'Cuisine'}
+          counter={2}
+          isSelected
+          onPress={() => handleFilterButton('CUISINE')}
+        />
+        <FilterButton
+          text={'Categories'}
+          onPress={() => handleFilterButton('CATEGORIES')}
+        />
+        <FilterButton
+          text={'More Filters'}
+          onPress={() => handleFilterButton('OTHER')}
+        />
       </ScrollView>
     </>
   )
@@ -124,8 +177,29 @@ const HomeScreen = ({}: HomeProps) => {
           <Text style={[textMedium24, { color: Colors.brown }]}>
             12 Restaurants
           </Text>
-          <Text />
         </View>
+        <BottomSheetFlatList
+          data={data}
+          keyExtractor={(_, index) => `index-${index}`}
+          renderItem={renderItem}
+          numColumns={2}
+          columnWrapperStyle={[Layout.rowHCenter, Layout.justifyContentAround]}
+          ItemSeparatorComponent={() => (
+            <View style={[Gutters.regularVMargin]} />
+          )}
+          contentContainerStyle={[
+            Gutters.regularTMargin,
+            Gutters.largeBPadding,
+          ]}
+        />
+        <View style={{ height: Dim.getDimension(5) }} />
+      </BottomSheetConatiner>
+      <BottomSheetConatiner
+        ref={filterSheetRef}
+        name={'Filter'}
+        snapPoints={['90%']}
+      >
+        <FiltersModal type={filterType} />
       </BottomSheetConatiner>
     </>
   )

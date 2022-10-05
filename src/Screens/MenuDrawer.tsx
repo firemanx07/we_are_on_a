@@ -1,7 +1,7 @@
 import React, { useCallback, useRef, useState } from 'react'
 import { ExampleContainer } from '@/Containers'
 import { useTheme } from '@/Hooks'
-import { Image, Text, TouchableOpacity, View } from 'react-native'
+import { Image, Linking, Text, TouchableOpacity, View } from 'react-native'
 import { navigate, pushScreen, toggleDrawer } from '@/Navigators/utils'
 import { Brand } from '@/Components'
 import { Dim } from '@/helpers/Dim'
@@ -9,6 +9,7 @@ import BottomSheetConatiner from '@/Containers/BottomSheetContainer'
 import Settings from './Settings'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { Pages, Stacks } from '@/enums/Pages'
+import { Config } from '@/Config'
 
 type HomeProps = {}
 const CustomDrawerItem = (label: string, onPress: () => void) => {
@@ -76,7 +77,7 @@ const MenuDrawer = ({}: HomeProps) => {
         {CustomDrawerItem('City Guides', () => {})}
         {CustomDrawerItem('The Chefs', () => {})}
         {CustomDrawerItem('My wishlist', () => {})}
-        {CustomDrawerItem('ONA Popups', () => {})}
+        {CustomDrawerItem('ONA Popups', () => Linking.openURL(Config.POP_UPS))}
       </View>
       <View
         style={[

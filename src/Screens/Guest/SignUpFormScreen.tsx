@@ -48,6 +48,7 @@ const SignUpFormScreen = () => {
             Layout.fullWidth,
             Layout.column,
             Layout.justifyContentAround,
+            Common.zIndex,
             { height: Dim.getDimension(110) },
           ]}
         >

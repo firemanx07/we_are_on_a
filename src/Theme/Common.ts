@@ -21,6 +21,9 @@ export default function <C>({ Colors, ...args }: CommonParams<C>) {
       backgroundBeige100: {
         backgroundColor: Colors.beige_100,
       },
+      backgroundBeige200: {
+        backgroundColor: Colors.beige_200,
+      },
       backgroundBrown: {
         backgroundColor: Colors.brown,
       },

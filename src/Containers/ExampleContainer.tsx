@@ -5,12 +5,14 @@ import { useTheme } from '@/Hooks'
 const ExampleContainer = (props: {
   children: React.ReactNode
   style?: StyleProp<ViewStyle>
+  scrollDisabled?: boolean
 }) => {
   const { Gutters, Layout } = useTheme()
 
   return (
     <ScrollView
       style={Layout.fill}
+      scrollEnabled={!props.scrollDisabled}
       contentContainerStyle={[
         Layout.fill,
         Layout.column,

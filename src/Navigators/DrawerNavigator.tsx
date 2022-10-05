@@ -7,6 +7,7 @@ import MainNavigator from '@/Navigators/Main'
 import { ExampleContainer } from '@/Containers'
 import SignUpNavigator from '@/Navigators/SignUpNav'
 import { Pages, Stacks } from '@/enums/Pages'
+import SettingDetail from '@/Containers/SettingDetail'
 
 const Drawer = createDrawerNavigator()
 
@@ -33,7 +34,7 @@ const DrawerNavigator = () => {
         options={{ unmountOnBlur: true }}
       />
       <Drawer.Screen name={Pages.Settings} component={Settings} />
-      <Drawer.Screen name={Pages.SettingDetail} component={ExampleContainer} />
+      <Drawer.Screen name={Pages.SettingDetail} component={SettingDetail} />
       <Drawer.Screen name={Stacks.SignUpNav} component={SignUpNavigator} />
     </Drawer.Navigator>
   )

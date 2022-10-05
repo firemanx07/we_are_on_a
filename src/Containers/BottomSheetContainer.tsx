@@ -17,7 +17,7 @@ import { useTheme } from '@/Hooks'
 interface BottomSheetConatinerParams {
   name: string
   children: React.ReactNode
-  snapPoints: string[]
+  snapPoints: (string | number)[]
   index?: number
   disableDrop?: boolean
   disablePanDownToClose?: boolean

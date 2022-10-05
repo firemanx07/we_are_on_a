@@ -3,11 +3,15 @@ import { ExampleContainer } from '@/Containers'
 import { StyleSheet, Text, TouchableOpacity } from 'react-native'
 import CustomMenuHeader from '@/Components/CustomMenuHeader'
 import { useTheme } from '@/Hooks'
-import { BottomSheetView, useBottomSheetModal } from '@gorhom/bottom-sheet'
-import ArrowDown from '@/Assets/Images/svg/carret_down.svg'
+import {
+  BottomSheetView,
+  useBottomSheet,
+} from '@gorhom/bottom-sheet'
+import ArrowUp from '@/Assets/Images/svg/carret_up.svg'
 import { Colors as themeColor } from '@/Theme/Variables'
 import { Dim } from '@/helpers/Dim'
 import { navigate } from '@/Navigators/utils'
+import { SettingsTitles } from '@/enums/Pages'
 
 const SettingsItem = ({
   label,
@@ -27,7 +31,7 @@ const SettingsItem = ({
         ]}
       >
         <Text>{label}</Text>
-        <ArrowDown stroke={Colors.primary} style={Layout.rotate90Inverse} />
+        <ArrowUp stroke={Colors.primary} style={Layout.rotate90} />
       </BottomSheetView>
     </TouchableOpacity>
   )
@@ -35,7 +39,7 @@ const SettingsItem = ({
 const Settings = () => {
   // const { t } = useTranslation()
   const { Fonts } = useTheme()
-  const { dismiss } = useBottomSheetModal()
+  const { close } = useBottomSheet()
   const { textNormal500, textMedium, textGrey100, textPrimary, textCenter } =
     Fonts
 
@@ -44,26 +48,36 @@ const Settings = () => {
       <Text style={[textGrey100, textNormal500]}>Logout</Text>
     </TouchableOpacity>
   )
+  const handlePress = (param: string) => {
+    navigate('SettingDetail', { title: param })
+    close()
+  }
 
   return (
-    <ExampleContainer>
+    <ExampleContainer scrollDisabled>
       <CustomMenuHeader
         text={'My Account'}
         textStyle={[textCenter, textMedium, textPrimary]}
-        Icon={ArrowDown}
-        onPress={() => dismiss('Settings')}
+        Icon={ArrowUp}
+        onPress={() => close()}
         rightComponent={rightComponent}
       />
       <SettingsItem
-        label={'Personal Info'}
-        onPress={() => {
-          navigate('SettingDetail', [])
-          dismiss('Settings')
-        }}
+        label={SettingsTitles.PERSONAL_INFO.toUpperCase()}
+        onPress={() => handlePress(SettingsTitles.PERSONAL_INFO)}
       />
-      <SettingsItem label={'Payment Methods'} onPress={() => {}} />
-      <SettingsItem label={'Food Preferences'} onPress={() => {}} />
-      <SettingsItem label={'Notfifications'} onPress={() => {}} />
+      <SettingsItem
+        label={SettingsTitles.PAYMENT_METHODS.toUpperCase()}
+        onPress={() => handlePress(SettingsTitles.PAYMENT_METHODS)}
+      />
+      <SettingsItem
+        label={SettingsTitles.Food_Preferences.toUpperCase()}
+        onPress={() => handlePress(SettingsTitles.Food_Preferences)}
+      />
+      <SettingsItem
+        label={SettingsTitles.NOTIFICATIONS.toUpperCase()}
+        onPress={() => handlePress(SettingsTitles.NOTIFICATIONS)}
+      />
     </ExampleContainer>
   )
 }

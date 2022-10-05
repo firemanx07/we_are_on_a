@@ -33,12 +33,14 @@ const FilterButton = ({
       borderRadius: Dim.getHorizontalDimension(56),
     },
   })
+
   return (
     <TouchableOpacity onPress={onPress}>
       <View
         style={[
           Layout.rowCenter,
           Layout.justifyContentBetween,
+          Gutters.smallRMargin,
           styles[isSelected ? 'selectedStyle' : 'outlineStyle'],
         ]}
       >
