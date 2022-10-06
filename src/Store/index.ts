@@ -1,29 +1,32 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { configureStore, combineReducers } from '@reduxjs/toolkit'
+import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
 import {
-  persistReducer,
-  persistStore,
   FLUSH,
-  REHYDRATE,
   PAUSE,
   PERSIST,
+  persistReducer,
+  persistStore,
   PURGE,
   REGISTER,
+  REHYDRATE,
 } from 'redux-persist'
 
 import { api } from '@/Services/api'
 import theme from './Theme'
+import Filters from './Filters'
+import { Slices } from '@/enums/Slices'
 
 const reducers = combineReducers({
   theme,
   api: api.reducer,
+  Filters,
 })
 
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: ['theme'],
+  whitelist: [Slices.FILTERS, Slices.THEME],
 }
 
 const persistedReducer = persistReducer(persistConfig, reducers)
@@ -45,10 +48,14 @@ const store = configureStore({
 
     return middlewares
   },
+  devTools: __DEV__,
 })
 
 const persistor = persistStore(store)
 
 setupListeners(store.dispatch)
+
+export type AppDispatch = typeof store.dispatch
+export type AppState = ReturnType<typeof store.getState>
 
 export { store, persistor }

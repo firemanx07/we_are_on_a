@@ -13,10 +13,8 @@ import {
 import { useTheme } from '@/Hooks'
 import { Dim } from '@/helpers/Dim'
 import Counter from '@/Components/Counter'
-import { transition } from '@/helpers/AnimatedToggle'
 import CheckedBox from '@/Assets/Images/svg/checked.svg'
 import UncheckedBox from '@/Assets/Images/svg/unchecked.svg'
-import { Transitioning, TransitioningView } from 'react-native-reanimated'
 
 type AnimatedCheckProps = {
   imageSource?: ImageSourcePropType
@@ -24,77 +22,83 @@ type AnimatedCheckProps = {
   num?: number
   style?: StyleProp<ViewStyle>
 }
-const AnimatedCheckBox = React.forwardRef<any, AnimatedCheckProps>(
-  ({ imageSource, label, num, style }, ref) => {
-    const [checked, setChecked] = useState<boolean>(false)
-    useImperativeHandle(
-      ref,
-      () => ({
-        getCheckBoxValue: () => {
-          return checked
-        },
-        setCheckedBoxValue: (val: boolean) => {
-          setChecked(val)
-        },
-      }),
-      [checked],
-    )
-    const { Colors, Layout, Gutters, Fonts } = useTheme()
+export type AnimatedCheckRefHandle = {
+  getCheckBoxValue: () => void
+  setCheckedBoxValue: (val: boolean) => void
+}
+const AnimatedCheckBox = React.forwardRef<
+  AnimatedCheckRefHandle,
+  AnimatedCheckProps
+>(({ imageSource, label, num, style }, ref) => {
+  const [checked, setChecked] = useState<boolean>(false)
+  useImperativeHandle(
+    ref,
+    () => ({
+      getCheckBoxValue: () => {
+        return checked
+      },
+      setCheckedBoxValue: (val: boolean) => {
+        setChecked(val)
+        console.log('triggers')
+      },
+    }),
+    [checked],
+  )
+  const { Colors, Layout, Gutters, Fonts } = useTheme()
 
-    const handleCheckboxPress = () => {
-      setChecked(prev => {
-        return !prev
-      })
-    }
+  const handleCheckboxPress = () => {
+    setChecked(prev => {
+      return !prev
+    })
+  }
 
-    return (
-      <TouchableWithoutFeedback onPress={handleCheckboxPress}>
-        <View
-          style={[
-            Layout.fullWidth,
-            Layout.rowHCenter,
-            Layout.justifyContentBetween,
-            Gutters.smallHPadding,
-            style,
-          ]}
-        >
-          <View style={[Layout.rowHCenter]}>
-            <View style={[Gutters.smallRMargin]}>
-              {!checked ? <UncheckedBox /> : <CheckedBox />}
-            </View>
-            {!!imageSource && (
-              <Image
-                source={imageSource}
-                style={[styles.image, Gutters.tinyRMargin]}
-              />
-            )}
-            {!!label && (
-              <Text
-                style={[
-                  Fonts.textPrimary,
-                  Fonts.textNormal500,
-                  checked && Fonts.textBrown,
-                ]}
-              >
-                {label}
-              </Text>
-            )}
+  return (
+    <TouchableWithoutFeedback onPress={handleCheckboxPress}>
+      <View
+        style={[
+          Layout.fullWidth,
+          Layout.rowHCenter,
+          Layout.justifyContentBetween,
+          Gutters.smallHPadding,
+          style,
+        ]}
+      >
+        <View style={[Layout.rowHCenter]}>
+          <View style={[Gutters.smallRMargin]}>
+            {!checked ? <UncheckedBox /> : <CheckedBox />}
           </View>
-          {!!num && (
-            <View>
-              <Counter
-                num={num}
-                styles={[
-                  checked && [Fonts.textBrown, { borderColor: Colors.brown }],
-                ]}
-              />
-            </View>
+          {!!imageSource && (
+            <Image
+              source={imageSource}
+              style={[styles.image, Gutters.tinyRMargin]}
+            />
+          )}
+          {!!label && (
+            <Text
+              style={[
+                Fonts.textPrimary,
+                Fonts.textNormal500,
+                checked && Fonts.textBrown,
+              ]}
+            >
+              {label}
+            </Text>
           )}
         </View>
-      </TouchableWithoutFeedback>
-    )
-  },
-)
+        {!!num && (
+          <View>
+            <Counter
+              num={num}
+              styles={[
+                checked && [Fonts.textBrown, { borderColor: Colors.brown }],
+              ]}
+            />
+          </View>
+        )}
+      </View>
+    </TouchableWithoutFeedback>
+  )
+})
 export default AnimatedCheckBox
 
 const styles = StyleSheet.create({

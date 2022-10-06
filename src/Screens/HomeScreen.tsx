@@ -25,6 +25,7 @@ import AnimatedCustomHandle from '@/Components/AnimatedCustomHandle'
 import SmallCard from '@/Components/SmallCard'
 import FiltersModal from '@/Screens/Modals/FiltersModal'
 import { CUISINE, FiltersEnumType } from '@/enums/Filters'
+import { KeyFilters } from '@/enums/Slices'
 
 type HomeProps = {}
 
@@ -34,7 +35,7 @@ const HomeScreen = ({}: HomeProps) => {
   const isDrawerOpen = useDrawerStatus() === 'open'
   // const [isFullScreen, setIsFullScreen] = useState<boolean>(false)
   const navigation = useNavigation()
-  const [filterType, setFilterType] = useState<FiltersEnumType>('CUISINE')
+  const [filterType, setFilterType] = useState<KeyFilters>('CUISINE')
   const { Fonts, Gutters, Common, Colors, Layout, Images } = useTheme()
   const { textMedium, textMedium24, textPrimary, textCenter } = Fonts
   useFocusEffect(
@@ -87,7 +88,7 @@ const HomeScreen = ({}: HomeProps) => {
     [],
   )
 
-  const handleFilterButton = (type: FiltersEnumType) => {
+  const handleFilterButton = (type: KeyFilters) => {
     setFilterType(type)
     filterSheetRef.current && filterSheetRef.current.present()
   }
@@ -131,7 +132,7 @@ const HomeScreen = ({}: HomeProps) => {
         />
         <FilterButton
           text={'More Filters'}
-          onPress={() => handleFilterButton('OTHER')}
+          onPress={() => handleFilterButton('MOREFILTERS')}
         />
       </ScrollView>
     </>
