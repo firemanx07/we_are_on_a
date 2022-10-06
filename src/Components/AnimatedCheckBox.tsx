@@ -13,6 +13,7 @@ import AnimatedCheckbox from 'react-native-checkbox-reanimated'
 import { useTheme } from '@/Hooks'
 import { Dim } from '@/helpers/Dim'
 import Counter from '@/Components/Counter'
+import { AnimatePresence } from 'moti'
 
 type AnimatedCheckProps = {
   imageSource?: ImageSourcePropType
@@ -55,12 +56,14 @@ const AnimatedCheckBox = React.forwardRef<any, AnimatedCheckProps>(
             onPress={handleCheckboxPress}
             style={[styles.checkbox, Gutters.tinyRMargin]}
           >
-            <AnimatedCheckbox
-              checked={checked}
-              highlightColor={Colors.brown}
-              checkmarkColor={Colors.white}
-              boxOutlineColor={Colors.primary}
-            />
+            <AnimatePresence>
+              <AnimatedCheckbox
+                checked={checked}
+                highlightColor={Colors.brown}
+                checkmarkColor={Colors.white}
+                boxOutlineColor={Colors.primary}
+              />
+            </AnimatePresence>
           </Pressable>
           {!!imageSource && (
             <Image

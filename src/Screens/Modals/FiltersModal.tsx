@@ -35,14 +35,15 @@ const FiltersModal = ({ type }: FilterModalProps) => {
     [type],
   )
   //renders
+  const spacer = () => <View style={{ height: Dim.getDimension(200) }} />
   const renderItem = useCallback(({ item }: { item: FilterType }) => {
     return (
       <AnimatedCheckBox
         label={item.name}
         style={[
-          Common.button.xlargeButton,
           {
             height: Dim.getDimension(56),
+            width: Dim.getHorizontalDimension(358),
           },
         ]}
       />
@@ -63,12 +64,9 @@ const FiltersModal = ({ type }: FilterModalProps) => {
       <BottomSheetFlatList
         data={data}
         showsVerticalScrollIndicator={false}
-        style={{ flex: 1 }}
         renderItem={renderItem}
         contentContainerStyle={[Layout.selfStretch]}
-        ListFooterComponent={() => (
-          <View style={{ height: Dim.getDimension(200) }} />
-        )}
+        ListFooterComponent={spacer}
       />
       <View
         style={[
