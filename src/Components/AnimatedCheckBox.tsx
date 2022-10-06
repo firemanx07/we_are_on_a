@@ -1,19 +1,22 @@
 import React, { useImperativeHandle, useState } from 'react'
 import {
-  StyleSheet,
-  View,
-  Pressable,
-  ImageSourcePropType,
   Image,
-  Text,
+  ImageSourcePropType,
   StyleProp,
+  StyleSheet,
+  Text,
+  TouchableWithoutFeedback,
+  View,
   ViewStyle,
 } from 'react-native'
-import AnimatedCheckbox from 'react-native-checkbox-reanimated'
+
 import { useTheme } from '@/Hooks'
 import { Dim } from '@/helpers/Dim'
 import Counter from '@/Components/Counter'
-import { AnimatePresence } from 'moti'
+import { transition } from '@/helpers/AnimatedToggle'
+import CheckedBox from '@/Assets/Images/svg/checked.svg'
+import UncheckedBox from '@/Assets/Images/svg/unchecked.svg'
+import { Transitioning, TransitioningView } from 'react-native-reanimated'
 
 type AnimatedCheckProps = {
   imageSource?: ImageSourcePropType
@@ -30,6 +33,9 @@ const AnimatedCheckBox = React.forwardRef<any, AnimatedCheckProps>(
         getCheckBoxValue: () => {
           return checked
         },
+        setCheckedBoxValue: (val: boolean) => {
+          setChecked(val)
+        },
       }),
       [checked],
     )
@@ -42,68 +48,60 @@ const AnimatedCheckBox = React.forwardRef<any, AnimatedCheckProps>(
     }
 
     return (
-      <View
-        style={[
-          Layout.fullWidth,
-          Layout.rowHCenter,
-          Layout.justifyContentBetween,
-          Gutters.smallHPadding,
-          style,
-        ]}
-      >
-        <View style={[Layout.rowHCenter]}>
-          <Pressable
-            onPress={handleCheckboxPress}
-            style={[styles.checkbox, Gutters.tinyRMargin]}
-          >
-            <AnimatePresence>
-              <AnimatedCheckbox
-                checked={checked}
-                highlightColor={Colors.brown}
-                checkmarkColor={Colors.white}
-                boxOutlineColor={Colors.primary}
+      <TouchableWithoutFeedback onPress={handleCheckboxPress}>
+        <View
+          style={[
+            Layout.fullWidth,
+            Layout.rowHCenter,
+            Layout.justifyContentBetween,
+            Gutters.smallHPadding,
+            style,
+          ]}
+        >
+          <View style={[Layout.rowHCenter]}>
+            <View style={[Gutters.smallRMargin]}>
+              {!checked ? <UncheckedBox /> : <CheckedBox />}
+            </View>
+            {!!imageSource && (
+              <Image
+                source={imageSource}
+                style={[styles.image, Gutters.tinyRMargin]}
               />
-            </AnimatePresence>
-          </Pressable>
-          {!!imageSource && (
-            <Image
-              source={imageSource}
-              style={[styles.image, Gutters.tinyRMargin]}
-            />
-          )}
-          {!!label && (
-            <Text
-              style={[
-                Fonts.textPrimary,
-                Fonts.textNormal500,
-                checked && Fonts.textBrown,
-              ]}
-            >
-              {label}
-            </Text>
+            )}
+            {!!label && (
+              <Text
+                style={[
+                  Fonts.textPrimary,
+                  Fonts.textNormal500,
+                  checked && Fonts.textBrown,
+                ]}
+              >
+                {label}
+              </Text>
+            )}
+          </View>
+          {!!num && (
+            <View>
+              <Counter
+                num={num}
+                styles={[
+                  checked && [Fonts.textBrown, { borderColor: Colors.brown }],
+                ]}
+              />
+            </View>
           )}
         </View>
-        {!!num && (
-          <View>
-            <Counter
-              num={num}
-              styles={[
-                checked && [Fonts.textBrown, { borderColor: Colors.brown }],
-              ]}
-            />
-          </View>
-        )}
-      </View>
+      </TouchableWithoutFeedback>
     )
   },
 )
 export default AnimatedCheckBox
 
 const styles = StyleSheet.create({
-  checkbox: {
-    width: Dim.getHorizontalDimension(24),
-    height: Dim.getHorizontalDimension(24),
-  },
+  // checkbox: {
+  //   width: Dim.getHorizontalDimension(24),
+  //   height: Dim.getHorizontalDimension(24),
+  // },
   image: {
     width: Dim.getHorizontalDimension(40),
     height: Dim.getHorizontalDimension(40),

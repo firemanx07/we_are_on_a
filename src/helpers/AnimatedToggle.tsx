@@ -11,6 +11,7 @@ interface Props {
   onToggle?: () => void
   isToggled?: boolean
   resetPress?: (val: boolean) => void
+  disabled?: boolean
 }
 
 export const ToggleIcon: React.FC<Props> = ({
@@ -19,6 +20,7 @@ export const ToggleIcon: React.FC<Props> = ({
   onToggle,
   isToggled,
   resetPress,
+  disabled,
 }) => {
   const ref = React.useRef<TransitioningView | null>(null)
   const [toggled, setToggled] = React.useState(false)
@@ -39,12 +41,16 @@ export const ToggleIcon: React.FC<Props> = ({
 
   return (
     <Transitioning.View ref={ref} transition={transition}>
-      {!toggled ? <First onPress={onPress} /> : <Second onPress={onPress} />}
+      {!toggled ? (
+        <First disabled={disabled} onPress={onPress} />
+      ) : (
+        <Second disabled={disabled} onPress={onPress} />
+      )}
     </Transitioning.View>
   )
 }
 
-const transition = (
+export const transition = (
   <Transition.Together>
     <Transition.Out type="scale" durationMs={100} />
     <Transition.Change interpolation="easeInOut" />
