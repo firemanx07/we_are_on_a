@@ -25,10 +25,6 @@ import { AppDispatch, AppState } from '@/Store'
 import { FilterSlice } from '@/enums/Slices'
 import { FiltersState, FilterTypeState, reset, update } from '@/Store/Filters'
 
-type FilterType = {
-  id: number
-  name: string
-}
 type FilterModalProps = {
   type: keyof typeof FilterSlice
 }
@@ -62,23 +58,19 @@ const FiltersModal = ({ type }: FilterModalProps) => {
           false,
       })
     })
-    console.log('trigger', { ...filtersState, [FilterSlice[type]]: newArray })
-    dispatch(update({ ...filtersState, [FilterSlice[type]]: newArray }))
+    dispatch(update({ data: newArray, key: type }))
+    dismiss('Filter')
   }
-  const restoreFilters = () => {
-    data.map((elem, index) => {
-      !!refs[index].current &&
-        refs[index].current?.setCheckedBoxValue(elem.checked)
-    })
-  }
+
   //renders
   const spacer = () => <View style={{ height: Dim.getDimension(200) }} />
   const renderItem = useCallback(
-    ({ item, index }: { item: FilterType; index: number }) => {
+    ({ item, index }: { item: FilterTypeState; index: number }) => {
       return (
         <AnimatedCheckBox
           ref={refs[index]}
           label={item.name}
+          defaultValue={item.checked}
           style={[
             {
               height: Dim.getDimension(56),
@@ -92,7 +84,6 @@ const FiltersModal = ({ type }: FilterModalProps) => {
   )
   useEffect(() => {
     console.log(data)
-    restoreFilters()
   }, [data])
   return (
     <BottomSheetView

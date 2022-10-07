@@ -1,6 +1,5 @@
-import type { PayloadAction } from '@reduxjs/toolkit'
-import { createSlice } from '@reduxjs/toolkit'
-import { FilterSlice, Slices } from '@/enums/Slices'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { FilterSlice, KeyFilters, Slices } from '@/enums/Slices'
 import { getFilterArray } from '@/helpers/utils'
 
 export interface FilterTypeState {
@@ -23,12 +22,14 @@ const filterSlice = createSlice({
   name: Slices.FILTERS,
   initialState,
   reducers: {
-    update: (state, action: PayloadAction<FiltersState>) => {
-      state = action.payload
+    update: (state, action: PayloadAction<ActionPayload>) => {
+      let { key, data } = action.payload
+      return { ...state, [FilterSlice[key]]: data }
     },
     reset: () => initialState,
   },
 })
 
+type ActionPayload = { key: KeyFilters; data: FilterTypeState[] }
 export const { update, reset } = filterSlice.actions
 export default filterSlice.reducer

@@ -1,4 +1,4 @@
-import React, { useImperativeHandle, useState } from 'react'
+import React, { useEffect, useImperativeHandle, useState } from 'react'
 import {
   Image,
   ImageSourcePropType,
@@ -21,6 +21,7 @@ type AnimatedCheckProps = {
   label?: string
   num?: number
   style?: StyleProp<ViewStyle>
+  defaultValue?: boolean
 }
 export type AnimatedCheckRefHandle = {
   getCheckBoxValue: () => void
@@ -29,7 +30,7 @@ export type AnimatedCheckRefHandle = {
 const AnimatedCheckBox = React.forwardRef<
   AnimatedCheckRefHandle,
   AnimatedCheckProps
->(({ imageSource, label, num, style }, ref) => {
+>(({ imageSource, label, num, style, defaultValue }, ref) => {
   const [checked, setChecked] = useState<boolean>(false)
   useImperativeHandle(
     ref,
@@ -51,6 +52,9 @@ const AnimatedCheckBox = React.forwardRef<
       return !prev
     })
   }
+  useEffect(() => {
+    !!defaultValue && setChecked(defaultValue)
+  }, [defaultValue])
 
   return (
     <TouchableWithoutFeedback onPress={handleCheckboxPress}>
