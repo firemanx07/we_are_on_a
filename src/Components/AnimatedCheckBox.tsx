@@ -40,10 +40,9 @@ const AnimatedCheckBox = React.forwardRef<
       },
       setCheckedBoxValue: (val: boolean) => {
         setChecked(val)
-        console.log('triggers')
       },
     }),
-    [checked],
+    [checked, setChecked],
   )
   const { Colors, Layout, Gutters, Fonts } = useTheme()
 

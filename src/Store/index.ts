@@ -14,13 +14,13 @@ import {
 
 import { api } from '@/Services/api'
 import theme from './Theme'
-import Filters from './Filters'
+import filters from './Filters'
 import { Slices } from '@/enums/Slices'
 
 const reducers = combineReducers({
   theme,
+  filters,
   api: api.reducer,
-  Filters,
 })
 
 const persistConfig = {

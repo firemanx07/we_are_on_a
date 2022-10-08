@@ -1,10 +1,4 @@
-import React, {
-  createRef,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-} from 'react'
+import React, { createRef, useCallback, useMemo, useRef } from 'react'
 import {
   BottomSheetFlatList,
   BottomSheetView,
@@ -37,10 +31,10 @@ const FiltersModal = ({ type }: FilterModalProps) => {
   const { textRegular, textMedium, textBeige100, textPrimary, textCenter } =
     Fonts
   const filtersState = useSelector<AppState, FiltersState>(
-    state => state.Filters,
+    state => state.filters,
   )
   const dispatch = useDispatch<AppDispatch>()
-  const data = filtersState[FilterSlice[type]]
+  const { [FilterSlice[type]]: data } = filtersState
   const refs = useMemo(
     () =>
       Array.from({ length: data.length }).map(() =>
@@ -82,9 +76,15 @@ const FiltersModal = ({ type }: FilterModalProps) => {
     },
     [refs],
   )
-  useEffect(() => {
-    console.log(data)
-  }, [data])
+  const handleReset = () => {
+    dispatch(reset(type))
+    data.map((_, index) => {
+      refs[index] &&
+        !!refs[index].current &&
+        refs[index].current?.setCheckedBoxValue(false)
+    })
+  }
+
   return (
     <BottomSheetView
       style={[Layout.colVCenter, Layout.fill, Common.backgroundBeige100]}
@@ -96,10 +96,7 @@ const FiltersModal = ({ type }: FilterModalProps) => {
         Icon={ArrowDown}
         onPress={() => dismiss('Filter')}
         rightComponent={
-          <LinkPressablebutton
-            text={'Reset'}
-            onPress={() => dispatch(reset())}
-          />
+          <LinkPressablebutton text={'Reset'} onPress={handleReset} />
         }
       />
       <BottomSheetFlatList

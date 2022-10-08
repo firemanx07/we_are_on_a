@@ -26,7 +26,10 @@ const filterSlice = createSlice({
       let { key, data } = action.payload
       return { ...state, [FilterSlice[key]]: data }
     },
-    reset: () => initialState,
+    reset: (state, action: PayloadAction<KeyFilters>) => ({
+      ...state,
+      [FilterSlice[action.payload]]: initialState[FilterSlice[action.payload]],
+    }),
   },
 })
 
