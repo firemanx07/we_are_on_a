@@ -26,14 +26,14 @@ import SmallCard from '@/Components/SmallCard'
 import FiltersModal from '@/Screens/Modals/FiltersModal'
 import { KeyFilters } from '@/enums/Slices'
 import { Modals } from '@/enums/Pages'
-import { selectNumberOfFilters } from '@/Store/Selectors/FilterSelectors'
+import { selectNumberOfFiltersChecked } from '@/Store/Selectors/FilterSelectors'
 
 type HomeProps = {}
 
 const HomeScreen = ({}: HomeProps) => {
   const bottomSheetRef = useRef<BottomSheetModal>(null)
   const filterSheetRef = useRef<BottomSheetModal>(null)
-  const numberOffilters = useAppSelector(selectNumberOfFilters)
+  const numberOffilters = useAppSelector(selectNumberOfFiltersChecked)
   const isDrawerOpen = useDrawerStatus() === 'open'
   // const [isFullScreen, setIsFullScreen] = useState<boolean>(false)
   const navigation = useNavigation()

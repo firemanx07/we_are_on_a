@@ -19,3 +19,13 @@ export const selectNumberOfFilters = createSelector(
     moreFilters: b.length,
   }),
 )
+export const selectNumberOfFiltersChecked = createSelector(
+  selectCuisine,
+  selectMoreFilters,
+  selectCategories,
+  (a, b, c) => ({
+    cuisine: a.filter(elem => elem.checked).length,
+    categories: c.filter(elem => elem.checked).length,
+    moreFilters: b.filter(elem => elem.checked).length,
+  }),
+)
