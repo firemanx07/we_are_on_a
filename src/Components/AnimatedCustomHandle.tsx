@@ -1,6 +1,5 @@
 import React, { useMemo, useRef, useState } from 'react'
 import {
-  ScrollView,
   StyleProp,
   StyleSheet,
   TouchableOpacity,
@@ -191,6 +190,7 @@ const styles = StyleSheet.create({
     backgroundColor: themeColors.beige_100,
     paddingVertical: 14,
     overflow: 'hidden',
+    width: Dim.getHorizontalDimension(390),
   },
   indicator: {
     position: 'absolute',

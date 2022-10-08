@@ -1,7 +1,7 @@
 import React from 'react'
 import TitleDetailConatiner from '@/Containers/TitleDetailConatiner'
 import { Text } from 'react-native'
-import { useTypedRoute } from '@/Hooks/useTypedRoute'
+import { useTypedRoute } from '@/Hooks'
 import { Pages } from '@/enums/Pages'
 import { toggleDrawer } from '@/Navigators/utils'
 

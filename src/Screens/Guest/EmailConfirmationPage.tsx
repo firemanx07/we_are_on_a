@@ -5,7 +5,7 @@ import TitleDetailConatiner from '@/Containers/TitleDetailConatiner'
 import { Brand } from '@/Components'
 import { Dim } from '@/helpers/Dim'
 import { Text, TouchableOpacity, View } from 'react-native'
-import { useTypedRoute } from '@/Hooks/useTypedRoute'
+import { useTypedRoute } from '@/Hooks'
 import { Pages } from '@/enums/Pages'
 import { openLink } from '@/helpers/linking'
 

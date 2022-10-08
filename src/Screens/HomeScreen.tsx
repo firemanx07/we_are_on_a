@@ -4,7 +4,7 @@ import Menu from '@/Assets/Images/svg/MenuIcon.svg'
 import RestaurantIcon from '@/Assets/Images/svg/restaurentIcon.svg'
 import LogoMenu from '@/Assets/Images/svg/Logo.svg'
 import Search from '@/Assets/Images/svg/search_icon.svg'
-import { useTheme } from '@/Hooks'
+import { useAppSelector, useTheme } from '@/Hooks'
 import { BottomSheetFlatList, BottomSheetModal } from '@gorhom/bottom-sheet'
 import { toggleDrawer } from '@/Navigators/utils'
 import MapView from 'react-native-maps'
@@ -26,12 +26,14 @@ import SmallCard from '@/Components/SmallCard'
 import FiltersModal from '@/Screens/Modals/FiltersModal'
 import { KeyFilters } from '@/enums/Slices'
 import { Modals } from '@/enums/Pages'
+import { selectNumberOfFilters } from '@/Store/Selectors/FilterSelectors'
 
 type HomeProps = {}
 
 const HomeScreen = ({}: HomeProps) => {
   const bottomSheetRef = useRef<BottomSheetModal>(null)
   const filterSheetRef = useRef<BottomSheetModal>(null)
+  const numberOffilters = useAppSelector(selectNumberOfFilters)
   const isDrawerOpen = useDrawerStatus() === 'open'
   // const [isFullScreen, setIsFullScreen] = useState<boolean>(false)
   const navigation = useNavigation()
@@ -122,16 +124,18 @@ const HomeScreen = ({}: HomeProps) => {
         <FilterButton text={'Chefs'} />
         <FilterButton
           text={'Cuisine'}
-          counter={2}
-          isSelected
+          counter={numberOffilters.cuisine}
+          isSelected={numberOffilters.cuisine > 0}
           onPress={() => handleFilterButton('CUISINE')}
         />
         <FilterButton
           text={'Categories'}
+          isSelected={numberOffilters.categories > 0}
           onPress={() => handleFilterButton('CATEGORIES')}
         />
         <FilterButton
           text={'More Filters'}
+          isSelected={numberOffilters.categories > 0}
           onPress={() => handleFilterButton('MOREFILTERS')}
         />
       </ScrollView>
