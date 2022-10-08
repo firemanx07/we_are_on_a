@@ -14,6 +14,9 @@ export enum Pages {
 }
 export enum Modals {
   CityPicker = 'CityPicker',
+  FilterHome = 'FilterHome',
+  FilterListRestaurants = 'FilterListRestaurants',
+  Explorer = ' Explorer',
 }
 
 export enum Stacks {

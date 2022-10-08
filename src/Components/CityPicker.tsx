@@ -27,7 +27,7 @@ const CityPicker = () => {
     setSearchTerm(val)
   }
   useEffect(() => {
-    dismiss('Explorer')
+    dismiss(Modals.Explorer)
   }, [dismiss])
   return (
     <BottomSheetView

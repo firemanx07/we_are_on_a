@@ -1,11 +1,16 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useRef, useState } from 'react'
 import {
+  ScrollView,
   StyleProp,
   StyleSheet,
   TouchableOpacity,
   ViewStyle,
 } from 'react-native'
-import { BottomSheetHandleProps } from '@gorhom/bottom-sheet'
+import {
+  BottomSheetHandleProps,
+  BottomSheetModal,
+  BottomSheetScrollView,
+} from '@gorhom/bottom-sheet'
 import Animated, {
   Extrapolate,
   interpolate,
@@ -20,6 +25,11 @@ import RestautrentIconWhite from '@/Assets/Images/svg/RestaurentIconWhite.svg'
 import LogoMenu from '@/Assets/Images/svg/Logo.svg'
 import Search from '@/Assets/Images/svg/search_icon.svg'
 import { Dim } from '@/helpers/Dim'
+import { KeyFilters } from '@/enums/Slices'
+import BottomSheetConatiner from '@/Containers/BottomSheetContainer'
+import FiltersModal from '@/Screens/Modals/FiltersModal'
+import { Modals } from '@/enums/Pages'
+import { AnimatePresence } from 'moti'
 
 // @ts-ignore
 // export const transformOrigin = ({ x, y }, ...transformations) => {
@@ -47,6 +57,12 @@ const Handle: React.FC<HandleProps> = ({ style, animatedIndex, close }) => {
 
   //#region styles
   const containerStyle = useMemo(() => [styles.header, style], [style])
+  const [filterType, setFilterType] = useState<KeyFilters>('CUISINE')
+  const filterSheetRef = useRef<BottomSheetModal>(null)
+  const handleFilterButton = (type: KeyFilters) => {
+    setFilterType(type)
+    filterSheetRef.current && filterSheetRef.current.present()
+  }
   const containerAnimatedStyle = useAnimatedStyle(() => {
     const borderTopRadius = interpolate(
       animatedIndex.value,
@@ -57,7 +73,7 @@ const Handle: React.FC<HandleProps> = ({ style, animatedIndex, close }) => {
     const heightHeader = interpolate(
       animatedIndex.value,
       [0, 1],
-      [8, 200],
+      [8, 160],
       Extrapolate.CLAMP,
     )
 
@@ -97,42 +113,71 @@ const Handle: React.FC<HandleProps> = ({ style, animatedIndex, close }) => {
   const { textMedium, textPrimary, textCenter } = Fonts
   // render
   return (
-    <Animated.View
-      style={[containerStyle, containerAnimatedStyle]}
-      renderToHardwareTextureAndroid={true}
-    >
-      <Animated.View style={[leftIndicatorStyle, leftIndicatorAnimatedStyle]} />
-
-      <Animated.View style={[Layout.fullWidth, { top: Dim.getDimension(24) }]}>
-        <CustomMenuHeader
-          text={'HOME'}
-          textStyle={[textCenter, textMedium, textPrimary]}
-          Icon={ArrowDown}
-          containerStyle={[Gutters.largeTMargin]}
-          onPress={close}
-          rightComponent={
-            <TouchableOpacity>
-              <RestautrentIconWhite fill={Colors.primary} />
-            </TouchableOpacity>
-          }
-          centerComponent={<LogoMenu fill={Colors.primary} />}
+    <AnimatePresence>
+      <Animated.View
+        style={[containerStyle, containerAnimatedStyle]}
+        renderToHardwareTextureAndroid={true}
+      >
+        <Animated.View
+          style={[leftIndicatorStyle, leftIndicatorAnimatedStyle]}
         />
-        <Animated.ScrollView
-          style={[Gutters.regularTMargin, Gutters.smallLMargin]}
-          horizontal
-          contentContainerStyle={[
-            Layout.rowHCenter,
-            Layout.justifyContentBetween,
-            Layout.fullWidth,
-          ]}
+
+        <Animated.View style={[{ top: Dim.getDimension(8) }]}>
+          <CustomMenuHeader
+            text={'HOME'}
+            textStyle={[textCenter, textMedium, textPrimary]}
+            Icon={ArrowDown}
+            containerStyle={[Gutters.largeTMargin]}
+            onPress={close}
+            rightComponent={
+              <TouchableOpacity>
+                <RestautrentIconWhite fill={Colors.primary} />
+              </TouchableOpacity>
+            }
+            centerComponent={<LogoMenu fill={Colors.primary} />}
+          />
+          <BottomSheetScrollView
+            style={[Gutters.smallLMargin]}
+            showsHorizontalScrollIndicator={false}
+            horizontal
+            contentContainerStyle={[
+              Gutters.largeTMargin,
+              Layout.rowHCenter,
+              Layout.justifyContentBetween,
+              { width: Dim.getHorizontalDimension(380) },
+            ]}
+          >
+            <FilterButton Icon={Search} />
+            <FilterButton text={'Chefs'} />
+            <FilterButton
+              text={'Cuisine'}
+              counter={2}
+              isSelected
+              onPress={() => handleFilterButton('CUISINE')}
+            />
+            <FilterButton
+              text={'Categories'}
+              onPress={() => handleFilterButton('CATEGORIES')}
+            />
+            <FilterButton
+              text={'More Filters'}
+              onPress={() => handleFilterButton('MOREFILTERS')}
+            />
+          </BottomSheetScrollView>
+        </Animated.View>
+        <BottomSheetConatiner
+          ref={filterSheetRef}
+          name={Modals.FilterListRestaurants}
+          stackBehavior={'push'}
+          snapPoints={['90%']}
         >
-          <FilterButton Icon={Search} />
-          <FilterButton text={'Chefs'} />
-          <FilterButton text={'Cuisine'} counter={2} isSelected />
-          <FilterButton text={'Categories'} />
-        </Animated.ScrollView>
+          <FiltersModal
+            type={filterType}
+            modalKey={Modals.FilterListRestaurants}
+          />
+        </BottomSheetConatiner>
       </Animated.View>
-    </Animated.View>
+    </AnimatePresence>
   )
 }
 

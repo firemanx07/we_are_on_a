@@ -18,11 +18,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, AppState } from '@/Store'
 import { FilterSlice } from '@/enums/Slices'
 import { FiltersState, FilterTypeState, reset, update } from '@/Store/Filters'
+import { Modals } from '@/enums/Pages'
 
 type FilterModalProps = {
   type: keyof typeof FilterSlice
+  modalKey: keyof typeof Modals
 }
-const FiltersModal = ({ type }: FilterModalProps) => {
+const FiltersModal = ({ type, modalKey }: FilterModalProps) => {
   const { dismiss } = useBottomSheetModal()
   const ref = useRef<BottomSheetFlatListMethods>(null)
 
@@ -53,7 +55,7 @@ const FiltersModal = ({ type }: FilterModalProps) => {
       })
     })
     dispatch(update({ data: newArray, key: type }))
-    dismiss('Filter')
+    dismiss(Modals[modalKey])
   }
 
   //renders
@@ -94,7 +96,7 @@ const FiltersModal = ({ type }: FilterModalProps) => {
         text={'Filter By Cuisine'}
         textStyle={[textCenter, textMedium, textPrimary]}
         Icon={ArrowDown}
-        onPress={() => dismiss('Filter')}
+        onPress={() => dismiss(Modals[modalKey])}
         rightComponent={
           <LinkPressablebutton text={'Reset'} onPress={handleReset} />
         }

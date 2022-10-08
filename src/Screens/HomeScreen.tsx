@@ -24,8 +24,8 @@ import FilterButton from '@/Components/FilterButton'
 import AnimatedCustomHandle from '@/Components/AnimatedCustomHandle'
 import SmallCard from '@/Components/SmallCard'
 import FiltersModal from '@/Screens/Modals/FiltersModal'
-import { CUISINE, FiltersEnumType } from '@/enums/Filters'
 import { KeyFilters } from '@/enums/Slices'
+import { Modals } from '@/enums/Pages'
 
 type HomeProps = {}
 
@@ -164,7 +164,7 @@ const HomeScreen = ({}: HomeProps) => {
         ref={bottomSheetRef}
         disableDrop
         disablePanDownToClose
-        name={'Explorer'}
+        name={Modals.Explorer}
         snapPoints={['25%', '100%']}
         indicatorStyle={[{ backgroundColor: Colors.brown + '20' }]}
         handleComponent={p =>
@@ -197,10 +197,10 @@ const HomeScreen = ({}: HomeProps) => {
       </BottomSheetConatiner>
       <BottomSheetConatiner
         ref={filterSheetRef}
-        name={'Filter'}
+        name={Modals.FilterHome}
         snapPoints={['90%']}
       >
-        <FiltersModal type={filterType} />
+        <FiltersModal type={filterType} modalKey={Modals.FilterHome} />
       </BottomSheetConatiner>
     </>
   )

@@ -13,8 +13,9 @@ import Animated, {
 } from 'react-native-reanimated'
 import { StyleProp, TouchableOpacity, ViewStyle } from 'react-native'
 import { useTheme } from '@/Hooks'
+import { BottomSheetModalProps } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetModal/types'
 
-interface BottomSheetConatinerParams {
+interface BottomSheetConatinerParams extends BottomSheetModalProps {
   name: string
   children: React.ReactNode
   snapPoints: (string | number)[]
@@ -89,6 +90,7 @@ const BottomSheetConatiner = React.forwardRef<
   return (
     <BottomSheetModal
       ref={ref}
+      stackBehavior={props.stackBehavior}
       enablePanDownToClose={!props.disablePanDownToClose}
       index={props.index}
       name={props.name}
