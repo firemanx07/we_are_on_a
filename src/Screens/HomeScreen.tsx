@@ -33,7 +33,7 @@ type HomeProps = {}
 const HomeScreen = ({}: HomeProps) => {
   const bottomSheetRef = useRef<BottomSheetModal>(null)
   const filterSheetRef = useRef<BottomSheetModal>(null)
-  const numberOffilters = useAppSelector(selectNumberOfFiltersChecked)
+  const numberOfFilters = useAppSelector(selectNumberOfFiltersChecked)
   const isDrawerOpen = useDrawerStatus() === 'open'
   // const [isFullScreen, setIsFullScreen] = useState<boolean>(false)
   const navigation = useNavigation()
@@ -132,18 +132,26 @@ const HomeScreen = ({}: HomeProps) => {
         <FilterButton text={'Chefs'} />
         <FilterButton
           text={'Cuisine'}
-          counter={numberOffilters.cuisine}
-          isSelected={numberOffilters.cuisine > 0}
           onPress={() => handleFilterButton('CUISINE')}
+          {...(numberOfFilters.cuisine > 0 && {
+            counter: numberOfFilters.cuisine,
+            isSelected: true,
+          })}
         />
         <FilterButton
           text={'Categories'}
-          isSelected={numberOffilters.categories > 0}
+          {...(numberOfFilters.categories > 0 && {
+            counter: numberOfFilters.categories,
+            isSelected: true,
+          })}
           onPress={() => handleFilterButton('CATEGORIES')}
         />
         <FilterButton
           text={'More Filters'}
-          isSelected={numberOffilters.categories > 0}
+          {...(numberOfFilters.moreFilters > 0 && {
+            counter: numberOfFilters.moreFilters,
+            isSelected: true,
+          })}
           onPress={() => handleFilterButton('MOREFILTERS')}
         />
       </ScrollView>

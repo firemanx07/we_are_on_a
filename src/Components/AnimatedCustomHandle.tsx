@@ -18,7 +18,7 @@ import Animated, {
 import { Colors as themeColors } from '@/Theme/Variables'
 import CustomMenuHeader from '@/Components/CustomMenuHeader'
 import FilterButton from '@/Components/FilterButton'
-import { useTheme } from '@/Hooks'
+import { useAppSelector, useTheme } from '@/Hooks'
 import ArrowDown from '@/Assets/Images/svg/ArrowDown.svg'
 import RestautrentIconWhite from '@/Assets/Images/svg/RestaurentIconWhite.svg'
 import LogoMenu from '@/Assets/Images/svg/Logo.svg'
@@ -29,6 +29,7 @@ import BottomSheetConatiner from '@/Containers/BottomSheetContainer'
 import FiltersModal from '@/Screens/Modals/FiltersModal'
 import { Modals } from '@/enums/Pages'
 import { AnimatePresence } from 'moti'
+import { selectNumberOfFiltersChecked } from '@/Store/Selectors/FilterSelectors'
 
 // @ts-ignore
 // export const transformOrigin = ({ x, y }, ...transformations) => {
@@ -58,6 +59,7 @@ const Handle: React.FC<HandleProps> = ({ style, animatedIndex, close }) => {
   const containerStyle = useMemo(() => [styles.header, style], [style])
   const [filterType, setFilterType] = useState<KeyFilters>('CUISINE')
   const filterSheetRef = useRef<BottomSheetModal>(null)
+  const numberOfFilters = useAppSelector(selectNumberOfFiltersChecked)
   const handleFilterButton = (type: KeyFilters) => {
     setFilterType(type)
     filterSheetRef.current && filterSheetRef.current.present()
@@ -150,16 +152,26 @@ const Handle: React.FC<HandleProps> = ({ style, animatedIndex, close }) => {
             <FilterButton text={'Chefs'} />
             <FilterButton
               text={'Cuisine'}
-              counter={2}
-              isSelected
               onPress={() => handleFilterButton('CUISINE')}
+              {...(numberOfFilters.cuisine > 0 && {
+                counter: numberOfFilters.cuisine,
+                isSelected: true,
+              })}
             />
             <FilterButton
               text={'Categories'}
+              {...(numberOfFilters.categories > 0 && {
+                counter: numberOfFilters.categories,
+                isSelected: true,
+              })}
               onPress={() => handleFilterButton('CATEGORIES')}
             />
             <FilterButton
               text={'More Filters'}
+              {...(numberOfFilters.moreFilters > 0 && {
+                counter: numberOfFilters.moreFilters,
+                isSelected: true,
+              })}
               onPress={() => handleFilterButton('MOREFILTERS')}
             />
           </BottomSheetScrollView>
