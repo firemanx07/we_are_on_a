@@ -26,5 +26,10 @@ export default function ({}: ThemeVariables) {
       background: require('@/Assets/Images/register.png'),
       emailRegister: require('@/Assets/Images/emailRegister.png'),
     },
+    mock: [
+      require('@/Assets/Images/MockImages/img1.png'),
+      require('@/Assets/Images/MockImages/img2.png'),
+      require('@/Assets/Images/MockImages/img1.png'),
+    ],
   }
 }

@@ -6,7 +6,7 @@ import LogoMenu from '@/Assets/Images/svg/Logo.svg'
 import Search from '@/Assets/Images/svg/search_icon.svg'
 import { useAppSelector, useTheme } from '@/Hooks'
 import { BottomSheetFlatList, BottomSheetModal } from '@gorhom/bottom-sheet'
-import { toggleDrawer } from '@/Navigators/utils'
+import { navigate, toggleDrawer } from '@/Navigators/utils'
 import MapView from 'react-native-maps'
 import BottomSheetConatiner from '@/Containers/BottomSheetContainer'
 import {
@@ -25,7 +25,7 @@ import AnimatedCustomHandle from '@/Components/AnimatedCustomHandle'
 import SmallCard from '@/Components/SmallCard'
 import FiltersModal from '@/Screens/Modals/FiltersModal'
 import { KeyFilters } from '@/enums/Slices'
-import { Modals } from '@/enums/Pages'
+import { Modals, Pages } from '@/enums/Pages'
 import { selectNumberOfFiltersChecked } from '@/Store/Selectors/FilterSelectors'
 
 type HomeProps = {}
@@ -82,10 +82,18 @@ const HomeScreen = ({}: HomeProps) => {
   const renderItem = useCallback(
     ({
       item,
+      index,
     }: {
       item: { source: ImageSourcePropType; title: string; hasFavorite: boolean }
+      index: number
     }) => {
-      return <SmallCard {...item} />
+      return (
+        <SmallCard
+          key={`card-${index}`}
+          {...item}
+          onPress={() => navigate(Pages.RestaurantDetail, {})}
+        />
+      )
     },
     [],
   )

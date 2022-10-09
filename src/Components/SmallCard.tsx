@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import {
   Image,
   ImageSourcePropType,
@@ -11,12 +11,14 @@ import { Dim } from '@/helpers/Dim'
 import { ToggleIcon } from '@/helpers/AnimatedToggle'
 import favFill from '@/Assets/Images/svg/favorite_filled.svg'
 import favEmpty from '@/Assets/Images/svg/favorite_empty.svg'
+import { MotiPressable } from 'moti/interactions'
 
 type SmallCardProps = {
   source: ImageSourcePropType
   title: string
   subtitle?: string
   hasFavorite?: boolean
+  onPress?: () => void
 }
 
 const SmallCard = ({
@@ -24,10 +26,35 @@ const SmallCard = ({
   title,
   subtitle,
   hasFavorite,
+  onPress,
 }: SmallCardProps) => {
   const { Gutters, Fonts, Common } = useTheme()
   return (
-    <View>
+    <MotiPressable
+      onPress={onPress}
+      animate={useMemo(
+        () =>
+          ({ hovered, pressed }) => {
+            'worklet'
+
+            return {
+              opacity: hovered || pressed ? 0.5 : 1,
+            }
+          },
+        [],
+      )}
+      transition={useMemo(
+        () =>
+          ({ hovered, pressed }) => {
+            'worklet'
+
+            return {
+              delay: hovered || pressed ? 0 : 100,
+            }
+          },
+        [],
+      )}
+    >
       <View>
         <Image
           source={source}
@@ -47,7 +74,7 @@ const SmallCard = ({
         <Text style={[Fonts.textPrimary, Fonts.titleSmall]}>{title}</Text>
         {!!subtitle && <Text>{subtitle}</Text>}
       </View>
-    </View>
+    </MotiPressable>
   )
 }
 export default SmallCard

@@ -11,6 +11,7 @@ export enum Pages {
   RegisterForm = 'RegisterForm',
   ConfirmLinkPage = 'ConfirmLinkPage',
   Login = 'Login',
+  RestaurantDetail = 'RestaurantDetail',
 }
 export enum Modals {
   CityPicker = 'CityPicker',

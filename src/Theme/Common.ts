@@ -7,6 +7,7 @@ import { StyleSheet } from 'react-native'
 import buttonStyles from './components/Buttons'
 import { CommonParams } from './theme'
 import { Dim } from '@/helpers/Dim'
+import { Common } from '@/Theme/index'
 
 export default function <C>({ Colors, ...args }: CommonParams<C>) {
   return {
@@ -69,6 +70,11 @@ export default function <C>({ Colors, ...args }: CommonParams<C>) {
       },
       zIndex: {
         zIndex: 10,
+      },
+      posAbsTop: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
       },
     }),
   }
