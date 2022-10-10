@@ -1,9 +1,21 @@
 import React from 'react'
-import Animated from 'react-native-reanimated'
+import Animated, {
+  Extrapolate,
+  interpolate,
+  useAnimatedScrollHandler,
+  useAnimatedStyle,
+  useSharedValue,
+} from 'react-native-reanimated'
 import { useTheme } from '@/Hooks'
 import BackTransparent from '@/Assets/Images/svg/back_transparent.svg'
 import Upload from '@/Assets/Images/svg/upload.svg'
-import { StyleProp, TouchableOpacity, View, ViewStyle } from 'react-native'
+import {
+  StyleProp,
+  Text,
+  TouchableOpacity,
+  View,
+  ViewStyle,
+} from 'react-native'
 import { ToggleIcon } from '@/helpers/AnimatedToggle'
 import favEmpty from '@/Assets/Images/svg/favorite_empty.svg'
 import favFill from '@/Assets/Images/svg/favorite_filled.svg'
@@ -18,7 +30,24 @@ type Props = {
   style: StyleProp<ViewStyle>
 }
 const RestaurantDetailContainer = ({}: Props) => {
+  const translationY = useSharedValue(0)
+
+  const scrollHandler = useAnimatedScrollHandler(event => {
+    translationY.value = event.contentOffset.y
+  })
   const { Layout, Common, Gutters, Images, Colors } = useTheme()
+  const containerAnimatedStyle = useAnimatedStyle(() => {
+    const opacity = interpolate(
+      translationY.value,
+      [0, 300],
+      [0, 1],
+      Extrapolate.CLAMP,
+    )
+    console.log(translationY, (opacity * 100).toString(16).padStart(2, '0'))
+    return {
+      backgroundColor: `rgba(247, 246, 242, ${opacity})`,
+    }
+  })
 
   return (
     <View style={[Layout.fill, Layout.column, Common.backgroundBeige100]}>
@@ -31,6 +60,7 @@ const RestaurantDetailContainer = ({}: Props) => {
           Common.posAbsTop,
           Layout.justifyContentEnd,
           Common.zIndex,
+          containerAnimatedStyle,
         ]}
       >
         <Animated.View
@@ -55,7 +85,7 @@ const RestaurantDetailContainer = ({}: Props) => {
           </View>
         </Animated.View>
       </Animated.View>
-      <Animated.ScrollView>
+      <Animated.ScrollView onScroll={scrollHandler} scrollEventThrottle={16}>
         <SliderBox
           ImageComponent={FastImage}
           images={Images.mock}
@@ -76,6 +106,42 @@ const RestaurantDetailContainer = ({}: Props) => {
           }}
           imageLoadingColor={Colors.brown}
         />
+        <View style={[Gutters.largeTMargin]}>
+          <Text>Restaurent Name</Text>
+          <Text>Adress</Text>
+        </View>
+        <View style={[Gutters.largeTMargin]}>
+          <Text>Restaurent Name</Text>
+          <Text>Adress</Text>
+        </View>
+        <View style={[Gutters.largeTMargin]}>
+          <Text>Restaurent Name</Text>
+          <Text>Adress</Text>
+        </View>
+        <View style={[Gutters.largeTMargin]}>
+          <Text>Restaurent Name</Text>
+          <Text>Adress</Text>
+        </View>
+        <View style={[Gutters.largeTMargin]}>
+          <Text>Restaurent Name</Text>
+          <Text>Adress</Text>
+        </View>
+        <View style={[Gutters.largeTMargin]}>
+          <Text>Restaurent Name</Text>
+          <Text>Adress</Text>
+        </View>
+        <View style={[Gutters.largeTMargin]}>
+          <Text>Restaurent Name</Text>
+          <Text>Adress</Text>
+        </View>
+        <View style={[Gutters.largeTMargin]}>
+          <Text>Restaurent Name</Text>
+          <Text>Adress</Text>
+        </View>
+        <View style={[Gutters.largeTMargin]}>
+          <Text>Restaurent Name</Text>
+          <Text>Adress</Text>
+        </View>
       </Animated.ScrollView>
     </View>
   )
