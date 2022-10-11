@@ -219,6 +219,7 @@ const HomeScreen = ({}: HomeProps) => {
         ref={filterSheetRef}
         name={Modals.FilterHome}
         snapPoints={['90%']}
+        disablePanDownToClose
       >
         <FiltersModal type={filterType} modalKey={Modals.FilterHome} />
       </BottomSheetConatiner>

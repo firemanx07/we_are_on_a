@@ -1,7 +1,8 @@
 import React from 'react'
-import { Text, TouchableOpacity } from 'react-native'
+import { Text } from 'react-native'
 import { useTheme } from '@/Hooks'
 import { Dim } from '@/helpers/Dim'
+import { TouchableOpacity } from '@gorhom/bottom-sheet'
 
 const LinkPressablebutton = (props: { text: string; onPress?: () => void }) => {
   const { Common, Fonts, Gutters } = useTheme()

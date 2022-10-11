@@ -4,12 +4,12 @@ import {
   StyleProp,
   Text,
   TextStyle,
-  TouchableOpacity,
   View,
   ViewStyle,
 } from 'react-native'
 import { useTheme } from '@/Hooks'
 import { Dim } from '@/helpers/Dim'
+import { TouchableOpacity } from '@gorhom/bottom-sheet'
 type CustomMenuHeaderProps = {
   text: string
   textStyle: StyleProp<TextStyle>

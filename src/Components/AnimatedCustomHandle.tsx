@@ -30,6 +30,7 @@ import FiltersModal from '@/Screens/Modals/FiltersModal'
 import { Modals } from '@/enums/Pages'
 import { AnimatePresence } from 'moti'
 import { selectNumberOfFiltersChecked } from '@/Store/Selectors/FilterSelectors'
+import { ScrollView } from 'react-native-gesture-handler'
 
 // @ts-ignore
 // export const transformOrigin = ({ x, y }, ...transformations) => {
@@ -137,7 +138,7 @@ const Handle: React.FC<HandleProps> = ({ style, animatedIndex, close }) => {
             }
             centerComponent={<LogoMenu fill={Colors.primary} />}
           />
-          <BottomSheetScrollView
+          <ScrollView
             style={[Gutters.smallLMargin]}
             showsHorizontalScrollIndicator={false}
             horizontal
@@ -174,7 +175,7 @@ const Handle: React.FC<HandleProps> = ({ style, animatedIndex, close }) => {
               })}
               onPress={() => handleFilterButton('MOREFILTERS')}
             />
-          </BottomSheetScrollView>
+          </ScrollView>
         </Animated.View>
         <BottomSheetConatiner
           ref={filterSheetRef}

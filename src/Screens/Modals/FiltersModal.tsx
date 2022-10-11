@@ -19,6 +19,7 @@ import { AppDispatch, AppState } from '@/Store'
 import { FilterSlice } from '@/enums/Slices'
 import { FiltersState, FilterTypeState, reset, update } from '@/Store/Filters'
 import { Modals } from '@/enums/Pages'
+import { useTranslation } from 'react-i18next'
 
 type FilterModalProps = {
   type: keyof typeof FilterSlice
@@ -26,10 +27,11 @@ type FilterModalProps = {
 }
 const FiltersModal = ({ type, modalKey }: FilterModalProps) => {
   const { dismiss } = useBottomSheetModal()
+  const { t } = useTranslation()
   const ref = useRef<BottomSheetFlatListMethods>(null)
 
   // variables
-  const { Layout, Common, Colors, Fonts } = useTheme()
+  const { Layout, Common, Colors, Fonts, Gutters } = useTheme()
   const { textRegular, textMedium, textBeige100, textPrimary, textCenter } =
     Fonts
   const filtersState = useSelector<AppState, FiltersState>(
@@ -93,7 +95,7 @@ const FiltersModal = ({ type, modalKey }: FilterModalProps) => {
     >
       <CustomMenuHeader
         backgroundColor={Colors.beige_100}
-        text={'Filter By Cuisine'}
+        text={t('filter.' + FilterSlice[type] + '.title')}
         textStyle={[textCenter, textMedium, textPrimary]}
         Icon={ArrowDown}
         onPress={() => dismiss(Modals[modalKey])}
@@ -104,9 +106,10 @@ const FiltersModal = ({ type, modalKey }: FilterModalProps) => {
       <BottomSheetFlatList
         ref={ref}
         data={data}
-        showsVerticalScrollIndicator={false}
+        showsVerticalScrollIndicator={true}
         renderItem={renderItem}
-        contentContainerStyle={[Layout.selfStretch]}
+        contentContainerStyle={[Layout.fill, Gutters.smallTPadding]}
+        scrollEnabled={true}
         ListFooterComponent={spacer}
       />
       <View

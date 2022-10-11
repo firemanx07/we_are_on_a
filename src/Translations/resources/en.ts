@@ -76,6 +76,21 @@ export default {
       button: 'Open my mailbox',
     },
   },
+  filter: {
+    prefix: 'Filter by ',
+    cuisine: {
+      title: '$t(filter.prefix) Cuisine',
+    },
+    categories: {
+      title: '$t(filter.prefix)Categories',
+    },
+    morefilters: {
+      title: '$t(filter.prefix) More Filters',
+    },
+    chefs: {
+      title: '$t(filter.prefix) Chefs',
+    },
+  },
   example: {
     helloUser: 'I am a fake user, my name is {{name}}',
     labels: {
