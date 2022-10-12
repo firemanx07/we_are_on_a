@@ -17,8 +17,7 @@ import { navigate } from '@/Navigators/utils'
 
 const WelcomeScreen = () => {
   const { Layout, Gutters, Fonts, Common, Images, Colors } = useTheme()
-  const { textRegular, textMedium, textBeige200, textBeige100, textCenter } =
-    Fonts
+  const { textRegular, textMedium, textBeige100, textCenter } = Fonts
 
   const { t } = useTranslation()
 

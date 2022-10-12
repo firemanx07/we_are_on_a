@@ -1,16 +1,18 @@
 import React, { useEffect } from 'react'
 import { Image, StatusBar, Text, View } from 'react-native'
 import { useTranslation } from 'react-i18next'
-import { useTheme } from '@/Hooks'
+import { useAppDispatch, useTheme } from '@/Hooks'
 import { Brand } from '@/Components'
 import { setDefaultTheme } from '@/Store/Theme'
 import { navigateAndSimpleReset } from '@/Navigators/utils'
 import { Dim } from '@/helpers/Dim'
+import { loadRegionsFiles } from '@/helpers/utils'
 
 const StartupContainer = () => {
   const { Layout, Fonts, Common, Images } = useTheme()
 
   const { t } = useTranslation()
+  const dispatch = useAppDispatch()
 
   const init = async () => {
     await new Promise(resolve =>
@@ -18,6 +20,7 @@ const StartupContainer = () => {
         resolve(true)
       }, 2000),
     )
+    await loadRegionsFiles()
     await setDefaultTheme({ theme: 'default', darkMode: false })
     navigateAndSimpleReset('onBoarding')
   }
