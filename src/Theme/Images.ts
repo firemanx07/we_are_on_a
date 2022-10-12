@@ -4,6 +4,7 @@ export default function ({}: ThemeVariables) {
   return {
     logo: require('@/Assets/Images/Logo.png'),
     evian: require('@/Assets/Images/evian-logo.png'),
+    partners: require('@/Assets/Images/partnersLogo.png'),
     onBoarding: require('@/Assets/Images/onBoarding.png'),
     location: {
       myLocation: require('@/Assets/Images/LocationModal/my-location.png'),

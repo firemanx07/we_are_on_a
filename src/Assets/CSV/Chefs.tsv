@@ -1,0 +1,37 @@
+id	name	overall_category 	zone_category 	zone_name 	main_restaurant	other_restaurants
+EX: 786969	Robert Mendoza	Europe 	France	Paris	211	233,245
+JC1 	Jeffrey Claudio 	Europe 	Germany 	Berlin	100	- 
+DR1 	Daniel Remers 	Europe 	Germany 	Berlin	146	- 
+MG2	Mario Gamba 	Europe 	Germany 	Munich	101	- 
+RM3	Robert Mendoza 	Europe 	France	Paris	x	
+BG3	Bertrand Grebaux 	Europe 	France	Paris	301	-
+MG3	Michael Grosman 	Europe 	France	Paris	302	
+GS3	Guillaume Sanchez 	Europe 	France	Paris		
+GP3	Giovanni Passerini 	Europe 	France	Paris	357	
+EC3	Enrique Casarrubias 	Europe 	France	Paris	308	
+HG3	Hanz Gueco 	Europe 	France	Paris	303	
+AS3	Amandine Sepulcre	Europe 	France	Paris	x	
+MS3	Mory Sacko 	Europe 	France	Paris	304	504
+ST3	Simone Tondo 	Europe 	France	Paris	362	
+TC3	Thomas Coupeau 	Europe 	France	Paris	x	
+NGE3	Noam Gedalof & Etheliya Hananova	Europe 	France	Paris	305	
+AG3	Alan Geaam	Europe 	France	Paris	306	
+MG33	Mathieu Grichois 	Europe 	France	Paris	307	
+TM3	Tom Meyer 	Europe 	France	Paris	309	
+SM3	Sho Miyashita 	Europe 	France	Paris	310	
+HC3	Hugh Corcoran 	Europe 	France	Paris	311	
+GM3	Gregory Marchand 	Europe 	France	Paris	501	502,503,372
+CVF3	Clement Vergeat and Félix Bogniard	Europe 	France	Paris	601	
+JG3	Jason Gouzy	Europe 	France	Paris	602	
+MI3	Masahide Ikuta 	Europe 	France	Paris	603	
+KL3	Khan - ly Huynh 	Europe 	France	Paris	604	
+CC3	Charles Compagnon	Europe 	France	Paris	605	611
+DR3	Daniel Rose	Europe 	France	Paris	701	1006
+EF3	Eric Frechon	Europe 	France	Paris	653	654,655
+RT3	Romain Thibault	Europe 	France	Paris	608	
+EVG3	Édouard Vermynck & Geoffroy Langella	Europe 	France	Paris	609	
+ACM3	Anthony Chouchan et Matthieu Hernandez	Europe 	France	Paris	610	
+KO3	Katsu Okiyama 	Europe 	France	Paris	677	397
+TN3	Tamir Nahmias 	Europe 	France	Paris	366	
+KN3	Kosuke Nabeta	Europe 	France	Paris	703	
+MCC3	Mads Christensen & Carlos Peñarredonda	Europe 	France	Paris	380	

@@ -65,21 +65,8 @@ const WelcomeScreen = () => {
             {t('welcome.onBoarding.button')}
           </Text>
         </TouchableOpacity>
-        <View
-          style={[
-            Layout.row,
-            Layout.justifyContentBetween,
-            styles.bottomFooter,
-          ]}
-        >
-          <Text style={[textCenter, textBeige200]}>{t('welcome.bottom')}</Text>
-          <Image
-            style={{
-              width: Dim.getHorizontalDimension(49),
-              height: Dim.getDimension(27),
-            }}
-            source={Images.evian}
-          />
+        <View style={[styles.bottomFooter]}>
+          <Image source={Images.partners} />
         </View>
       </LinearGradient>
     </BackgroundImageContainer>
@@ -90,8 +77,6 @@ export default WelcomeScreen
 
 const styles = StyleSheet.create({
   bottomFooter: {
-    width: Dim.getHorizontalDimension(190.5),
-    alignItems: 'baseline',
     marginTop: Dim.getDimension(32),
     marginBottom: Dim.getDimension(60),
   },

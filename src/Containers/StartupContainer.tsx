@@ -44,25 +44,12 @@ const StartupContainer = () => {
       />
       <View
         style={[
-          Layout.row,
-          Layout.justifyContentBetween,
-          Layout.alignItemsBaseLine,
           {
-            width: Dim.getHorizontalDimension(190.5),
             marginTop: Dim.getDimension(182),
           },
         ]}
       >
-        <Text style={[Fonts.textCenter, Fonts.textBeige200]}>
-          {t('welcome.bottom')}
-        </Text>
-        <Image
-          style={{
-            width: Dim.getHorizontalDimension(49),
-            height: Dim.getDimension(27),
-          }}
-          source={Images.evian}
-        />
+        <Image source={Images.partners} />
       </View>
     </View>
   )
