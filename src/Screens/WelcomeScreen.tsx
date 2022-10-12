@@ -8,19 +8,23 @@ import {
   View,
 } from 'react-native'
 import { useTranslation } from 'react-i18next'
-import { useTheme } from '@/Hooks'
+import { useAppSelector, useTheme } from '@/Hooks'
 import { Brand } from '@/Components'
 import { Dim } from '@/helpers/Dim'
 import BackgroundImageContainer from '@/Containers/BackgroundImageContainer'
 import LinearGradient from 'react-native-linear-gradient'
 import { navigate } from '@/Navigators/utils'
+import { useSelector } from 'react-redux'
+import { useFocusEffect } from '@react-navigation/native'
 
 const WelcomeScreen = () => {
   const { Layout, Gutters, Fonts, Common, Images, Colors } = useTheme()
   const { textRegular, textMedium, textBeige100, textCenter } = Fonts
-
+  const regions = useAppSelector(state => state.regions)
   const { t } = useTranslation()
-
+  useFocusEffect(() => {
+    console.log(regions)
+  })
   return (
     <BackgroundImageContainer source={Images.onBoarding}>
       <LinearGradient

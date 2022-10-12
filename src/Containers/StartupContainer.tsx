@@ -20,7 +20,7 @@ const StartupContainer = () => {
         resolve(true)
       }, 2000),
     )
-    await loadRegionsFiles()
+    await loadRegionsFiles(dispatch)
     await setDefaultTheme({ theme: 'default', darkMode: false })
     navigateAndSimpleReset('onBoarding')
   }

@@ -12,8 +12,8 @@ export const getFilterArray = (type: FiltersEnumType) =>
     checked: false,
   }))
 
-export const loadRegionsFiles = async (dispatch?: AppDispatch) => {
-  let result = await readRemoteFile(Config.CSV_ENDPOINTS.REGIONS, {
+export const loadRegionsFiles = async (dispatch: AppDispatch) => {
+  await readRemoteFile(Config.CSV_ENDPOINTS.REGIONS, {
     header: true,
     dynamicTyping: true,
     skipEmptyLines: true,
@@ -35,7 +35,7 @@ export const loadRegionsFiles = async (dispatch?: AppDispatch) => {
     },
     complete: (results: any) => {
       console.log('Results:', results)
-      // dispatch(fetchAll(results.data))
+      dispatch(fetchAll(results.data))
     },
     error: (error: { cause?: unknown }) => {
       console.log('error:', error.cause)
