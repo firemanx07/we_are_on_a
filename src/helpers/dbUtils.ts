@@ -4,8 +4,9 @@ import { Config } from '@/Config'
 import { fetchAllRegions } from '@/Store/Regions'
 import RNFetchBlob from 'rn-fetch-blob'
 import { readString } from 'react-native-csv'
-import { FilterSlice, Slices } from '@/enums/Slices'
+import { FilterSlice } from '@/enums/Slices'
 import { fetchAllRestaurants } from '@/Store/Restaurants'
+import { fetchAllChefs } from '@/Store/Chefs'
 
 export const getCachedFile = async (url: string) => {
   try {
@@ -30,6 +31,16 @@ const transformHeaders = (h: string) => {
       return 'mapLink'
     case 'More Filters':
       return FilterSlice.MOREFILTERS
+    case 'id chef':
+      return 'chefID'
+    case 'id restaurant':
+      return 'restaurantID'
+    case 'Best Dish':
+      return 'bestDish'
+    case 'main_restaurant':
+      return 'mainRestaurant'
+    case 'other_restaurants':
+      return 'otherRestaurants'
     default:
       return h.trim().toLowerCase()
   }
@@ -51,6 +62,24 @@ export const loadRestaurantFiles = async (dispatch: AppDispatch) => {
   if (path) {
     await fetchData(path, transformHeaders, result =>
       dispatch(fetchAllRestaurants(result.data)),
+    )
+  }
+}
+export const loadChefsFiles = async (dispatch: AppDispatch) => {
+  let path = await getCachedFile(Config.CSV_ENDPOINTS.CHEFS)
+
+  if (path) {
+    await fetchData(path, transformHeaders, result =>
+      dispatch(fetchAllChefs(result.data)),
+    )
+  }
+}
+export const loadReviewsFiles = async (dispatch: AppDispatch) => {
+  let path = await getCachedFile(Config.CSV_ENDPOINTS.REVIEWS)
+
+  if (path) {
+    await fetchData(path, transformHeaders, result =>
+      dispatch(fetchAllChefs(result.data)),
     )
   }
 }
@@ -103,5 +132,7 @@ export const initDB = async (dispatch: AppDispatch) => {
   await Promise.allSettled([
     loadRestaurantFiles(dispatch),
     loadRegionsFiles(dispatch),
+    loadChefsFiles(dispatch),
+    loadReviewsFiles(dispatch),
   ])
 }

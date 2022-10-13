@@ -17,6 +17,7 @@ import theme from './Theme'
 import filters from './Filters'
 import regions from './Regions'
 import restaurants from './Restaurants'
+import chefs from './Chefs'
 import { Slices } from '@/enums/Slices'
 
 const reducers = combineReducers({
@@ -24,6 +25,7 @@ const reducers = combineReducers({
   filters,
   regions,
   restaurants,
+  chefs,
   api: api.reducer,
 })
 
