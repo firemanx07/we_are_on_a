@@ -17,6 +17,7 @@ import BottomSheetConatiner from '@/Containers/BottomSheetContainer'
 import { Modals, Pages } from '@/enums/Pages'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { navigate } from '@/Navigators/utils'
+import Geolocation from '@react-native-community/geolocation'
 
 const LocationModal = () => {
   const { Layout, Gutters, Fonts, Common, Images } = useTheme()
@@ -88,6 +89,17 @@ const LocationModal = () => {
     },
   ]
   const bottomSheetRef = useRef<BottomSheetModal>(null)
+  const handleLocationPress = useCallback(() => {
+    Geolocation.setRNConfiguration({
+      skipPermissionRequests: false,
+      authorizationLevel: 'auto',
+      locationProvider: 'auto',
+    })
+    Geolocation.getCurrentPosition(
+      pos => console.log(pos),
+      e => console.log(e),
+    )
+  }, [])
   const handlePresentModalPress = useCallback(() => {
     bottomSheetRef.current?.present()
   }, [])
@@ -103,6 +115,7 @@ const LocationModal = () => {
       <View style={[Layout.colCenter]}>
         <TouchableOpacity
           style={[Common.button.rounded, Common.button.largeButton]}
+          onPress={handleLocationPress}
         >
           <Text style={[textRegular, textMedium, textBeige100]}>
             {t('location.button')}

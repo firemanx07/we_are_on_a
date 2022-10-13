@@ -4,7 +4,7 @@ import CustomMenuHeader from '@/Components/CustomMenuHeader'
 import ArrowDown from '@/Assets/Images/svg/carret_down.svg'
 import Accordion from '@/Components/Accordion'
 import ListItem from '@/Components/ListItem'
-import { useTheme } from '@/Hooks'
+import { useAppSelector, useTheme } from '@/Hooks'
 import SearchBar from '@/Components/SearchBar'
 import { Dim } from '@/helpers/Dim'
 import { useTranslation } from 'react-i18next'
@@ -14,6 +14,7 @@ import {
   useBottomSheetModal,
 } from '@gorhom/bottom-sheet'
 import { Modals } from '@/enums/Pages'
+import { selectCountryByOverall } from '@/Store/Selectors/RegionsSelectors'
 
 const CityPicker = () => {
   const [searchTerm, setSearchTerm] = useState<string>('')
@@ -26,6 +27,10 @@ const CityPicker = () => {
   const handleSearch = (val: string) => {
     setSearchTerm(val)
   }
+  const zones = useAppSelector(selectCountryByOverall)
+  useEffect(() => {
+    console.log(zones)
+  }, [])
   useEffect(() => {
     dismiss(Modals.Explorer)
   }, [dismiss])
