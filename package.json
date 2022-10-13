@@ -14,10 +14,12 @@
     "lint:fix": "yarn lint --fix",
     "prettier:write": "yarn prettier --write **/*.{js,jsx,ts,tsx,json}",
     "sanity": "yarn lint && yarn tsc && yarn test",
+    "postinstall": "node Utility/rn-fetch-blob_warning.js",
     "type-check": "tsc"
   },
   "dependencies": {
     "@gorhom/bottom-sheet": "^4",
+    "@mutagen-d/react-native-file-cache": "^0.2.0",
     "@react-native-async-storage/async-storage": "^1.17.7",
     "@react-native-community/geolocation": "^3.0.1",
     "@react-native-masked-view/masked-view": "^0.2.7",
@@ -49,7 +51,8 @@
     "react-native-svg": "^13.2.0",
     "react-redux": "^8.0.2",
     "redux-flipper": "^2.0.2",
-    "redux-persist": "^6.0.0"
+    "redux-persist": "^6.0.0",
+    "rn-fetch-blob": "0.13.0-beta.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

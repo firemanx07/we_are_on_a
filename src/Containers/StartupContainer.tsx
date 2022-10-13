@@ -7,6 +7,7 @@ import { setDefaultTheme } from '@/Store/Theme'
 import { navigateAndSimpleReset } from '@/Navigators/utils'
 import { Dim } from '@/helpers/Dim'
 import { loadRegionsFiles } from '@/helpers/utils'
+import { RNFileCache } from '@mutagen-d/react-native-file-cache'
 
 const StartupContainer = () => {
   const { Layout, Fonts, Common, Images } = useTheme()
@@ -15,6 +16,7 @@ const StartupContainer = () => {
   const dispatch = useAppDispatch()
 
   const init = async () => {
+    await RNFileCache.load()
     await new Promise(resolve =>
       setTimeout(() => {
         resolve(true)
