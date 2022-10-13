@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Image, StatusBar, Text, View } from 'react-native'
 import { useTranslation } from 'react-i18next'
-import { useAppDispatch, useTheme } from '@/Hooks'
+import { useAppDispatch, useAppSelector, useTheme } from '@/Hooks'
 import { Brand } from '@/Components'
 import { setDefaultTheme } from '@/Store/Theme'
 import { navigateAndSimpleReset } from '@/Navigators/utils'
@@ -14,6 +14,7 @@ const StartupContainer = () => {
 
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
+  const { regions } = useAppSelector(state => state)
 
   const init = async () => {
     await RNFileCache.load()
@@ -22,7 +23,7 @@ const StartupContainer = () => {
         resolve(true)
       }, 2000),
     )
-    await loadRegionsFiles(dispatch)
+    regions.length === 0 && (await loadRegionsFiles(dispatch))
     await setDefaultTheme({ theme: 'default', darkMode: false })
     navigateAndSimpleReset('onBoarding')
   }
