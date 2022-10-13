@@ -16,19 +16,21 @@ import { api } from '@/Services/api'
 import theme from './Theme'
 import filters from './Filters'
 import regions from './Regions'
+import restaurants from './Restaurants'
 import { Slices } from '@/enums/Slices'
 
 const reducers = combineReducers({
   theme,
   filters,
   regions,
+  restaurants,
   api: api.reducer,
 })
 
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: [Slices.FILTERS, Slices.THEME, Slices.REGIONS],
+  whitelist: [Slices.FILTERS, Slices.THEME, Slices.REGIONS, Slices.RESTAURANTS],
 }
 
 const persistedReducer = persistReducer(persistConfig, reducers)

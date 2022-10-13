@@ -2,6 +2,7 @@ export enum Slices {
   THEME = 'theme',
   FILTERS = 'filters',
   REGIONS = 'regions',
+  RESTAURANTS = 'restaurants',
 }
 export enum FilterSlice {
   CUISINE = 'cuisine',

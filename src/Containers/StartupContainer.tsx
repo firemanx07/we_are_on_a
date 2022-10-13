@@ -6,7 +6,7 @@ import { Brand } from '@/Components'
 import { setDefaultTheme } from '@/Store/Theme'
 import { navigateAndSimpleReset } from '@/Navigators/utils'
 import { Dim } from '@/helpers/Dim'
-import { loadRegionsFiles } from '@/helpers/utils'
+import { initDB, loadRegionsFiles } from '@/helpers/dbUtils'
 import { RNFileCache } from '@mutagen-d/react-native-file-cache'
 
 const StartupContainer = () => {
@@ -14,7 +14,8 @@ const StartupContainer = () => {
 
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
-  const { regions } = useAppSelector(state => state)
+  const { regions, restaurants } = useAppSelector(state => state)
+  let dbLengths = [regions.length, restaurants.length]
 
   const init = async () => {
     await RNFileCache.load()
@@ -23,7 +24,7 @@ const StartupContainer = () => {
         resolve(true)
       }, 2000),
     )
-    regions.length === 0 && (await loadRegionsFiles(dispatch))
+    dbLengths.some(e => e === 0) && (await initDB(dispatch))
     await setDefaultTheme({ theme: 'default', darkMode: false })
     navigateAndSimpleReset('onBoarding')
   }

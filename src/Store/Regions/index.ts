@@ -13,7 +13,7 @@ const RegionSlice = createSlice({
   name: Slices.REGIONS,
   initialState,
   reducers: {
-    fetchAll: {
+    fetchAllRegions: {
       reducer: (state, action: PayloadAction<RegionTypeState[]>) => {
         return action.payload
       },
@@ -29,5 +29,5 @@ const RegionSlice = createSlice({
 })
 
 type ActionPayload = Omit<RegionTypeState, 'id'>[]
-export const { fetchAll } = RegionSlice.actions
+export const { fetchAllRegions } = RegionSlice.actions
 export default RegionSlice.reducer
