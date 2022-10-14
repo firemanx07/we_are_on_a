@@ -52,7 +52,9 @@ const store = configureStore({
     const middlewares = getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        warnAfter: 128,
       },
+      immutableCheck: { warnAfter: 128 },
     }).concat(api.middleware)
 
     // @ts-ignore

@@ -8,14 +8,17 @@ export interface RegionTypeState {
   zone: string
 }
 
-const initialState = [] as RegionTypeState[]
+const initialState = {
+  regions: [] as RegionTypeState[],
+  selectedRegion: null as unknown as RegionTypeState,
+}
 const RegionSlice = createSlice({
   name: Slices.REGIONS,
   initialState,
   reducers: {
     fetchAllRegions: {
       reducer: (state, action: PayloadAction<RegionTypeState[]>) => {
-        return action.payload
+        return { ...state, regions: action.payload }
       },
       prepare: (data: ActionPayload) => {
         const arr = data.map(elem => {
@@ -25,9 +28,17 @@ const RegionSlice = createSlice({
         return { payload: arr }
       },
     },
+    setZone: (state, action: PayloadAction<RegionTypeState>) => ({
+      ...state,
+      selectedRegion: action.payload,
+    }),
+    resetZone: state => ({
+      ...state,
+      selectedRegion: initialState.selectedRegion,
+    }),
   },
 })
 
 type ActionPayload = Omit<RegionTypeState, 'id'>[]
-export const { fetchAllRegions } = RegionSlice.actions
+export const { fetchAllRegions, setZone, resetZone } = RegionSlice.actions
 export default RegionSlice.reducer

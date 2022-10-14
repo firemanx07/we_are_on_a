@@ -14,7 +14,7 @@ import { useTheme } from '@/Hooks'
 import { Dim } from '@/helpers/Dim'
 import CityPicker from '@/Components/CityPicker'
 import BottomSheetConatiner from '@/Containers/BottomSheetContainer'
-import { Modals, Pages } from '@/enums/Pages'
+import { Modals } from '@/enums/Pages'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { navigate } from '@/Navigators/utils'
 import Geolocation from '@react-native-community/geolocation'
@@ -89,6 +89,7 @@ const LocationModal = () => {
     },
   ]
   const bottomSheetRef = useRef<BottomSheetModal>(null)
+
   const handleLocationPress = useCallback(() => {
     Geolocation.setRNConfiguration({
       skipPermissionRequests: false,
@@ -164,10 +165,11 @@ const LocationModal = () => {
         {LocationDetails}
         <BottomSheetConatiner
           ref={bottomSheetRef}
+          enablePanDownToClose={false}
           name={Modals.CityPicker}
           snapPoints={['95%']}
           onAnimate={(from, to) => {
-            if (to) navigate(Pages.Menu, [])
+            // if (to) navigate(Pages.Menu, [])
           }}
         >
           <CityPicker />

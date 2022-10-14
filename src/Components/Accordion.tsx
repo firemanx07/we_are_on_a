@@ -43,7 +43,6 @@ export default function Accordion(props: AccordionProps) {
                     {props.children}
                 </CollapseBody>
             </Collapse>
-            // {/*{isOpen && props.footer}*/}
 
     )
 }

@@ -14,7 +14,12 @@ import {
   useBottomSheetModal,
 } from '@gorhom/bottom-sheet'
 import { Modals } from '@/enums/Pages'
-import { selectCountryByOverall } from '@/Store/Selectors/RegionsSelectors'
+import {
+  selectCountryByOverall,
+  selectOverallZones,
+  selectZonesByCountry,
+} from '@/Store/Selectors/RegionsSelectors'
+import { RegionTypeState } from '@/Store/Regions'
 
 const CityPicker = () => {
   const [searchTerm, setSearchTerm] = useState<string>('')
@@ -27,13 +32,49 @@ const CityPicker = () => {
   const handleSearch = (val: string) => {
     setSearchTerm(val)
   }
-  const zones = useAppSelector(selectCountryByOverall)
-  useEffect(() => {
-    console.log(zones)
-  }, [])
+  const overallZones = useAppSelector(selectOverallZones)
+  const countries = useAppSelector(selectCountryByOverall)
+  const zones = useAppSelector(selectZonesByCountry)
   useEffect(() => {
     dismiss(Modals.Explorer)
   }, [dismiss])
+  //renders
+  const renderZones = ({ item }: { item: RegionTypeState }) => {
+    return (
+      <ListItem
+        key={`zone-${item.id}`}
+        counter={81}
+        title={item.zone}
+        distance={10}
+      />
+    )
+  }
+  const renderCountries = (
+    item: string,
+    indexCountry: number,
+    index: number,
+  ) => {
+    return (
+      <Accordion
+        style={Common.backgroundBeige100}
+        key={`overal-${index}-country-${indexCountry}`}
+        header={item}
+      >
+        {zones[item].map(elem => renderZones({ item: elem }))}
+      </Accordion>
+    )
+  }
+
+  const renderOverallZone = (item: string, index: number) => {
+    return (
+      <Accordion key={`overal-${index}`} header={item}>
+        {countries[item].map((elem, indexCountry: number) =>
+          renderCountries(elem, indexCountry, index),
+        )}
+      </Accordion>
+    )
+  }
+
   return (
     <BottomSheetView
       style={[Layout.colVCenter, Layout.fill, Common.backgroundBeige100]}
@@ -61,24 +102,7 @@ const CityPicker = () => {
         showsVerticalScrollIndicator={false}
         style={[{ width: Dim.getHorizontalDimension(358) }]}
       >
-        <Accordion header={'Europe'}>
-          <ListItem counter={81} title={'Paris'} distance={10} />
-          <ListItem counter={81} title={'Paris'} distance={10} />
-          <ListItem counter={81} title={'Paris'} distance={10} />
-          <ListItem counter={81} title={'Paris'} distance={10} />
-        </Accordion>
-        <Accordion header={'Europe'}>
-          <ListItem counter={81} title={'Paris'} distance={10} />
-          <ListItem counter={81} title={'Paris'} distance={10} />
-          <ListItem counter={81} title={'Paris'} distance={10} />
-          <ListItem counter={81} title={'Paris'} distance={10} />
-        </Accordion>
-        <Accordion header={'Europe'}>
-          <ListItem counter={81} title={'Paris'} distance={10} />
-          <ListItem counter={81} title={'Paris'} distance={10} />
-          <ListItem counter={81} title={'Paris'} distance={10} />
-          <ListItem counter={81} title={'Paris'} distance={10} />
-        </Accordion>
+        {overallZones.map((elem, index) => renderOverallZone(elem, index))}
       </BottomSheetScrollView>
       <View
         style={[

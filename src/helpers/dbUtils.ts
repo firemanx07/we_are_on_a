@@ -51,7 +51,7 @@ const transformHeaders = (h: string) => {
 export const loadRegionsFiles = async (dispatch: AppDispatch) => {
   let path = await getCachedFile(Config.CSV_ENDPOINTS.REGIONS)
   if (path) {
-    await fetchData(path, transformHeaders, result =>
+    await fetchCSVData(path, transformHeaders, result =>
       dispatch(fetchAllRegions(result.data)),
     )
   }
@@ -60,7 +60,7 @@ export const loadRestaurantFiles = async (dispatch: AppDispatch) => {
   let path = await getCachedFile(Config.CSV_ENDPOINTS.RESTAURANTS)
 
   if (path) {
-    await fetchData(path, transformHeaders, result =>
+    await fetchCSVData(path, transformHeaders, result =>
       dispatch(fetchAllRestaurants(result.data)),
     )
   }
@@ -68,7 +68,7 @@ export const loadRestaurantFiles = async (dispatch: AppDispatch) => {
 export const loadChefsFiles = async (dispatch: AppDispatch) => {
   let path = await getCachedFile(Config.CSV_ENDPOINTS.CHEFS)
   if (path) {
-    await fetchData(path, transformHeaders, result =>
+    await fetchCSVData(path, transformHeaders, result =>
       dispatch(fetchAllChefs(result.data)),
     )
   }
@@ -76,12 +76,12 @@ export const loadChefsFiles = async (dispatch: AppDispatch) => {
 export const loadReviewsFiles = async (dispatch: AppDispatch) => {
   let path = await getCachedFile(Config.CSV_ENDPOINTS.REVIEWS)
   if (path) {
-    await fetchData(path, transformHeaders, result =>
+    await fetchCSVData(path, transformHeaders, result =>
       dispatch(fetchAllReviews(result.data)),
     )
   }
 }
-const fetchData = async (
+const fetchCSVData = async (
   path: string,
   transformHeader: (h: string) => string,
   successCallback: (result: any) => void,
