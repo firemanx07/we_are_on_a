@@ -4,7 +4,7 @@ import CustomMenuHeader from '@/Components/CustomMenuHeader'
 import ArrowDown from '@/Assets/Images/svg/carret_down.svg'
 import Accordion from '@/Components/Accordion'
 import ListItem from '@/Components/ListItem'
-import { useAppSelector, useTheme } from '@/Hooks'
+import { useAppDispatch, useAppSelector, useTheme } from '@/Hooks'
 import SearchBar from '@/Components/SearchBar'
 import { Dim } from '@/helpers/Dim'
 import { useTranslation } from 'react-i18next'
@@ -19,7 +19,7 @@ import {
   selectOverallZones,
   selectZonesByCountry,
 } from '@/Store/Selectors/RegionsSelectors'
-import { RegionTypeState } from '@/Store/Regions'
+import { RegionTypeState, setZone } from '@/Store/Regions'
 
 const CityPicker = () => {
   const [searchTerm, setSearchTerm] = useState<string>('')
@@ -32,6 +32,7 @@ const CityPicker = () => {
   const handleSearch = (val: string) => {
     setSearchTerm(val)
   }
+  const dispatch = useAppDispatch()
   const overallZones = useAppSelector(selectOverallZones)
   const countries = useAppSelector(selectCountryByOverall)
   const zones = useAppSelector(selectZonesByCountry)
@@ -41,12 +42,12 @@ const CityPicker = () => {
   //renders
   const renderZones = ({ item }: { item: RegionTypeState }) => {
     return (
-      <ListItem
+      <TouchableOpacity
         key={`zone-${item.id}`}
-        counter={81}
-        title={item.zone}
-        distance={10}
-      />
+        onPress={() => dispatch(setZone(item))}
+      >
+        <ListItem counter={81} title={item.zone} distance={10} />
+      </TouchableOpacity>
     )
   }
   const renderCountries = (
