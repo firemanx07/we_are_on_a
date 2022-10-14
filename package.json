@@ -14,7 +14,7 @@
     "lint:fix": "yarn lint --fix",
     "prettier:write": "yarn prettier --write **/*.{js,jsx,ts,tsx,json}",
     "sanity": "yarn lint && yarn tsc && yarn test",
-    "postinstall": "node Utility/rn-fetch-blob_warning.js",
+    "postinstall": "node utility/rn-fetch-blob_warning.js",
     "type-check": "tsc"
   },
   "dependencies": {
