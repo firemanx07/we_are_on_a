@@ -7,6 +7,7 @@ import { readString } from 'react-native-csv'
 import { FilterSlice } from '@/enums/Slices'
 import { fetchAllRestaurants } from '@/Store/Restaurants'
 import { fetchAllChefs } from '@/Store/Chefs'
+import { fetchAllReviews } from '@/Store/Reviews'
 
 export const getCachedFile = async (url: string) => {
   try {
@@ -20,7 +21,7 @@ export const getCachedFile = async (url: string) => {
   }
 }
 const transformHeaders = (h: string) => {
-  switch (h) {
+  switch (h.trim()) {
     case 'overall_category':
       return 'overall'
     case 'zone_category':
@@ -35,21 +36,20 @@ const transformHeaders = (h: string) => {
       return 'chefID'
     case 'id restaurant':
       return 'restaurantID'
-    case 'Best Dish':
+    case 'Best dish':
       return 'bestDish'
     case 'main_restaurant':
       return 'mainRestaurant'
     case 'other_restaurants':
       return 'otherRestaurants'
+    case 'restaurant name':
+      return 'RestaurantName'
     default:
       return h.trim().toLowerCase()
   }
 }
 export const loadRegionsFiles = async (dispatch: AppDispatch) => {
   let path = await getCachedFile(Config.CSV_ENDPOINTS.REGIONS)
-
-  console.log(path)
-
   if (path) {
     await fetchData(path, transformHeaders, result =>
       dispatch(fetchAllRegions(result.data)),
@@ -67,7 +67,6 @@ export const loadRestaurantFiles = async (dispatch: AppDispatch) => {
 }
 export const loadChefsFiles = async (dispatch: AppDispatch) => {
   let path = await getCachedFile(Config.CSV_ENDPOINTS.CHEFS)
-
   if (path) {
     await fetchData(path, transformHeaders, result =>
       dispatch(fetchAllChefs(result.data)),
@@ -76,10 +75,9 @@ export const loadChefsFiles = async (dispatch: AppDispatch) => {
 }
 export const loadReviewsFiles = async (dispatch: AppDispatch) => {
   let path = await getCachedFile(Config.CSV_ENDPOINTS.REVIEWS)
-
   if (path) {
     await fetchData(path, transformHeaders, result =>
-      dispatch(fetchAllChefs(result.data)),
+      dispatch(fetchAllReviews(result.data)),
     )
   }
 }
@@ -87,6 +85,7 @@ const fetchData = async (
   path: string,
   transformHeader: (h: string) => string,
   successCallback: (result: any) => void,
+  errorCallback?: (error: unknown) => void,
 ) => {
   let data = ''
   await RNFetchBlob.fs
@@ -114,12 +113,12 @@ const fetchData = async (
           comments: '#',
           transformHeader: transformHeader,
           complete: (results: any) => {
-            console.log('Results:', results)
             successCallback(results)
           },
           error: (error: { cause?: unknown }) => {
             console.log('error:', error.cause)
             console.log(Config.CSV_ENDPOINTS.REGIONS)
+            errorCallback && errorCallback(error.cause)
           },
         }),
       )
@@ -129,10 +128,13 @@ const fetchData = async (
     })
 }
 export const initDB = async (dispatch: AppDispatch) => {
-  await Promise.allSettled([
-    loadRestaurantFiles(dispatch),
-    loadRegionsFiles(dispatch),
-    loadChefsFiles(dispatch),
-    loadReviewsFiles(dispatch),
-  ])
+  const promises = [
+    loadRestaurantFiles,
+    loadRegionsFiles,
+    loadChefsFiles,
+    loadReviewsFiles,
+  ]
+  for (const elem of promises) {
+    await elem(dispatch)
+  }
 }
