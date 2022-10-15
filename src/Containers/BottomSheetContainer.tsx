@@ -79,7 +79,6 @@ const BottomSheetConatiner = React.forwardRef<
   // callbacks
   const handleSheetChanges = useCallback(
     (index: number) => {
-      // console.log('handleSheetChanges', index)
       !!props.handleChange && props.handleChange(index)
     },
     [props],
