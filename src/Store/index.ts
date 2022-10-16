@@ -54,7 +54,7 @@ const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
         warnAfter: 128,
       },
-      immutableCheck: { warnAfter: 128 },
+      immutableCheck: { warnAfter: 300 },
     }).concat(api.middleware)
 
     // @ts-ignore

@@ -18,6 +18,7 @@ export default {
       header: 'Pick a city',
       location: 'Enable my Location',
     },
+    loadingText: 'Loading   Restaurants  . . .',
   },
   actions: {
     continue: 'Continue',

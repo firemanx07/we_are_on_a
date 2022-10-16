@@ -7,3 +7,6 @@ export const getFilterArray = (type: FiltersEnumType) =>
     name: key,
     checked: false,
   }))
+
+export const capitalizeFirstLetter = (s: string): string =>
+  s.charAt(0).toUpperCase() + s.slice(1)

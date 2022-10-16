@@ -20,6 +20,7 @@ import {
   selectZonesByCountry,
 } from '@/Store/Selectors/RegionsSelectors'
 import { RegionTypeState, setZone } from '@/Store/Regions'
+import { useFocusEffect } from '@react-navigation/native'
 
 const CityPicker = () => {
   const [searchTerm, setSearchTerm] = useState<string>('')
@@ -39,12 +40,16 @@ const CityPicker = () => {
   useEffect(() => {
     dismiss(Modals.Explorer)
   }, [dismiss])
+
   //renders
   const renderZones = ({ item }: { item: RegionTypeState }) => {
     return (
       <TouchableOpacity
         key={`zone-${item.id}`}
-        onPress={() => dispatch(setZone(item))}
+        onPress={() => {
+          dismiss(Modals.CityPicker)
+          dispatch(setZone(item))
+        }}
       >
         <ListItem counter={81} title={item.zone} distance={10} />
       </TouchableOpacity>

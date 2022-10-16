@@ -10,14 +10,16 @@ import {
   View,
 } from 'react-native'
 import { useTranslation } from 'react-i18next'
-import { useTheme } from '@/Hooks'
+import { useAppSelector, useTheme } from '@/Hooks'
 import { Dim } from '@/helpers/Dim'
 import CityPicker from '@/Components/CityPicker'
 import BottomSheetConatiner from '@/Containers/BottomSheetContainer'
-import { Modals } from '@/enums/Pages'
+import { Modals, Pages } from '@/enums/Pages'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { navigate } from '@/Navigators/utils'
 import Geolocation from '@react-native-community/geolocation'
+import { useFocusEffect } from '@react-navigation/native'
+import { selectSelectedZone } from '@/Store/Selectors/RegionsSelectors'
 
 const LocationModal = () => {
   const { Layout, Gutters, Fonts, Common, Images } = useTheme()
@@ -30,7 +32,10 @@ const LocationModal = () => {
     textPrimary,
     textCenter,
   } = Fonts
-
+  const region = useAppSelector(selectSelectedZone)
+  useFocusEffect(() => {
+    region !== null && navigate(Pages.Menu, [])
+  })
   const { t } = useTranslation()
   type ImageProps = {
     source: ImageSourcePropType

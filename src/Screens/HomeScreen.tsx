@@ -27,6 +27,7 @@ import FiltersModal from '@/Screens/Modals/FiltersModal'
 import { KeyFilters } from '@/enums/Slices'
 import { Modals, Pages } from '@/enums/Pages'
 import { selectNumberOfFiltersChecked } from '@/Store/Selectors/FilterSelectors'
+import LoadingCityModal from '@/Screens/Modals/LoadingCityModal'
 
 type HomeProps = {}
 
@@ -38,17 +39,12 @@ const HomeScreen = ({}: HomeProps) => {
   // const [isFullScreen, setIsFullScreen] = useState<boolean>(false)
   const navigation = useNavigation()
   const [filterType, setFilterType] = useState<KeyFilters>('CUISINE')
+  const [loading, setLoading] = useState<Boolean>(true)
   const { Fonts, Gutters, Common, Colors, Layout, Images } = useTheme()
   const { textMedium, textMedium24, textPrimary, textCenter } = Fonts
-  useFocusEffect(
-    useCallback(() => {
-      bottomSheetRef.current?.present()
-      setTimeout(() => {
-        bottomSheetRef.current?.collapse()
-      }, 1000)
-    }, []),
-  )
-  React.useEffect(() => {
+  // useFocusEffect()
+
+  useEffect(() => {
     const unsubscribe = navigation.addListener('blur', () => {
       bottomSheetRef.current?.close()
     })
@@ -58,13 +54,13 @@ const HomeScreen = ({}: HomeProps) => {
   useEffect(() => {
     if (isDrawerOpen) {
       bottomSheetRef.current?.close()
-    } else {
+    } else if (!loading) {
       bottomSheetRef.current?.present()
       setTimeout(() => {
         bottomSheetRef.current?.collapse()
       }, 200)
     }
-  }, [isDrawerOpen])
+  }, [isDrawerOpen, loading])
   // variables
   const data = React.useMemo(
     () =>
@@ -160,6 +156,16 @@ const HomeScreen = ({}: HomeProps) => {
 
   return (
     <>
+      <View
+        style={[
+          Common.posAbs,
+          Layout.fullHeight,
+          Layout.fullWidth,
+          { zIndex: 14 },
+        ]}
+      >
+        <LoadingCityModal />
+      </View>
       <LinearGradient
         colors={[Colors.beige_100, Colors.beige_100 + '55', 'transparent']}
         style={[
