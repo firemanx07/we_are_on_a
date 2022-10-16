@@ -21,6 +21,8 @@ import {
 } from '@/Store/Selectors/RegionsSelectors'
 import { RegionTypeState, setZone } from '@/Store/Regions'
 import { useFocusEffect } from '@react-navigation/native'
+import { getCityCoordinates } from '@/helpers/LocationUtils'
+import { ScrollView } from 'react-native-gesture-handler'
 
 const CityPicker = () => {
   const [searchTerm, setSearchTerm] = useState<string>('')
@@ -48,6 +50,7 @@ const CityPicker = () => {
         key={`zone-${item.id}`}
         onPress={() => {
           dismiss(Modals.CityPicker)
+          getCityCoordinates(item.zone)
           dispatch(setZone(item))
         }}
       >
@@ -104,12 +107,12 @@ const CityPicker = () => {
         placeholder={'Search...'}
         onChangeText={handleSearch}
       />
-      <BottomSheetScrollView
+      <ScrollView
         showsVerticalScrollIndicator={false}
         style={[{ width: Dim.getHorizontalDimension(358) }]}
       >
         {overallZones.map((elem, index) => renderOverallZone(elem, index))}
-      </BottomSheetScrollView>
+      </ScrollView>
       <View
         style={[
           Common.posAbs,

@@ -9,6 +9,8 @@ import { Dim } from '@/helpers/Dim'
 import { initDB } from '@/helpers/dbUtils'
 import { RNFileCache } from '@mutagen-d/react-native-file-cache'
 import { hasDBemptyElem } from '@/Store/Selectors/DBSelectors'
+import Geocoder from 'react-native-geocoding'
+import { Config } from '@/Config'
 
 const StartupContainer = () => {
   const { Layout, Fonts, Common, Images } = useTheme()
@@ -19,6 +21,7 @@ const StartupContainer = () => {
 
   const init = useCallback(async () => {
     await RNFileCache.load()
+    await Geocoder.init(Config.MAP_KEY)
     await new Promise(resolve =>
       setTimeout(() => {
         resolve(true)

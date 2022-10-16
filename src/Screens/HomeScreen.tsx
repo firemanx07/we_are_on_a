@@ -42,7 +42,11 @@ const HomeScreen = ({}: HomeProps) => {
   const [loading, setLoading] = useState<Boolean>(true)
   const { Fonts, Gutters, Common, Colors, Layout, Images } = useTheme()
   const { textMedium, textMedium24, textPrimary, textCenter } = Fonts
-  // useFocusEffect()
+  useFocusEffect(() => {
+    setTimeout(() => {
+      setLoading(false)
+    }, 4000)
+  })
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('blur', () => {
@@ -156,16 +160,18 @@ const HomeScreen = ({}: HomeProps) => {
 
   return (
     <>
-      <View
-        style={[
-          Common.posAbs,
-          Layout.fullHeight,
-          Layout.fullWidth,
-          { zIndex: 14 },
-        ]}
-      >
-        <LoadingCityModal />
-      </View>
+      {loading && (
+        <View
+          style={[
+            Common.posAbs,
+            Layout.fullHeight,
+            Layout.fullWidth,
+            { zIndex: 14 },
+          ]}
+        >
+          <LoadingCityModal />
+        </View>
+      )}
       <LinearGradient
         colors={[Colors.beige_100, Colors.beige_100 + '55', 'transparent']}
         style={[
