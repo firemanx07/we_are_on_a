@@ -13,22 +13,22 @@ import {
   BottomSheetView,
   useBottomSheetModal,
 } from '@gorhom/bottom-sheet'
-import { Modals } from '@/enums/Pages'
+import { Modals, Pages } from '@/enums/Pages'
 import {
   selectCountryByOverall,
   selectOverallZones,
   selectZonesByCountry,
 } from '@/Store/Selectors/RegionsSelectors'
 import { RegionTypeState, setZone } from '@/Store/Regions'
-import { useFocusEffect } from '@react-navigation/native'
 import { getCityCoordinates } from '@/helpers/LocationUtils'
 import { ScrollView } from 'react-native-gesture-handler'
+import { navigate, navigateAndSimpleReset } from '@/Navigators/utils'
 
 const CityPicker = () => {
   const [searchTerm, setSearchTerm] = useState<string>('')
   const { t } = useTranslation()
   const { Common, Layout, Colors, Fonts, Gutters } = useTheme()
-  const { dismiss } = useBottomSheetModal()
+  const { dismissAll, dismiss } = useBottomSheetModal()
   const { textRegular, textMedium, textBeige100, textPrimary, textCenter } =
     Fonts
 
@@ -40,18 +40,18 @@ const CityPicker = () => {
   const countries = useAppSelector(selectCountryByOverall)
   const zones = useAppSelector(selectZonesByCountry)
   useEffect(() => {
-    dismiss(Modals.Explorer)
-  }, [dismiss])
+    dismissAll()
+  }, [dismissAll])
 
   //renders
   const renderZones = ({ item }: { item: RegionTypeState }) => {
     return (
       <TouchableOpacity
         key={`zone-${item.id}`}
-        onPress={() => {
+        onPress={async () => {
+          await dispatch(setZone(item))
+          await navigateAndSimpleReset(Pages.Menu)
           dismiss(Modals.CityPicker)
-          getCityCoordinates(item.zone)
-          dispatch(setZone(item))
         }}
       >
         <ListItem counter={81} title={item.zone} distance={10} />

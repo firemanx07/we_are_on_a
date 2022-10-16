@@ -60,6 +60,11 @@ export function toggleDrawer() {
     navigationRef.dispatch(DrawerActions.toggleDrawer())
   }
 }
+export function closeDrawer() {
+  if (navigationRef.isReady()) {
+    navigationRef.dispatch(DrawerActions.closeDrawer())
+  }
+}
 
 /***
  * navigate to the screen 'page' of the 'stackName' stack. Animation settings must be handled in stack definition

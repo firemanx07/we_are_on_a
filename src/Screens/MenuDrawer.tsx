@@ -8,8 +8,9 @@ import { Dim } from '@/helpers/Dim'
 import BottomSheetConatiner from '@/Containers/BottomSheetContainer'
 import Settings from './Settings'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
-import { Pages, Stacks } from '@/enums/Pages'
+import { Modals, Pages, Stacks } from '@/enums/Pages'
 import { Config } from '@/Config'
+import CityPicker from '@/Components/CityPicker'
 
 type HomeProps = {}
 const CustomDrawerItem = (label: string, onPress: () => void) => {
@@ -26,6 +27,7 @@ const MenuDrawer = ({}: HomeProps) => {
 
   const [isLoggedIn, setIsLoggedIn] = useState<Boolean>(false)
   const bottomSheetRef = useRef<BottomSheetModal>(null)
+  const bottomSheetRefCity = useRef<BottomSheetModal>(null)
   const handlePresentModalPress = useCallback(() => {
     bottomSheetRef.current?.present()
     navigate(Pages.Menu, [])
@@ -74,7 +76,9 @@ const MenuDrawer = ({}: HomeProps) => {
         width={Dim.getHorizontalDimension(230)}
       />
       <View style={[Layout.colCenter, Gutters.regularVMargin]}>
-        {CustomDrawerItem('City Guides', () => {})}
+        {CustomDrawerItem('City Guides', () => {
+          bottomSheetRefCity.current?.present()
+        })}
         {CustomDrawerItem('The Chefs', () => {})}
         {CustomDrawerItem('My wishlist', () => {})}
         {CustomDrawerItem('ONA Popups', () => Linking.openURL(Config.POP_UPS))}
@@ -95,6 +99,14 @@ const MenuDrawer = ({}: HomeProps) => {
         snapPoints={['90%']}
       >
         <Settings />
+      </BottomSheetConatiner>
+      <BottomSheetConatiner
+        ref={bottomSheetRefCity}
+        name={Modals.CityPicker}
+        snapPoints={['90%']}
+        enablePanDownToClose={false}
+      >
+        <CityPicker />
       </BottomSheetConatiner>
     </ExampleContainer>
   )

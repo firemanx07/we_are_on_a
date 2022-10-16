@@ -28,6 +28,7 @@ import { KeyFilters } from '@/enums/Slices'
 import { Modals, Pages } from '@/enums/Pages'
 import { selectNumberOfFiltersChecked } from '@/Store/Selectors/FilterSelectors'
 import LoadingCityModal from '@/Screens/Modals/LoadingCityModal'
+import { selectRestaurantsBySelectedZone } from '@/Store/Selectors/RestaurantsSelectors'
 
 type HomeProps = {}
 
@@ -35,6 +36,7 @@ const HomeScreen = ({}: HomeProps) => {
   const bottomSheetRef = useRef<BottomSheetModal>(null)
   const filterSheetRef = useRef<BottomSheetModal>(null)
   const numberOfFilters = useAppSelector(selectNumberOfFiltersChecked)
+  const restaurants = useAppSelector(selectRestaurantsBySelectedZone)
   const isDrawerOpen = useDrawerStatus() === 'open'
   // const [isFullScreen, setIsFullScreen] = useState<boolean>(false)
   const navigation = useNavigation()
@@ -68,14 +70,12 @@ const HomeScreen = ({}: HomeProps) => {
   // variables
   const data = React.useMemo(
     () =>
-      Array(12)
-        .fill(0)
-        .map((_, index) => ({
-          source: Images.onBoarding,
-          title: 'Test Rest' + index,
-          hasFavorite: true,
-        })),
-    [Images.onBoarding],
+      restaurants.map(item => ({
+        source: Images.onBoarding,
+        title: item.name,
+        hasFavorite: true,
+      })),
+    [Images.onBoarding, restaurants],
   )
 
   // render
@@ -208,7 +208,7 @@ const HomeScreen = ({}: HomeProps) => {
       >
         <View style={[Layout.rowHCenter, Gutters.regularHPadding]}>
           <Text style={[textMedium24, { color: Colors.brown }]}>
-            12 Restaurants
+            {restaurants.length} Restaurants
           </Text>
         </View>
         <BottomSheetFlatList

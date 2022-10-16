@@ -7,6 +7,6 @@ export const selectRestaurantsBySelectedZone = createSelector(
   selectRestaurants,
   selectSelectedZone,
   (rests, reg) => {
-    return rests.filter(elem => elem.zone === reg.zone)
+    return rests.filter(elem => elem.zone.trim() === reg.zone.trim())
   },
 )
