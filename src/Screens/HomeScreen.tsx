@@ -7,7 +7,7 @@ import Search from '@/Assets/Images/svg/search_icon.svg'
 import { useAppSelector, useTheme } from '@/Hooks'
 import { BottomSheetFlatList, BottomSheetModal } from '@gorhom/bottom-sheet'
 import { navigate, toggleDrawer } from '@/Navigators/utils'
-import MapView from 'react-native-maps'
+import MapView, { Region } from 'react-native-maps'
 import BottomSheetConatiner from '@/Containers/BottomSheetContainer'
 import {
   ImageSourcePropType,
@@ -29,6 +29,7 @@ import { Modals, Pages } from '@/enums/Pages'
 import { selectNumberOfFiltersChecked } from '@/Store/Selectors/FilterSelectors'
 import LoadingCityModal from '@/Screens/Modals/LoadingCityModal'
 import { selectRestaurantsBySelectedZone } from '@/Store/Selectors/RestaurantsSelectors'
+import { selectSelectedZone } from '@/Store/Selectors/RegionsSelectors'
 
 type HomeProps = {}
 
@@ -37,13 +38,30 @@ const HomeScreen = ({}: HomeProps) => {
   const filterSheetRef = useRef<BottomSheetModal>(null)
   const numberOfFilters = useAppSelector(selectNumberOfFiltersChecked)
   const restaurants = useAppSelector(selectRestaurantsBySelectedZone)
+  const selectedZone = useAppSelector(selectSelectedZone)
   const isDrawerOpen = useDrawerStatus() === 'open'
   // const [isFullScreen, setIsFullScreen] = useState<boolean>(false)
   const navigation = useNavigation()
   const [filterType, setFilterType] = useState<KeyFilters>('CUISINE')
+  const [regionCoor, setRegionCoor] = useState<Region>({
+    latitude: 48.8534951,
+    longitude: 2.3483915,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
+  })
   const [loading, setLoading] = useState<Boolean>(true)
   const { Fonts, Gutters, Common, Colors, Layout, Images } = useTheme()
   const { textMedium, textMedium24, textPrimary, textCenter } = Fonts
+  useEffect(() => {
+    console.log(selectedZone, typeof selectedZone.lat, typeof selectedZone.lon)
+    typeof selectedZone.lat === 'number' &&
+      typeof selectedZone.lon === 'number' &&
+      setRegionCoor({
+        ...regionCoor,
+        latitude: selectedZone.lat,
+        longitude: selectedZone.lon,
+      })
+  }, [selectedZone])
   useFocusEffect(() => {
     setTimeout(() => {
       setLoading(false)
@@ -183,15 +201,7 @@ const HomeScreen = ({}: HomeProps) => {
       >
         {getMainHeader()}
       </LinearGradient>
-      <MapView
-        style={Layout.fill}
-        initialRegion={{
-          latitude: 37.78825,
-          longitude: -122.4324,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
-      />
+      <MapView style={Layout.fill} region={regionCoor} />
       <BottomSheetConatiner
         ref={bottomSheetRef}
         disableDrop
