@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import {
   FlatList,
@@ -8,11 +8,14 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
-import { RegionTypeState } from '@/Store/Regions'
-import { useAppSelector, useTheme } from '@/Hooks'
+import { RegionTypeState, setZone } from '@/Store/Regions'
+import { useAppDispatch, useAppSelector, useTheme } from '@/Hooks'
 import { Dim } from '@/helpers/Dim'
 import { Colors } from '@/Theme/Variables'
 import { selectZonesBySearchText } from '@/Store/Selectors/RegionsSelectors'
+import { navigateAndSimpleReset } from '@/Navigators/utils'
+import { Modals, Pages } from '@/enums/Pages'
+import { useBottomSheetModal } from '@gorhom/bottom-sheet'
 
 type Props = {
   search: string
@@ -20,12 +23,12 @@ type Props = {
 
 const SearchResultContainer = ({ search }: Props) => {
   const { Layout, Fonts, Gutters } = useTheme()
+  const dispatch = useAppDispatch()
+  const { dismiss } = useBottomSheetModal()
   const results = useAppSelector(state =>
     selectZonesBySearchText(state, search),
   )
-  useEffect(() => {
-    console.log('search:', search, results)
-  }, [search])
+
   const renderSearchItem = ({ item }: ListRenderItemInfo<RegionTypeState>) => {
     return (
       <TouchableOpacity
@@ -35,6 +38,11 @@ const SearchResultContainer = ({ search }: Props) => {
           Layout.rowHCenter,
           Gutters.tinyLPadding,
         ]}
+        onPress={async () => {
+          await dispatch(setZone(item))
+          await navigateAndSimpleReset(Pages.Menu)
+          dismiss(Modals.CityPicker)
+        }}
       >
         <Text style={[Fonts.textPrimary, Fonts.textNormal]}>
           {item.zone}, {item.country}
@@ -44,7 +52,11 @@ const SearchResultContainer = ({ search }: Props) => {
   }
   return (
     <View style={[Layout.fill, { width: Dim.getHorizontalDimension(338) }]}>
-      <FlatList data={results} renderItem={renderSearchItem} />
+      <FlatList
+        data={results}
+        keyExtractor={item => item.id}
+        renderItem={renderSearchItem}
+      />
     </View>
   )
 }
