@@ -2,10 +2,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Slices } from '@/enums/Slices'
 import { RegionTypeState } from '@/Store/Regions'
 
-export interface ChefsTypeState extends RegionTypeState {
+export interface ChefsTypeState extends Omit<RegionTypeState, 'lat' | 'lo'> {
   name: string
-  address: string
-  mapLink: string
   mainRestaurant: number
   otherRestaurants: number[]
 }

@@ -6,6 +6,8 @@ export interface RegionTypeState {
   overall: string
   country: string
   zone: string
+  lat: number
+  lon: number
 }
 
 const initialState = {

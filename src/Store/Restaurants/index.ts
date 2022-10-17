@@ -9,6 +9,7 @@ export interface RestaurantTypeState extends RegionTypeState {
   [FilterSlice.CUISINE]: string
   [FilterSlice.CATEGORIES]: string
   [FilterSlice.MOREFILTERS]: string
+  isFavorite: boolean
 }
 
 const initialState = [] as RestaurantTypeState[]
@@ -21,6 +22,16 @@ const RestaurantSlice = createSlice({
       action: PayloadAction<RestaurantTypeState[]>,
     ) => {
       return action.payload
+    },
+    addFavorite: (state, action: PayloadAction<number>) => {
+      let arr = state
+      arr[action.payload].isFavorite = true
+      return arr
+    },
+    removeFavorite: (state, action: PayloadAction<number>) => {
+      let arr = state
+      arr[action.payload].isFavorite = false
+      return arr
     },
   },
 })
