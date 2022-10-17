@@ -14,7 +14,7 @@ import Close from '@/Assets/Images/svg/close.svg'
 import { Dim } from '@/helpers/Dim'
 
 interface SearchBoxProps {
-  value: string
+  value?: string
   placeholder: string
   onChangeText: (text: string) => void
   autoFocus?: boolean
@@ -55,7 +55,12 @@ const SearchBar = (props: SearchBoxProps) => {
     />
   )
   const rightIcon = (
-    <TouchableOpacity onPress={() => props.onChangeText('')}>
+    <TouchableOpacity
+      onPress={() => {
+        props.onChangeText('')
+        !props.value && searchViewRef.current?.clear()
+      }}
+    >
       <Close
         width={Dim.getHorizontalDimension(24)}
         height={Dim.getHorizontalDimension(24)}

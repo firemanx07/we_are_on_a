@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react'
 
 const useSearchDebounce = (delay = 350) => {
-  const [search, setSearch] = useState(null)
-  const [searchQuery, setSearchQuery] = useState(null)
+  const [search, setSearch] = useState<string>('')
+  const [searchQuery, setSearchQuery] = useState<string>('')
 
   useEffect(() => {
     const delayFn = setTimeout(() => setSearch(searchQuery), delay)
     return () => clearTimeout(delayFn)
   }, [searchQuery, delay])
 
-  return [search, setSearchQuery]
+  return { search, searchQuery, setSearchQuery }
 }
 export default useSearchDebounce

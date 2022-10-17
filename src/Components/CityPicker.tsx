@@ -9,7 +9,7 @@ import SearchBar from '@/Components/SearchBar'
 import { Dim } from '@/helpers/Dim'
 import { useTranslation } from 'react-i18next'
 import {
-  BottomSheetScrollView,
+  BottomSheetFlatList,
   BottomSheetView,
   useBottomSheetModal,
 } from '@gorhom/bottom-sheet'
@@ -20,12 +20,13 @@ import {
   selectZonesByCountry,
 } from '@/Store/Selectors/RegionsSelectors'
 import { RegionTypeState, setZone } from '@/Store/Regions'
-import { getCityCoordinates } from '@/helpers/LocationUtils'
 import { ScrollView } from 'react-native-gesture-handler'
-import { navigate, navigateAndSimpleReset } from '@/Navigators/utils'
+import { navigateAndSimpleReset } from '@/Navigators/utils'
+import SearchResultContainer from '@/Containers/SearchResultContainer'
+import useSearchDebounce from '../Hooks/useSearchDebounce'
 
 const CityPicker = () => {
-  const [searchTerm, setSearchTerm] = useState<string>('')
+  const { search, searchQuery, setSearchQuery } = useSearchDebounce()
   const { t } = useTranslation()
   const { Common, Layout, Colors, Fonts, Gutters } = useTheme()
   const { dismissAll, dismiss } = useBottomSheetModal()
@@ -33,7 +34,7 @@ const CityPicker = () => {
     Fonts
 
   const handleSearch = (val: string) => {
-    setSearchTerm(val)
+    setSearchQuery(val)
   }
   const dispatch = useAppDispatch()
   const overallZones = useAppSelector(selectOverallZones)
@@ -96,7 +97,6 @@ const CityPicker = () => {
         onPress={() => dismiss(Modals.CityPicker)}
       />
       <SearchBar
-        value={searchTerm}
         style={{
           container: [
             Gutters.largeTMargin,
@@ -107,27 +107,33 @@ const CityPicker = () => {
         placeholder={'Search...'}
         onChangeText={handleSearch}
       />
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        style={[{ width: Dim.getHorizontalDimension(358) }]}
-      >
-        {overallZones.map((elem, index) => renderOverallZone(elem, index))}
-      </ScrollView>
-      <View
-        style={[
-          Common.posAbs,
-          Common.backgroundReset,
-          { bottom: Dim.getDimension(40) },
-        ]}
-      >
-        <TouchableOpacity
-          style={[Common.button.rounded, Common.button.largeButton]}
-        >
-          <Text style={[textRegular, textMedium, textBeige100]}>
-            {t('city.picker.location')}
-          </Text>
-        </TouchableOpacity>
-      </View>
+      {searchQuery.length > 0 ? (
+        <SearchResultContainer search={search} />
+      ) : (
+        <>
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            style={[{ width: Dim.getHorizontalDimension(358) }]}
+          >
+            {overallZones.map((elem, index) => renderOverallZone(elem, index))}
+          </ScrollView>
+          <View
+            style={[
+              Common.posAbs,
+              Common.backgroundReset,
+              { bottom: Dim.getDimension(40) },
+            ]}
+          >
+            <TouchableOpacity
+              style={[Common.button.rounded, Common.button.largeButton]}
+            >
+              <Text style={[textRegular, textMedium, textBeige100]}>
+                {t('city.picker.location')}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </>
+      )}
     </BottomSheetView>
   )
 }

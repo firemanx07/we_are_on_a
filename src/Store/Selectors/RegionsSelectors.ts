@@ -5,7 +5,6 @@ import { RegionTypeState } from '@/Store/Regions'
 export const selectRegions = (state: AppState) => state.regions.regions
 export const selectSelectedZone = (state: AppState) =>
   state.regions.selectedRegion
-
 export const selectOverallZones = createSelector(selectRegions, regions => [
   ...new Set(regions.map(item => item.overall)),
 ])
@@ -30,3 +29,11 @@ export const selectZonesByCountry = createSelector(selectRegions, regions => {
   })
   return obj
 })
+export const selectZonesBySearchText = createSelector(
+  selectRegions,
+  (State: AppState, search: string) => search,
+  (regions, search): RegionTypeState[] =>
+    regions.filter(region =>
+      region.zone.toLowerCase().includes(search.toLowerCase().trim()),
+    ),
+)
