@@ -12,6 +12,7 @@ import { ToggleIcon } from '@/helpers/AnimatedToggle'
 import favFill from '@/Assets/Images/svg/favorite_filled.svg'
 import favEmpty from '@/Assets/Images/svg/favorite_empty.svg'
 import { MotiPressable } from 'moti/interactions'
+import { Colors } from '@/Theme/Variables'
 
 type SmallCardProps = {
   source: ImageSourcePropType
@@ -28,7 +29,7 @@ const SmallCard = ({
   hasFavorite,
   onPress,
 }: SmallCardProps) => {
-  const { Gutters, Fonts, Common } = useTheme()
+  const { Gutters, Fonts, Common, Colors } = useTheme()
   return (
     <MotiPressable
       onPress={onPress}
@@ -66,7 +67,11 @@ const SmallCard = ({
         />
         {!!hasFavorite && (
           <View style={[Common.posAbs, styles.favoritePos]}>
-            <ToggleIcon First={favEmpty} Second={favFill} />
+            <ToggleIcon
+              First={favEmpty}
+              customFill={{ first: Colors.beige_100 }}
+              Second={favFill}
+            />
           </View>
         )}
       </View>

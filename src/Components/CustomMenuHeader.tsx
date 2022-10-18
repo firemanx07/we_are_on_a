@@ -46,11 +46,7 @@ const CustomMenuHeader = ({
     >
       {!!Icon && (
         <TouchableOpacity onPress={onPress}>
-          {IconType === 'menu' ? (
-            <Icon fill={Colors.primary} />
-          ) : (
-            <Icon stroke={Colors.primary} />
-          )}
+          {IconType === 'menu' ? <Icon /> : <Icon stroke={Colors.primary} />}
         </TouchableOpacity>
       )}
       <View style={[Layout.fill, Layout.column, Layout.center]}>

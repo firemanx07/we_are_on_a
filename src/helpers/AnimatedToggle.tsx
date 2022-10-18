@@ -4,6 +4,8 @@ import {
   Transitioning,
   TransitioningView,
 } from 'react-native-reanimated'
+import { ColorValue } from 'react-native'
+import { Colors } from '@/Theme/Variables'
 
 interface Props {
   First: React.ElementType
@@ -12,6 +14,14 @@ interface Props {
   isToggled?: boolean
   resetPress?: (val: boolean) => void
   disabled?: boolean
+  customFill?: {
+    first?: ColorValue
+    second?: ColorValue
+  }
+  customStroke?: {
+    first?: ColorValue
+    second?: ColorValue
+  }
 }
 
 export const ToggleIcon: React.FC<Props> = ({
@@ -21,6 +31,8 @@ export const ToggleIcon: React.FC<Props> = ({
   isToggled,
   resetPress,
   disabled,
+  customFill,
+  customStroke,
 }) => {
   const ref = React.useRef<TransitioningView | null>(null)
   const [toggled, setToggled] = React.useState(false)
@@ -42,9 +54,19 @@ export const ToggleIcon: React.FC<Props> = ({
   return (
     <Transitioning.View ref={ref} transition={transition}>
       {!toggled ? (
-        <First disabled={disabled} onPress={onPress} />
+        <First
+          disabled={disabled}
+          onPress={onPress}
+          {...(customFill?.first && { fill: customFill.first })}
+          {...(customStroke?.second && { storke: customStroke.second })}
+        />
       ) : (
-        <Second disabled={disabled} onPress={onPress} />
+        <Second
+          disabled={disabled}
+          onPress={onPress}
+          {...(customFill?.second && { fill: customFill.first })}
+          {...(customStroke?.second && { storke: customStroke.second })}
+        />
       )}
     </Transitioning.View>
   )

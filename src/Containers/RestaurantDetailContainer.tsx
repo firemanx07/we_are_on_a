@@ -7,7 +7,6 @@ import Animated, {
   useSharedValue,
 } from 'react-native-reanimated'
 import { useTheme } from '@/Hooks'
-import BackTransparent from '@/Assets/Images/svg/back_transparent.svg'
 import Upload from '@/Assets/Images/svg/upload.svg'
 import {
   StyleProp,
@@ -19,6 +18,7 @@ import {
 import { ToggleIcon } from '@/helpers/AnimatedToggle'
 import favEmpty from '@/Assets/Images/svg/favorite_empty.svg'
 import favFill from '@/Assets/Images/svg/favorite_filled.svg'
+import BackTranparent from '@/Assets/Images/svg/back_transparent.svg'
 import { Dim } from '@/helpers/Dim'
 
 // @ts-ignore
@@ -36,55 +36,103 @@ const RestaurantDetailContainer = ({}: Props) => {
     translationY.value = event.contentOffset.y
   })
   const { Layout, Common, Gutters, Images, Colors } = useTheme()
+
   const containerAnimatedStyle = useAnimatedStyle(() => {
     const opacity = interpolate(
       translationY.value,
-      [0, 300],
+      [0, 275],
       [0, 1],
       Extrapolate.CLAMP,
     )
-    console.log(translationY, (opacity * 100).toString(16).padStart(2, '0'))
+    console.log(`rgba(247, 246, 242, ${opacity})`, translationY.value)
     return {
       backgroundColor: `rgba(247, 246, 242, ${opacity})`,
     }
   })
+  const AnimatedOpacity = useAnimatedStyle(() => {
+    const opacity = interpolate(
+      translationY.value,
+      [0, 275],
+      [0, 1],
+      Extrapolate.CLAMP,
+    )
+    return {
+      opacity,
+    }
+  })
+  const ReversedOpacity = useAnimatedStyle(() => {
+    const opacity = interpolate(
+      translationY.value,
+      [0, 275],
+      [1, 0],
+      Extrapolate.CLAMP,
+    )
+    return {
+      opacity,
+    }
+  })
+  const Header = (props: {
+    animatedStyle?: Animated.AnimateStyle<ViewStyle>
+    containerAnimatedStyle?: Animated.AnimateStyle<ViewStyle>
+    isPrimary?: boolean
+  }) => (
+    <Animated.View
+      style={[
+        {
+          height: Dim.getDimension(100),
+          width: Dim.getHorizontalDimension(390),
+        },
+        Common.posAbsTop,
+        Layout.justifyContentEnd,
+        Common.zIndex,
+        props.animatedStyle,
+        props.containerAnimatedStyle,
+      ]}
+    >
+      <View
+        style={[
+          Layout.fullWidth,
+          Layout.row,
+          Layout.justifyContentBetween,
+          Gutters.regularHPadding,
+          Gutters.smallBPadding,
+        ]}
+      >
+        <View>
+          <TouchableOpacity onPress={() => goBack()}>
+            <BackTranparent
+              fill={props.isPrimary ? Colors.primary : Colors.beige_100}
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={[Layout.rowHCenter]}>
+          <TouchableOpacity style={[Gutters.regularHMargin]}>
+            <Upload
+              fill={props.isPrimary ? Colors.primary : Colors.beige_100}
+            />
+          </TouchableOpacity>
+          <ToggleIcon
+            First={favEmpty}
+            customFill={{
+              first: props.isPrimary ? Colors.primary : Colors.beige_100,
+            }}
+            Second={favFill}
+          />
+        </View>
+      </View>
+    </Animated.View>
+  )
 
   return (
     <View style={[Layout.fill, Layout.column, Common.backgroundBeige100]}>
-      <Animated.View
-        style={[
-          {
-            height: Dim.getDimension(100),
-            width: Dim.getHorizontalDimension(390),
-          },
-          Common.posAbsTop,
-          Layout.justifyContentEnd,
-          Common.zIndex,
-          containerAnimatedStyle,
-        ]}
-      >
-        <Animated.View
-          style={[
-            Layout.fullWidth,
-            Layout.row,
-            Layout.justifyContentBetween,
-            Gutters.regularHPadding,
-            Gutters.smallBPadding,
-          ]}
-        >
-          <View>
-            <TouchableOpacity onPress={() => goBack()}>
-              <BackTransparent />
-            </TouchableOpacity>
-          </View>
-          <View style={[Layout.rowHCenter]}>
-            <TouchableOpacity style={[Gutters.regularHMargin]}>
-              <Upload />
-            </TouchableOpacity>
-            <ToggleIcon First={favEmpty} Second={favFill} />
-          </View>
-        </Animated.View>
-      </Animated.View>
+      <Header
+        key={'white'}
+        animatedStyle={AnimatedOpacity}
+        isPrimary
+        containerAnimatedStyle={containerAnimatedStyle}
+      />
+      <Header key={'dark'} animatedStyle={ReversedOpacity} />
+
       <Animated.ScrollView onScroll={scrollHandler} scrollEventThrottle={16}>
         <SliderBox
           ImageComponent={FastImage}
@@ -106,6 +154,18 @@ const RestaurantDetailContainer = ({}: Props) => {
           }}
           imageLoadingColor={Colors.brown}
         />
+        <View style={[Gutters.largeTMargin]}>
+          <Text>Restaurent Name</Text>
+          <Text>Adress</Text>
+        </View>
+        <View style={[Gutters.largeTMargin]}>
+          <Text>Restaurent Name</Text>
+          <Text>Adress</Text>
+        </View>
+        <View style={[Gutters.largeTMargin]}>
+          <Text>Restaurent Name</Text>
+          <Text>Adress</Text>
+        </View>
         <View style={[Gutters.largeTMargin]}>
           <Text>Restaurent Name</Text>
           <Text>Adress</Text>

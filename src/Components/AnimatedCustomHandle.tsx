@@ -129,11 +129,12 @@ const Handle: React.FC<HandleProps> = ({ style, animatedIndex, close }) => {
             text={'HOME'}
             textStyle={[textCenter, textMedium, textPrimary]}
             Icon={ArrowDown}
+            IconType={'menu'}
             containerStyle={[Gutters.largeTMargin]}
             onPress={close}
             rightComponent={
               <TouchableOpacity>
-                <RestautrentIconWhite fill={Colors.primary} />
+                <RestautrentIconWhite />
               </TouchableOpacity>
             }
             centerComponent={<LogoMenu fill={Colors.primary} />}
