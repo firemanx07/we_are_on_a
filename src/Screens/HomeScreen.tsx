@@ -7,7 +7,7 @@ import Search from '@/Assets/Images/svg/search_icon.svg'
 import { useAppSelector, useTheme } from '@/Hooks'
 import { BottomSheetFlatList, BottomSheetModal } from '@gorhom/bottom-sheet'
 import { navigate, toggleDrawer } from '@/Navigators/utils'
-import MapView, { Region } from 'react-native-maps'
+import MapView, { MapMarker, Marker, Region } from 'react-native-maps'
 import BottomSheetConatiner from '@/Containers/BottomSheetContainer'
 import {
   ImageSourcePropType,
@@ -30,6 +30,7 @@ import { selectNumberOfFiltersChecked } from '@/Store/Selectors/FilterSelectors'
 import LoadingCityModal from '@/Screens/Modals/LoadingCityModal'
 import { selectRestaurantsBySelectedZone } from '@/Store/Selectors/RestaurantsSelectors'
 import { selectSelectedZone } from '@/Store/Selectors/RegionsSelectors'
+import PinMarker from '@/Components/PinMarker'
 
 type HomeProps = {}
 
@@ -201,7 +202,19 @@ const HomeScreen = ({}: HomeProps) => {
       >
         {getMainHeader()}
       </LinearGradient>
-      <MapView style={Layout.fill} region={regionCoor} />
+      <MapView style={Layout.fill} region={regionCoor}>
+        {restaurants.map(elem => (
+          <Marker
+            key={elem.id}
+            coordinate={{
+              longitude: elem.lon,
+              latitude: elem.lat,
+            }}
+          >
+            <PinMarker text={elem.name} source={Images.onBoarding} />
+          </Marker>
+        ))}
+      </MapView>
       <BottomSheetConatiner
         ref={bottomSheetRef}
         disableDrop

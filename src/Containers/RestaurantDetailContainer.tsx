@@ -44,7 +44,6 @@ const RestaurantDetailContainer = ({}: Props) => {
       [0, 1],
       Extrapolate.CLAMP,
     )
-    console.log(`rgba(247, 246, 242, ${opacity})`, translationY.value)
     return {
       backgroundColor: `rgba(247, 246, 242, ${opacity})`,
     }
