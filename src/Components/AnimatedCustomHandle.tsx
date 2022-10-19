@@ -138,7 +138,7 @@ const Handle: React.FC<HandleProps> = ({ style, animatedIndex, close }) => {
           />
           <ScrollView
             style={[Gutters.smallLMargin]}
-            showsHorizontalScrollIndicator={true}
+            showsHorizontalScrollIndicator={false}
             horizontal
             contentContainerStyle={[
               Gutters.largeTMargin,
