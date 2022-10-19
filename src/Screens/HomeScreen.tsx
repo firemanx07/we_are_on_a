@@ -7,7 +7,7 @@ import Search from '@/Assets/Images/svg/search_icon.svg'
 import { useAppSelector, useTheme } from '@/Hooks'
 import { BottomSheetFlatList, BottomSheetModal } from '@gorhom/bottom-sheet'
 import { navigate, toggleDrawer } from '@/Navigators/utils'
-import MapView, { MapMarker, Marker, Region } from 'react-native-maps'
+import MapView, { Marker, Region } from 'react-native-maps'
 import BottomSheetConatiner from '@/Containers/BottomSheetContainer'
 import {
   ImageSourcePropType,
@@ -254,7 +254,6 @@ const HomeScreen = ({}: HomeProps) => {
         ref={filterSheetRef}
         name={Modals.FilterHome}
         snapPoints={['90%']}
-        disablePanDownToClose
       >
         <FiltersModal type={filterType} modalKey={Modals.FilterHome} />
       </BottomSheetConatiner>

@@ -110,8 +110,10 @@ const CityPicker = () => {
           <ScrollView
             showsVerticalScrollIndicator={false}
             style={[{ width: Dim.getHorizontalDimension(358) }]}
+            contentContainerStyle={[Layout.grow]}
           >
             {overallZones.map((elem, index) => renderOverallZone(elem, index))}
+            <View style={{ height: Dim.getDimension(100) }} />
           </ScrollView>
           <View
             style={[
