@@ -7,5 +7,8 @@ export const Config = {
     RESTAURANTS: 'https://filebin.net/y67g846yfz8ifcjc/Restaurants.csv',
     REGIONS: 'https://filebin.net/y67g846yfz8ifcjc/Regions.csv',
     CHEFS: 'https://filebin.net/y67g846yfz8ifcjc/Chefs.csv',
+    CUISINE: 'https://filebin.net/y67g846yfz8ifcjc/Cuisine.csv',
+    CATEGORY: 'https://filebin.net/y67g846yfz8ifcjc/Category.csv',
+    FILTER: 'https://filebin.net/y67g846yfz8ifcjc/Filter.csv',
   },
 }

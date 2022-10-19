@@ -9,7 +9,7 @@ export enum Slices {
 export enum FilterSlice {
   CUISINE = 'cuisine',
   CATEGORIES = 'categories',
-  MOREFILTERS = 'morefilters',
+  MOREFILTERS = 'filter',
 }
 
 export type KeyFilters = keyof typeof FilterSlice

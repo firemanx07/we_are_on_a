@@ -8,6 +8,7 @@ import { FilterSlice } from '@/enums/Slices'
 import { fetchAllRestaurants } from '@/Store/Restaurants'
 import { fetchAllChefs } from '@/Store/Chefs'
 import { fetchAllReviews } from '@/Store/Reviews'
+import { initFilters } from '@/Store/Filters'
 
 export const getCachedFile = async (url: string) => {
   try {
@@ -81,6 +82,27 @@ export const loadReviewsFiles = async (dispatch: AppDispatch) => {
     )
   }
 }
+export const loadFilterFiles = async (dispatch: AppDispatch) => {
+  let path = await getCachedFile(Config.CSV_ENDPOINTS.FILTER)
+  if (path)
+    await fetchCSVData(path, transformHeaders, result =>
+      dispatch(initFilters({ key: 'MOREFILTERS', data: result.data })),
+    )
+}
+export const loadCuisineFiles = async (dispatch: AppDispatch) => {
+  let path = await getCachedFile(Config.CSV_ENDPOINTS.CUISINE)
+  if (path)
+    await fetchCSVData(path, transformHeaders, result =>
+      dispatch(initFilters({ key: 'CUISINE', data: result.data })),
+    )
+}
+export const loadCategoryFiles = async (dispatch: AppDispatch) => {
+  let path = await getCachedFile(Config.CSV_ENDPOINTS.CATEGORY)
+  if (path)
+    await fetchCSVData(path, transformHeaders, result =>
+      dispatch(initFilters({ key: 'CATEGORIES', data: result.data })),
+    )
+}
 const fetchCSVData = async (
   path: string,
   transformHeader: (h: string) => string,
@@ -133,6 +155,9 @@ export const initDB = async (dispatch: AppDispatch) => {
     loadRegionsFiles,
     loadChefsFiles,
     loadReviewsFiles,
+    loadCategoryFiles,
+    loadCuisineFiles,
+    loadFilterFiles,
   ]
   for (const elem of promises) {
     await elem(dispatch)

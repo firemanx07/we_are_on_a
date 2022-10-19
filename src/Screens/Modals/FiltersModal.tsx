@@ -17,7 +17,12 @@ import { BottomSheetFlatListMethods } from '@gorhom/bottom-sheet/lib/typescript/
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, AppState } from '@/Store'
 import { FilterSlice } from '@/enums/Slices'
-import { FiltersState, FilterTypeState, reset, update } from '@/Store/Filters'
+import {
+  FiltersState,
+  FilterTypeState,
+  resetFilters,
+  updateFilters,
+} from '@/Store/Filters'
 import { Modals } from '@/enums/Pages'
 import { useTranslation } from 'react-i18next'
 
@@ -56,7 +61,7 @@ const FiltersModal = ({ type, modalKey }: FilterModalProps) => {
           false,
       })
     })
-    dispatch(update({ data: newArray, key: type }))
+    dispatch(updateFilters({ data: newArray, key: type }))
     dismiss(Modals[modalKey])
   }
 
@@ -81,7 +86,7 @@ const FiltersModal = ({ type, modalKey }: FilterModalProps) => {
     [refs],
   )
   const handleReset = () => {
-    dispatch(reset(type))
+    dispatch(resetFilters(type))
     data.map((_, index) => {
       refs[index] &&
         !!refs[index].current &&

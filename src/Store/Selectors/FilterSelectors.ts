@@ -2,6 +2,7 @@ import { createSelector } from '@reduxjs/toolkit'
 import { AppState } from '@/Store'
 import { FilterSlice } from '@/enums/Slices'
 
+export const selectFilters = (state: AppState) => state.filters
 export const selectCuisine = (state: AppState) =>
   state.filters[FilterSlice.CUISINE]
 export const selectMoreFilters = (state: AppState) =>

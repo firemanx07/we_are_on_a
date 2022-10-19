@@ -10,13 +10,8 @@ export enum CUISINE {
   CARIBBEANS = 'Caribbeans',
   CHINESE = 'Chinese',
   EGYPTIAN = 'Egyptian',
+  EASTERNEURPEAN = 'Eastern European',
   JAPANESE = 'Japanese',
-  CHINESET = 'Chinese',
-  EGYPTIANT = 'Egyptian',
-  JAPANESET = 'Japanese',
-  CHINESEV = 'Chinese',
-  EGYPTIANS = 'Egyptian',
-  JAPANESEL = 'Japanese',
 }
 
 export enum CATEGORIES {
