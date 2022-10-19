@@ -40,7 +40,9 @@ const filterSlice = createSlice({
     },
     resetFilters: (state, action: PayloadAction<KeyFilters>) => ({
       ...state,
-      [FilterSlice[action.payload]]: initialState[FilterSlice[action.payload]],
+      [FilterSlice[action.payload]]: state[FilterSlice[action.payload]].map(
+        elem => ({ ...elem, checked: false }),
+      ),
     }),
   },
 })
