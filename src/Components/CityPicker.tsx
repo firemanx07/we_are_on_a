@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
 import CustomMenuHeader from '@/Components/CustomMenuHeader'
 import ArrowDown from '@/Assets/Images/svg/carret_down.svg'
@@ -8,11 +8,7 @@ import { useAppDispatch, useAppSelector, useTheme } from '@/Hooks'
 import SearchBar from '@/Components/SearchBar'
 import { Dim } from '@/helpers/Dim'
 import { useTranslation } from 'react-i18next'
-import {
-  BottomSheetFlatList,
-  BottomSheetView,
-  useBottomSheetModal,
-} from '@gorhom/bottom-sheet'
+import { BottomSheetView, useBottomSheetModal } from '@gorhom/bottom-sheet'
 import { Modals, Pages } from '@/enums/Pages'
 import {
   selectCountryByOverall,

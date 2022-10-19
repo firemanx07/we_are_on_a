@@ -5,11 +5,7 @@ import {
   TouchableOpacity,
   ViewStyle,
 } from 'react-native'
-import {
-  BottomSheetHandleProps,
-  BottomSheetModal,
-  BottomSheetScrollView,
-} from '@gorhom/bottom-sheet'
+import { BottomSheetHandleProps, BottomSheetModal } from '@gorhom/bottom-sheet'
 import Animated, {
   Extrapolate,
   interpolate,
@@ -31,6 +27,7 @@ import { Modals } from '@/enums/Pages'
 import { AnimatePresence } from 'moti'
 import { selectNumberOfFiltersChecked } from '@/Store/Selectors/FilterSelectors'
 import { ScrollView } from 'react-native-gesture-handler'
+import { Common } from '@/Theme'
 
 // @ts-ignore
 // export const transformOrigin = ({ x, y }, ...transformations) => {
@@ -141,13 +138,14 @@ const Handle: React.FC<HandleProps> = ({ style, animatedIndex, close }) => {
           />
           <ScrollView
             style={[Gutters.smallLMargin]}
-            showsHorizontalScrollIndicator={false}
+            showsHorizontalScrollIndicator={true}
             horizontal
             contentContainerStyle={[
               Gutters.largeTMargin,
               Layout.rowHCenter,
               Layout.justifyContentBetween,
-              { width: Dim.getHorizontalDimension(380) },
+              Layout.grow,
+              { zIndex: 20 },
             ]}
           >
             <FilterButton Icon={Search} />

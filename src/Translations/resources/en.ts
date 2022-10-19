@@ -85,7 +85,7 @@ export default {
     categories: {
       title: '$t(filter.prefix)Categories',
     },
-    morefilters: {
+    filter: {
       title: '$t(filter.prefix) More Filters',
     },
     chefs: {

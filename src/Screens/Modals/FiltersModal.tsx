@@ -1,9 +1,5 @@
-import React, { createRef, useCallback, useMemo, useRef } from 'react'
-import {
-  BottomSheetFlatList,
-  BottomSheetView,
-  useBottomSheetModal,
-} from '@gorhom/bottom-sheet'
+import React, { createRef, useCallback, useMemo } from 'react'
+import { BottomSheetView, useBottomSheetModal } from '@gorhom/bottom-sheet'
 import AnimatedCheckBox, {
   AnimatedCheckRefHandle,
 } from '@/Components/AnimatedCheckBox'
@@ -13,7 +9,6 @@ import ArrowDown from '@/Assets/Images/svg/carret_down.svg'
 import LinkPressablebutton from '@/Components/LinkPressablebutton'
 import { Dim } from '@/helpers/Dim'
 import { Text, TouchableOpacity, View } from 'react-native'
-import { BottomSheetFlatListMethods } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetScrollable/types'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, AppState } from '@/Store'
 import { FilterSlice } from '@/enums/Slices'
@@ -25,6 +20,7 @@ import {
 } from '@/Store/Filters'
 import { Modals } from '@/enums/Pages'
 import { useTranslation } from 'react-i18next'
+import { ScrollView } from 'react-native-gesture-handler'
 
 type FilterModalProps = {
   type: keyof typeof FilterSlice
@@ -33,7 +29,6 @@ type FilterModalProps = {
 const FiltersModal = ({ type, modalKey }: FilterModalProps) => {
   const { dismiss } = useBottomSheetModal()
   const { t } = useTranslation()
-  const ref = useRef<BottomSheetFlatListMethods>(null)
 
   // variables
   const { Layout, Common, Colors, Fonts, Gutters } = useTheme()
@@ -66,12 +61,13 @@ const FiltersModal = ({ type, modalKey }: FilterModalProps) => {
   }
 
   //renders
-  const spacer = () => <View style={{ height: Dim.getDimension(200) }} />
+  const spacer = () => <View style={{ height: Dim.getDimension(100) }} />
   const renderItem = useCallback(
     ({ item, index }: { item: FilterTypeState; index: number }) => {
       return (
         <AnimatedCheckBox
           ref={refs[index]}
+          key={item.id}
           label={item.name}
           defaultValue={item.checked}
           style={[
@@ -108,15 +104,14 @@ const FiltersModal = ({ type, modalKey }: FilterModalProps) => {
           <LinkPressablebutton text={'Reset'} onPress={handleReset} />
         }
       />
-      <BottomSheetFlatList
-        ref={ref}
-        data={data}
-        showsVerticalScrollIndicator={true}
-        renderItem={renderItem}
-        contentContainerStyle={[Layout.fill, Gutters.smallTPadding]}
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={[Layout.grow, Gutters.smallTPadding]}
         scrollEnabled={true}
-        ListFooterComponent={spacer}
-      />
+      >
+        {data.map((item, index) => renderItem({ item, index }))}
+        {spacer()}
+      </ScrollView>
       <View
         style={[
           Common.posAbs,
