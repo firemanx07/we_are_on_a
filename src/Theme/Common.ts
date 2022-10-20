@@ -7,7 +7,6 @@ import { StyleSheet } from 'react-native'
 import buttonStyles from './components/Buttons'
 import { CommonParams } from './theme'
 import { Dim } from '@/helpers/Dim'
-import { Common } from '@/Theme/index'
 
 export default function <C>({ Colors, ...args }: CommonParams<C>) {
   return {
@@ -18,6 +17,9 @@ export default function <C>({ Colors, ...args }: CommonParams<C>) {
       },
       backgroundReset: {
         backgroundColor: Colors.transparent,
+      },
+      backgroundWhite: {
+        backgroundColor: Colors.white,
       },
       backgroundBeige100: {
         backgroundColor: Colors.beige_100,
@@ -52,6 +54,9 @@ export default function <C>({ Colors, ...args }: CommonParams<C>) {
       },
       borderBeige_100: {
         borderColor: Colors.beige_100,
+      },
+      borderBeige_300: {
+        borderColor: Colors.beige_300,
       },
       elevationLow: {
         shadowColor: '#000',

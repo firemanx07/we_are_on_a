@@ -89,6 +89,9 @@ export default function ({}: ThemeVariables) {
     selfEnd: {
       alignSelf: 'flex-end',
     },
+    flexWrap: {
+      flexWrap: 'wrap',
+    },
     /* Sizes Layouts */
     fill: {
       flex: 1,

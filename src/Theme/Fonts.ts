@@ -53,8 +53,7 @@ export default function ({ FontSize, Colors }: ThemeVariables) {
       fontSize: 11,
       fontWeight: '400',
       color: Colors.primary,
-      // lineHeight: 16,
-      letterSpacing: -1,
+      letterSpacing: 1,
     },
     titleRegular: {
       fontSize: FontSize.regular * 2,

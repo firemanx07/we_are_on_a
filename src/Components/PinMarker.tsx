@@ -6,9 +6,6 @@ import { Colors } from '@/Theme/Variables'
 import { useTheme } from '@/Hooks'
 import FavPin from '@/Assets/Images/svg/favorite_pin.svg'
 import { MapMarkerProps, Marker } from 'react-native-maps'
-import FastImage from 'react-native-fast-image'
-import { navigate } from '@/Navigators/utils'
-import { Pages } from '@/enums/Pages'
 
 type Props = MapMarkerProps & {
   text: string
@@ -47,7 +44,7 @@ const PinMarker = (props: Props) => {
       style={[Layout.colVCenter, styles.pinContainer]}
       coordinate={props.coordinate}
       tracksViewChanges={false}
-      onPress={() => navigate(Pages.RestaurantDetail, {})}
+      onPress={props.onPress}
     >
       {PinContent}
     </Marker>

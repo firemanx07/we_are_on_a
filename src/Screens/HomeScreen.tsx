@@ -10,7 +10,11 @@ import { navigate, toggleDrawer } from '@/Navigators/utils'
 import MapView, { Region } from 'react-native-maps'
 import BottomSheetConatiner from '@/Containers/BottomSheetContainer'
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native'
-import { useFocusEffect, useNavigation } from '@react-navigation/native'
+import {
+  useFocusEffect,
+  useIsFocused,
+  useNavigation,
+} from '@react-navigation/native'
 import { useDrawerStatus } from '@react-navigation/drawer'
 import LinearGradient from 'react-native-linear-gradient'
 import { Dim } from '@/helpers/Dim'
@@ -35,6 +39,7 @@ const HomeScreen = ({}: HomeProps) => {
   const filterSheetRef = useRef<BottomSheetModal>(null)
   const numberOfFilters = useAppSelector(selectNumberOfFiltersChecked)
   const restaurants = useAppSelector(selectRestaurantsBySelectedZone)
+  const isFocused = useIsFocused()
   const selectedZone = useAppSelector(selectSelectedZone)
   const isDrawerOpen = useDrawerStatus() === 'open'
   // const [isFullScreen, setIsFullScreen] = useState<boolean>(false)
@@ -74,14 +79,17 @@ const HomeScreen = ({}: HomeProps) => {
   useEffect(() => {
     if (isDrawerOpen) {
       bottomSheetRef.current?.close()
-    } else if (!loading) {
+    } else if (!loading && isFocused) {
       bottomSheetRef.current?.present()
       setTimeout(() => {
         bottomSheetRef.current?.collapse()
       }, 200)
     }
-  }, [isDrawerOpen, loading])
+  }, [isDrawerOpen, isFocused, loading])
   // variables
+  const handleRestaurantPress = (id: string) => {
+    navigate(Pages.RestaurantDetail, { id })
+  }
   const handleFilterButton = (type: KeyFilters) => {
     setFilterType(type)
     filterSheetRef.current && filterSheetRef.current.present()
@@ -92,7 +100,8 @@ const HomeScreen = ({}: HomeProps) => {
       <SmallCard
         source={Images.onBoarding}
         title={item.name}
-        onPress={() => navigate(Pages.RestaurantDetail, {})}
+        hasFavorite
+        onPress={() => handleRestaurantPress(item.id)}
       />
     )
   }
@@ -204,6 +213,7 @@ const HomeScreen = ({}: HomeProps) => {
             text={elem.name}
             source={Images.onBoarding}
             isFavourite={elem.isFavorite}
+            onPress={() => handleRestaurantPress(elem.id)}
           />
         ))}
       </MapView>

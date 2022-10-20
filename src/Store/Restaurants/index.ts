@@ -6,9 +6,9 @@ export interface RestaurantTypeState extends RegionTypeState {
   name: string
   address: string
   mapLink: string
-  [FilterSlice.CUISINE]: string
-  [FilterSlice.CATEGORIES]: string
-  [FilterSlice.MOREFILTERS]: string
+  [FilterSlice.CUISINE]: string[]
+  [FilterSlice.CATEGORIES]: string[]
+  [FilterSlice.MOREFILTERS]: string[]
   isFavorite: boolean
 }
 

@@ -6,10 +6,11 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated'
-import { useTheme } from '@/Hooks'
+import { useAppSelector, useTheme, useTypedRoute } from '@/Hooks'
 import Upload from '@/Assets/Images/svg/upload.svg'
 import {
   StyleProp,
+  StyleSheet,
   Text,
   TouchableOpacity,
   View,
@@ -19,62 +20,31 @@ import { ToggleIcon } from '@/helpers/AnimatedToggle'
 import favEmpty from '@/Assets/Images/svg/favorite_empty.svg'
 import favFill from '@/Assets/Images/svg/favorite_filled.svg'
 import BackTranparent from '@/Assets/Images/svg/back_transparent.svg'
+import DirectionArrow from '@/Assets/Images/svg/direction.svg'
 import { Dim } from '@/helpers/Dim'
 
 // @ts-ignore
 import { SliderBox } from 'react-native-image-slider-box'
 import FastImage from 'react-native-fast-image'
 import { goBack } from '@/Navigators/utils'
+import { Pages } from '@/enums/Pages'
+import { selectRestaurantById } from '@/Store/Selectors/RestaurantsSelectors'
+import LinkPressablebutton from '@/Components/LinkPressablebutton'
+import LogoMenu from '@/Assets/Images/svg/Logo.svg'
+import { useFocusEffect } from '@react-navigation/native'
+import { useBottomSheetModal } from '@gorhom/bottom-sheet'
+import ReviewBox from '@/Components/ReviewBox'
 
 type Props = {
   style: StyleProp<ViewStyle>
 }
-const RestaurantDetailContainer = ({}: Props) => {
-  const translationY = useSharedValue(0)
-
-  const scrollHandler = useAnimatedScrollHandler(event => {
-    translationY.value = event.contentOffset.y
-  })
-  const { Layout, Common, Gutters, Images, Colors } = useTheme()
-
-  const containerAnimatedStyle = useAnimatedStyle(() => {
-    const opacity = interpolate(
-      translationY.value,
-      [0, 275],
-      [0, 1],
-      Extrapolate.CLAMP,
-    )
-    return {
-      backgroundColor: `rgba(247, 246, 242, ${opacity})`,
-    }
-  })
-  const AnimatedOpacity = useAnimatedStyle(() => {
-    const opacity = interpolate(
-      translationY.value,
-      [0, 275],
-      [0, 1],
-      Extrapolate.CLAMP,
-    )
-    return {
-      opacity,
-    }
-  })
-  const ReversedOpacity = useAnimatedStyle(() => {
-    const opacity = interpolate(
-      translationY.value,
-      [0, 275],
-      [1, 0],
-      Extrapolate.CLAMP,
-    )
-    return {
-      opacity,
-    }
-  })
-  const Header = (props: {
-    animatedStyle?: Animated.AnimateStyle<ViewStyle>
-    containerAnimatedStyle?: Animated.AnimateStyle<ViewStyle>
-    isPrimary?: boolean
-  }) => (
+const Header = (props: {
+  animatedStyle?: Animated.AnimateStyle<ViewStyle>
+  containerAnimatedStyle?: Animated.AnimateStyle<ViewStyle>
+  isPrimary?: boolean
+}) => {
+  const { Layout, Common, Gutters, Colors } = useTheme()
+  return (
     <Animated.View
       style={[
         {
@@ -121,7 +91,56 @@ const RestaurantDetailContainer = ({}: Props) => {
       </View>
     </Animated.View>
   )
+}
+const RestaurantDetailContainer = ({}: Props) => {
+  const translationY = useSharedValue(0)
+  const { dismissAll } = useBottomSheetModal()
+  const {
+    params: { id: RestaurantID },
+  } = useTypedRoute<Pages.RestaurantDetail>()
+  const scrollHandler = useAnimatedScrollHandler(event => {
+    translationY.value = event.contentOffset.y
+  })
+  const { Layout, Common, Gutters, Images, Colors, Fonts } = useTheme()
 
+  const resturant = useAppSelector(state =>
+    selectRestaurantById(state, RestaurantID),
+  )
+
+  const containerAnimatedStyle = useAnimatedStyle(() => {
+    const opacity = interpolate(
+      translationY.value,
+      [0, 275],
+      [0, 1],
+      Extrapolate.CLAMP,
+    )
+    return {
+      backgroundColor: `rgba(247, 246, 242, ${opacity})`,
+    }
+  })
+  const AnimatedOpacity = useAnimatedStyle(() => {
+    const opacity = interpolate(
+      translationY.value,
+      [0, 275],
+      [0, 1],
+      Extrapolate.CLAMP,
+    )
+    return {
+      opacity,
+    }
+  })
+  const ReversedOpacity = useAnimatedStyle(() => {
+    const opacity = interpolate(
+      translationY.value,
+      [0, 275],
+      [1, 0],
+      Extrapolate.CLAMP,
+    )
+    return {
+      opacity,
+    }
+  })
+  useFocusEffect(() => dismissAll())
   return (
     <View style={[Layout.fill, Layout.column, Common.backgroundBeige100]}>
       <Header
@@ -135,75 +154,101 @@ const RestaurantDetailContainer = ({}: Props) => {
       <Animated.ScrollView onScroll={scrollHandler} scrollEventThrottle={16}>
         <SliderBox
           ImageComponent={FastImage}
-          images={Images.mock}
+          images={Images.mock.slider}
           sliderBoxHeight={Dim.getDimension(420)}
           dotColor={Colors.beige_100}
           inactiveDotColor="transparent"
           paginationBoxVerticalPadding={20}
-          dotStyle={{
-            width: 10,
-            height: 10,
-            borderRadius: 5,
-            marginHorizontal: 0,
-            padding: 0,
-            margin: 0,
-            backgroundColor: 'transparent',
-            borderWidth: 0.5,
-            borderColor: Colors.beige_100,
-          }}
+          dotStyle={{ ...styles.dots, borderColor: Colors.beige_100 }}
           imageLoadingColor={Colors.brown}
         />
-        <View style={[Gutters.largeTMargin]}>
-          <Text>Restaurent Name</Text>
-          <Text>Adress</Text>
+        <View style={[Gutters.largeTMargin, Gutters.regularHPadding]}>
+          <Text style={[Fonts.textPrimary, Fonts.textLarge]}>
+            {resturant.name}
+          </Text>
+          <View style={[Layout.rowHCenter]}>
+            <Text
+              style={[Fonts.textPrimary, Fonts.textSmall, Gutters.tinyRPadding]}
+            >
+              {resturant.address}
+            </Text>
+            <DirectionArrow />
+          </View>
+          <View
+            style={[
+              Layout.rowHCenter,
+              Gutters.regularVPadding,
+              Layout.flexWrap,
+            ]}
+          >
+            <LinkPressablebutton
+              text={'Fine Dining'}
+              disabled
+              textStyle={[Fonts.textExtraSmall]}
+            />
+            <LinkPressablebutton
+              text={'French Cuisine'}
+              disabled
+              textStyle={[Fonts.textExtraSmall]}
+            />
+            <LinkPressablebutton
+              text={'Open on Sunday'}
+              disabled
+              textStyle={[Fonts.textExtraSmall]}
+            />
+          </View>
         </View>
-        <View style={[Gutters.largeTMargin]}>
-          <Text>Restaurent Name</Text>
-          <Text>Adress</Text>
+        <View
+          style={[
+            Layout.colVCenter,
+            { minHeight: Dim.getDimension(130) },
+            Gutters.largeTMargin,
+          ]}
+        >
+          <LogoMenu
+            fill={Colors.primary}
+            style={[Common.backgroundBeige100, Common.zIndex]}
+            height={Dim.getDimension(99)}
+            width={Dim.getHorizontalDimension(89)}
+          />
+          <View
+            style={[
+              Layout.fullWidth,
+              Layout.alignItemsCenter,
+              Layout.justifyContentEnd,
+              Common.borderBeige_300,
+              styles.underLogo,
+            ]}
+          >
+            <Text style={[Fonts.titleSmall, Fonts.textBrown]}>
+              4 CHEFS LOVE THIS RESTAURANT
+            </Text>
+          </View>
         </View>
-        <View style={[Gutters.largeTMargin]}>
-          <Text>Restaurent Name</Text>
-          <Text>Adress</Text>
-        </View>
-        <View style={[Gutters.largeTMargin]}>
-          <Text>Restaurent Name</Text>
-          <Text>Adress</Text>
-        </View>
-        <View style={[Gutters.largeTMargin]}>
-          <Text>Restaurent Name</Text>
-          <Text>Adress</Text>
-        </View>
-        <View style={[Gutters.largeTMargin]}>
-          <Text>Restaurent Name</Text>
-          <Text>Adress</Text>
-        </View>
-        <View style={[Gutters.largeTMargin]}>
-          <Text>Restaurent Name</Text>
-          <Text>Adress</Text>
-        </View>
-        <View style={[Gutters.largeTMargin]}>
-          <Text>Restaurent Name</Text>
-          <Text>Adress</Text>
-        </View>
-        <View style={[Gutters.largeTMargin]}>
-          <Text>Restaurent Name</Text>
-          <Text>Adress</Text>
-        </View>
-        <View style={[Gutters.largeTMargin]}>
-          <Text>Restaurent Name</Text>
-          <Text>Adress</Text>
-        </View>
-        <View style={[Gutters.largeTMargin]}>
-          <Text>Restaurent Name</Text>
-          <Text>Adress</Text>
-        </View>
-        <View style={[Gutters.largeTMargin]}>
-          <Text>Restaurent Name</Text>
-          <Text>Adress</Text>
-        </View>
+        <ReviewBox />
+        <ReviewBox />
+        <ReviewBox />
+        <ReviewBox />
       </Animated.ScrollView>
     </View>
   )
 }
+const styles = StyleSheet.create({
+  dots: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    marginHorizontal: 0,
+    padding: 0,
+    margin: 0,
+    backgroundColor: 'transparent',
+    borderWidth: 0.5,
+  },
+  underLogo: {
+    borderTopWidth: 1,
+    paddingTop: Dim.getDimension(60),
+    marginTop: -Dim.getDimension(49),
+  },
+})
 
 export default RestaurantDetailContainer

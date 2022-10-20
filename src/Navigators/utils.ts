@@ -22,6 +22,7 @@ export interface RootStackParamList extends Record<string, any> {
   [Pages.Register]: undefined
   [Pages.Login]: undefined
   [Pages.ConfirmLinkPage]: { email: string }
+  [Pages.RestaurantDetail]: { id: string }
 }
 
 export const navigationRef = createNavigationContainerRef<RootStackParamList>()
