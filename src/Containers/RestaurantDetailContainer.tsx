@@ -34,6 +34,7 @@ import LogoMenu from '@/Assets/Images/svg/Logo.svg'
 import { useFocusEffect } from '@react-navigation/native'
 import { useBottomSheetModal } from '@gorhom/bottom-sheet'
 import ReviewBox from '@/Components/ReviewBox'
+import { Spacer } from '@/Components/Spacer'
 
 type Props = {
   style: StyleProp<ViewStyle>
@@ -229,6 +230,7 @@ const RestaurantDetailContainer = ({}: Props) => {
         <ReviewBox />
         <ReviewBox />
         <ReviewBox />
+        <Spacer />
       </Animated.ScrollView>
     </View>
   )

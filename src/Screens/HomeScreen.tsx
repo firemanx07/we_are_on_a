@@ -30,7 +30,6 @@ import { selectRestaurantsBySelectedZone } from '@/Store/Selectors/RestaurantsSe
 import { selectSelectedZone } from '@/Store/Selectors/RegionsSelectors'
 import PinMarker from '@/Components/PinMarker'
 import { RestaurantTypeState } from '@/Store/Restaurants'
-import { Spacer } from '@/Components/Spacer'
 
 type HomeProps = {}
 
@@ -106,13 +105,7 @@ const HomeScreen = ({}: HomeProps) => {
     )
   }
   const ListHeader = (
-    <View
-      style={[
-        Layout.rowHCenter,
-        Gutters.regularHPadding,
-        Gutters.regularVPadding,
-      ]}
-    >
+    <View style={[Layout.rowHCenter, Gutters.regularHPadding]}>
       <Text style={[textMedium24, { color: Colors.brown }]}>
         {restaurants.length} Restaurants
       </Text>
@@ -128,7 +121,9 @@ const HomeScreen = ({}: HomeProps) => {
         containerStyle={[Gutters.largeTMargin]}
         onPress={() => toggleDrawer()}
         rightComponent={
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => bottomSheetRef.current?.expand({ duration: 500 })}
+          >
             <RestaurantIcon fill={Colors.primary} />
           </TouchableOpacity>
         }
@@ -243,10 +238,7 @@ const HomeScreen = ({}: HomeProps) => {
             Gutters.regularTMargin,
           ]}
           removeClippedSubviews
-          contentContainerStyle={[
-            Gutters.regularTMargin,
-            Gutters.largeBPadding,
-          ]}
+          contentContainerStyle={[Gutters.smallTMargin, Gutters.largeBPadding]}
         />
         <View style={{ height: Dim.getDimension(5) }} />
       </BottomSheetConatiner>
