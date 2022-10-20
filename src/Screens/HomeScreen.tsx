@@ -237,8 +237,11 @@ const HomeScreen = ({}: HomeProps) => {
           ListHeaderComponent={ListHeader}
           renderItem={renderItem}
           numColumns={2}
-          columnWrapperStyle={[Layout.rowHCenter, Layout.justifyContentAround]}
-          ItemSeparatorComponent={Spacer}
+          columnWrapperStyle={[
+            Layout.rowHCenter,
+            Layout.justifyContentAround,
+            Gutters.regularTMargin,
+          ]}
           removeClippedSubviews
           contentContainerStyle={[
             Gutters.regularTMargin,
