@@ -1,21 +1,15 @@
 import React, { useMemo } from 'react'
-import {
-  Image,
-  ImageSourcePropType,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native'
+import { ImageRequireSource, StyleSheet, Text, View } from 'react-native'
 import { useTheme } from '@/Hooks'
 import { Dim } from '@/helpers/Dim'
 import { ToggleIcon } from '@/helpers/AnimatedToggle'
 import favFill from '@/Assets/Images/svg/favorite_filled.svg'
 import favEmpty from '@/Assets/Images/svg/favorite_empty.svg'
 import { MotiPressable } from 'moti/interactions'
-import { Colors } from '@/Theme/Variables'
+import FastImage from 'react-native-fast-image'
 
 type SmallCardProps = {
-  source: ImageSourcePropType
+  source: ImageRequireSource
   title: string
   subtitle?: string
   hasFavorite?: boolean
@@ -57,12 +51,13 @@ const SmallCard = ({
       )}
     >
       <View>
-        <Image
+        <FastImage
           source={source}
-          borderRadius={Dim.getDimension(12)}
+          resizeMode={FastImage.resizeMode.cover}
           style={{
             width: Dim.getHorizontalDimension(170),
-            height: Dim.getDimension(250),
+            height: Dim.getDimension(300),
+            borderRadius: Dim.getDimension(12),
           }}
         />
         {!!hasFavorite && (
@@ -82,7 +77,7 @@ const SmallCard = ({
     </MotiPressable>
   )
 }
-export default SmallCard
+export default React.memo(SmallCard)
 
 const styles = StyleSheet.create({
   favoritePos: {

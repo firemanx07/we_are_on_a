@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import CustomMenuHeader from '@/Components/CustomMenuHeader'
 import Menu from '@/Assets/Images/svg/MenuIcon.svg'
 import RestaurantIcon from '@/Assets/Images/svg/restaurentIcon.svg'
@@ -7,15 +7,9 @@ import Search from '@/Assets/Images/svg/search_icon.svg'
 import { useAppSelector, useTheme } from '@/Hooks'
 import { BottomSheetFlatList, BottomSheetModal } from '@gorhom/bottom-sheet'
 import { navigate, toggleDrawer } from '@/Navigators/utils'
-import MapView, { Marker, Region } from 'react-native-maps'
+import MapView, { Region } from 'react-native-maps'
 import BottomSheetConatiner from '@/Containers/BottomSheetContainer'
-import {
-  ImageSourcePropType,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native'
+import { ScrollView, Text, TouchableOpacity, View } from 'react-native'
 import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { useDrawerStatus } from '@react-navigation/drawer'
 import LinearGradient from 'react-native-linear-gradient'
@@ -31,6 +25,8 @@ import LoadingCityModal from '@/Screens/Modals/LoadingCityModal'
 import { selectRestaurantsBySelectedZone } from '@/Store/Selectors/RestaurantsSelectors'
 import { selectSelectedZone } from '@/Store/Selectors/RegionsSelectors'
 import PinMarker from '@/Components/PinMarker'
+import { RestaurantTypeState } from '@/Store/Restaurants'
+import { Spacer } from '@/Components/Spacer'
 
 type HomeProps = {}
 
@@ -54,7 +50,6 @@ const HomeScreen = ({}: HomeProps) => {
   const { Fonts, Gutters, Common, Colors, Layout, Images } = useTheme()
   const { textMedium, textMedium24, textPrimary, textCenter } = Fonts
   useEffect(() => {
-    console.log(selectedZone, typeof selectedZone.lat, typeof selectedZone.lon)
     typeof selectedZone.lat === 'number' &&
       typeof selectedZone.lon === 'number' &&
       setRegionCoor({
@@ -87,41 +82,33 @@ const HomeScreen = ({}: HomeProps) => {
     }
   }, [isDrawerOpen, loading])
   // variables
-  const data = React.useMemo(
-    () =>
-      restaurants.map(item => ({
-        source: Images.onBoarding,
-        title: item.name,
-        hasFavorite: true,
-      })),
-    [Images.onBoarding, restaurants],
-  )
-
-  // render
-  const renderItem = useCallback(
-    ({
-      item,
-      index,
-    }: {
-      item: { source: ImageSourcePropType; title: string; hasFavorite: boolean }
-      index: number
-    }) => {
-      return (
-        <SmallCard
-          key={`card-${index}`}
-          {...item}
-          onPress={() => navigate(Pages.RestaurantDetail, {})}
-        />
-      )
-    },
-    [],
-  )
-
   const handleFilterButton = (type: KeyFilters) => {
     setFilterType(type)
     filterSheetRef.current && filterSheetRef.current.present()
   }
-
+  //renders
+  const renderItem = ({ item }: { item: RestaurantTypeState }) => {
+    return (
+      <SmallCard
+        source={Images.onBoarding}
+        title={item.name}
+        onPress={() => navigate(Pages.RestaurantDetail, {})}
+      />
+    )
+  }
+  const ListHeader = (
+    <View
+      style={[
+        Layout.rowHCenter,
+        Gutters.regularHPadding,
+        Gutters.regularVPadding,
+      ]}
+    >
+      <Text style={[textMedium24, { color: Colors.brown }]}>
+        {restaurants.length} Restaurants
+      </Text>
+    </View>
+  )
   const getMainHeader = () => (
     <>
       <CustomMenuHeader
@@ -185,7 +172,7 @@ const HomeScreen = ({}: HomeProps) => {
             Common.posAbs,
             Layout.fullHeight,
             Layout.fullWidth,
-            { zIndex: 14 },
+            Common.zIndex14,
           ]}
         >
           <LoadingCityModal />
@@ -202,17 +189,22 @@ const HomeScreen = ({}: HomeProps) => {
       >
         {getMainHeader()}
       </LinearGradient>
-      <MapView style={Layout.fill} region={regionCoor}>
+      <MapView
+        onMapReady={() => setLoading(false)}
+        style={Layout.fill}
+        region={regionCoor}
+      >
         {restaurants.map(elem => (
-          <Marker
+          <PinMarker
             key={elem.id}
             coordinate={{
               longitude: elem.lon,
               latitude: elem.lat,
             }}
-          >
-            <PinMarker text={elem.name} source={Images.onBoarding} />
-          </Marker>
+            text={elem.name}
+            source={Images.onBoarding}
+            isFavourite={elem.isFavorite}
+          />
         ))}
       </MapView>
       <BottomSheetConatiner
@@ -229,20 +221,15 @@ const HomeScreen = ({}: HomeProps) => {
           })
         }
       >
-        <View style={[Layout.rowHCenter, Gutters.regularHPadding]}>
-          <Text style={[textMedium24, { color: Colors.brown }]}>
-            {restaurants.length} Restaurants
-          </Text>
-        </View>
         <BottomSheetFlatList
-          data={data}
-          keyExtractor={(_, index) => `index-${index}`}
+          data={restaurants}
+          keyExtractor={elem => elem.id}
+          ListHeaderComponent={ListHeader}
           renderItem={renderItem}
           numColumns={2}
           columnWrapperStyle={[Layout.rowHCenter, Layout.justifyContentAround]}
-          ItemSeparatorComponent={() => (
-            <View style={[Gutters.regularVMargin]} />
-          )}
+          ItemSeparatorComponent={Spacer}
+          removeClippedSubviews
           contentContainerStyle={[
             Gutters.regularTMargin,
             Gutters.largeBPadding,
@@ -260,4 +247,5 @@ const HomeScreen = ({}: HomeProps) => {
     </>
   )
 }
+
 export default HomeScreen

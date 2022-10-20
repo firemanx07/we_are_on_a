@@ -71,6 +71,9 @@ export default function <C>({ Colors, ...args }: CommonParams<C>) {
       zIndex: {
         zIndex: 10,
       },
+      zIndex14: {
+        zIndex: 14,
+      },
       posAbsTop: {
         position: 'absolute',
         top: 0,

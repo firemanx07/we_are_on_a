@@ -1,26 +1,24 @@
 import React from 'react'
-import {
-  Image,
-  ImageSourcePropType,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native'
+import { Image, ImageRequireSource, StyleSheet, Text, View } from 'react-native'
 import OutlinedText from '@/Components/OutlinedText'
 import { Dim } from '@/helpers/Dim'
 import { Colors } from '@/Theme/Variables'
 import { useTheme } from '@/Hooks'
 import FavPin from '@/Assets/Images/svg/favorite_pin.svg'
+import { MapMarkerProps, Marker } from 'react-native-maps'
+import FastImage from 'react-native-fast-image'
+import { navigate } from '@/Navigators/utils'
+import { Pages } from '@/enums/Pages'
 
-type Props = {
+type Props = MapMarkerProps & {
   text: string
-  source: ImageSourcePropType
+  source?: ImageRequireSource
   isFavourite?: boolean
 }
 const PinMarker = (props: Props) => {
-  const { Layout, Common, Gutters } = useTheme()
-  return (
-    <View style={[Layout.colVCenter, styles.pinContainer]}>
+  const { Layout, Common, Gutters, Images } = useTheme()
+  const PinContent = (
+    <>
       <View
         style={[Common.elevationLow, styles.imageRadius, Gutters.tinyBMargin]}
       >
@@ -28,6 +26,7 @@ const PinMarker = (props: Props) => {
           style={[styles.imageBorder, styles.imageRadius, Common.elevationLow]}
           resizeMode={'cover'}
           source={props.source}
+          defaultSource={Images.onBoarding}
         />
       </View>
       <OutlinedText shadow color={Colors.white} stroke={2}>
@@ -41,10 +40,20 @@ const PinMarker = (props: Props) => {
           />
         </View>
       )}
-    </View>
+    </>
+  )
+  return (
+    <Marker
+      style={[Layout.colVCenter, styles.pinContainer]}
+      coordinate={props.coordinate}
+      tracksViewChanges={false}
+      onPress={() => navigate(Pages.RestaurantDetail, {})}
+    >
+      {PinContent}
+    </Marker>
   )
 }
-export default PinMarker
+export default React.memo(PinMarker)
 const styles = StyleSheet.create({
   imageRadius: {
     borderRadius: Dim.getDimension(70) / 2,
@@ -52,7 +61,7 @@ const styles = StyleSheet.create({
     width: Dim.getDimension(68),
   },
   imageBorder: {
-    borderWidth: 4,
+    borderWidth: 2,
     borderColor: Colors.beige_200,
     overflow: 'hidden',
   },

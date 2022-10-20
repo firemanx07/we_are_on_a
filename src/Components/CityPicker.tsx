@@ -20,6 +20,7 @@ import { ScrollView } from 'react-native-gesture-handler'
 import { navigateAndSimpleReset } from '@/Navigators/utils'
 import SearchResultContainer from '@/Containers/SearchResultContainer'
 import useSearchDebounce from '../Hooks/useSearchDebounce'
+import { Spacer } from '@/Components/Spacer'
 
 const CityPicker = () => {
   const { search, searchQuery, setSearchQuery } = useSearchDebounce()
@@ -113,7 +114,7 @@ const CityPicker = () => {
             contentContainerStyle={[Layout.grow]}
           >
             {overallZones.map((elem, index) => renderOverallZone(elem, index))}
-            <View style={{ height: Dim.getDimension(100) }} />
+            <Spacer />
           </ScrollView>
           <View
             style={[
