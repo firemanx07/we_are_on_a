@@ -34,6 +34,7 @@ export default function ({}: ThemeVariables) {
         require('@/Assets/Images/MockImages/img1.png'),
       ],
       chef: require('@/Assets/Images/MockImages/mock-chef-profile.png'),
+      chefBig: require('@/Assets/Images/MockImages/chef_big.png'),
     },
   }
 }

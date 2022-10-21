@@ -44,7 +44,7 @@ const AnimatedCheckBox = React.forwardRef<
     }),
     [checked, setChecked],
   )
-  const { Colors, Layout, Gutters, Fonts } = useTheme()
+  const { Common, Layout, Gutters, Fonts } = useTheme()
 
   const handleCheckboxPress = () => {
     setChecked(prev => {
@@ -92,9 +92,7 @@ const AnimatedCheckBox = React.forwardRef<
           <View>
             <Counter
               num={num}
-              styles={[
-                checked && [Fonts.textBrown, { borderColor: Colors.brown }],
-              ]}
+              styles={[checked && [Fonts.textBrown, Common.borderFocus]]}
             />
           </View>
         )}

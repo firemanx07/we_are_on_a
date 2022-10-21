@@ -18,6 +18,7 @@ export enum Modals {
   FilterHome = 'FilterHome',
   FilterListRestaurants = 'FilterListRestaurants',
   Explorer = ' Explorer',
+  Search = ' Search',
 }
 
 export enum Stacks {

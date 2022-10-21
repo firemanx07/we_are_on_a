@@ -97,5 +97,6 @@ export default {
     labels: {
       userId: 'Enter a user id',
     },
+    search: 'Search',
   },
 }

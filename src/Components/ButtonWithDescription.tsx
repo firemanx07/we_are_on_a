@@ -24,7 +24,7 @@ const ButtonWithDescription = ({
   onPress,
   style,
 }: ButtonWithDescProps) => {
-  const { Layout, Fonts, Common, Gutters } = useTheme()
+  const { Layout, Fonts, Common, Gutters, Colors } = useTheme()
 
   return (
     <TouchableOpacity onPress={onPress}>
@@ -39,7 +39,7 @@ const ButtonWithDescription = ({
           style,
         ]}
       >
-        <Icon />
+        <Icon fill={Colors.beige_100} />
         <Text style={[Fonts.textWhite, Fonts.textMedium24, Fonts.textCenter]}>
           {title}
         </Text>

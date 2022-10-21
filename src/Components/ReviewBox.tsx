@@ -8,7 +8,7 @@ import Arrow from '@/Assets/Images/svg/arrow.svg'
 import { Dim } from '@/helpers/Dim'
 
 const ReviewBox = () => {
-  const { Layout, Common, Images, Fonts, Gutters } = useTheme()
+  const { Layout, Common, Images, Fonts, Gutters, Colors } = useTheme()
   return (
     <View
       style={[
@@ -45,7 +45,7 @@ const ReviewBox = () => {
           </View>
         </View>
         <TouchableOpacity>
-          <Arrow />
+          <Arrow fill={Colors.primary} />
         </TouchableOpacity>
       </View>
       <View style={[Layout.grow, Gutters.regularVPadding]}>

@@ -30,12 +30,14 @@ import { selectRestaurantsBySelectedZone } from '@/Store/Selectors/RestaurantsSe
 import { selectSelectedZone } from '@/Store/Selectors/RegionsSelectors'
 import PinMarker from '@/Components/PinMarker'
 import { RestaurantTypeState } from '@/Store/Restaurants'
+import SearchContainer from '@/Containers/SearhContainer'
 
 type HomeProps = {}
 
 const HomeScreen = ({}: HomeProps) => {
   const bottomSheetRef = useRef<BottomSheetModal>(null)
   const filterSheetRef = useRef<BottomSheetModal>(null)
+  const searchSheetRef = useRef<BottomSheetModal>(null)
   const numberOfFilters = useAppSelector(selectNumberOfFiltersChecked)
   const restaurants = useAppSelector(selectRestaurantsBySelectedZone)
   const isFocused = useIsFocused()
@@ -138,7 +140,10 @@ const HomeScreen = ({}: HomeProps) => {
           Layout.justifyContentBetween,
         ]}
       >
-        <FilterButton Icon={Search} />
+        <FilterButton
+          Icon={Search}
+          onPress={() => searchSheetRef.current?.present()}
+        />
         <FilterButton text={'Chefs'} />
         <FilterButton
           text={'Cuisine'}
@@ -248,6 +253,13 @@ const HomeScreen = ({}: HomeProps) => {
         snapPoints={['90%']}
       >
         <FiltersModal type={filterType} modalKey={Modals.FilterHome} />
+      </BottomSheetConatiner>
+      <BottomSheetConatiner
+        ref={searchSheetRef}
+        name={Modals.Search}
+        snapPoints={['90%']}
+      >
+        <SearchContainer />
       </BottomSheetConatiner>
     </>
   )
