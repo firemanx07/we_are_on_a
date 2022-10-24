@@ -21,6 +21,7 @@ import {
 import { Modals } from '@/enums/Pages'
 import { useTranslation } from 'react-i18next'
 import { ScrollView } from 'react-native-gesture-handler'
+ 
 
 type FilterModalProps = {
   type: keyof typeof FilterSlice
@@ -31,7 +32,7 @@ const FiltersModal = ({ type, modalKey }: FilterModalProps) => {
   const { t } = useTranslation()
 
   // variables
-  const { Layout, Common, Colors, Fonts, Gutters } = useTheme()
+  const { Layout, Common, Colors, Fonts, Gutters, Images } = useTheme()
   const { textRegular, textMedium, textBeige100, textPrimary, textCenter } =
     Fonts
   const filtersState = useSelector<AppState, FiltersState>(
@@ -69,6 +70,7 @@ const FiltersModal = ({ type, modalKey }: FilterModalProps) => {
           ref={refs[index]}
           key={item.id}
           label={item.name}
+          imageSource={type === "CHEFS" ? Images.onBoarding: undefined}
           defaultValue={item.checked}
           style={[
             {
