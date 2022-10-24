@@ -8,6 +8,7 @@ export enum Slices {
 }
 export enum FilterSlice {
   CUISINE = 'cuisine',
+  CHEFS = 'chefs',
   CATEGORIES = 'categories',
   MOREFILTERS = 'filter',
 }

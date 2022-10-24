@@ -144,7 +144,11 @@ const HomeScreen = ({}: HomeProps) => {
           Icon={Search}
           onPress={() => searchSheetRef.current?.present()}
         />
-        <FilterButton text={'Chefs'} />
+        <FilterButton text={'Chefs'}   onPress={() => handleFilterButton('CHEFS')}
+          {...(numberOfFilters.chefs > 0 && {
+            counter: numberOfFilters.chefs,
+            isSelected: true,
+          })} />
         <FilterButton
           text={'Cuisine'}
           onPress={() => handleFilterButton('CUISINE')}

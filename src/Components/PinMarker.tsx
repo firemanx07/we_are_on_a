@@ -27,7 +27,7 @@ const PinMarker = (props: Props) => {
         />
       </View>
       <OutlinedText shadow color={Colors.white} stroke={2}>
-        <Text>{props.text}</Text>
+        <Text  >{props.text}</Text>
       </OutlinedText>
       {props.isFavourite && (
         <View style={[Common.posAbs, styles.favoritePos]}>

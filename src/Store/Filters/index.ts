@@ -4,10 +4,12 @@ import { FilterSlice, KeyFilters, Slices } from '@/enums/Slices'
 export interface FilterTypeState {
   id: string
   name: string
+  image?: string
   checked: boolean
 }
 export interface FiltersState {
   [FilterSlice.CUISINE]: FilterTypeState[]
+  [FilterSlice.CHEFS]: FilterTypeState[]
   [FilterSlice.MOREFILTERS]: FilterTypeState[]
   [FilterSlice.CATEGORIES]: FilterTypeState[]
 }
@@ -16,6 +18,7 @@ const initialState = {
   categories: [],
   cuisine: [],
   filter: [],
+  chefs: [],
 } as FiltersState
 const filterSlice = createSlice({
   name: Slices.FILTERS,
@@ -23,6 +26,7 @@ const filterSlice = createSlice({
   reducers: {
     initFilters: (state, action: PayloadAction<InitPayload>) => {
       let { key, data } = action.payload
+      console.log(data)
       const filterType = data.map(elem => {
         let elemValues = Object.values(elem)
         let obj: FilterTypeState = {

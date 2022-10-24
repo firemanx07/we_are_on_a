@@ -69,8 +69,11 @@ export const loadRestaurantFiles = async (dispatch: AppDispatch) => {
 export const loadChefsFiles = async (dispatch: AppDispatch) => {
   let path = await getCachedFile(Config.CSV_ENDPOINTS.CHEFS)
   if (path) {
-    await fetchCSVData(path, transformHeaders, result =>
+    await fetchCSVData(path, transformHeaders, result => {
       dispatch(fetchAllChefs(result.data)),
+        dispatch(initFilters({ key: 'CHEFS', data: result.data }))
+    }
+
     )
   }
 }
