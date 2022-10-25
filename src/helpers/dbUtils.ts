@@ -9,7 +9,7 @@ import { fetchAllRestaurants } from '@/Store/Restaurants'
 import { fetchAllChefs } from '@/Store/Chefs'
 import { fetchAllReviews } from '@/Store/Reviews'
 import { initFilters } from '@/Store/Filters'
-
+import _ from 'lodash'
 export const getCachedFile = async (url: string) => {
   try {
     if (RNFileCache.exists(url)) {
@@ -71,9 +71,9 @@ export const loadChefsFiles = async (dispatch: AppDispatch) => {
   if (path) {
     await fetchCSVData(path, transformHeaders, result => {
       dispatch(fetchAllChefs(result.data)),
-        dispatch(initFilters({ key: 'CHEFS', data: result.data }))
+      dispatch(initFilters({ key: 'CHEFS', data: _.sortBy(result.data, "name")  }))
     }
-
+     
     )
   }
 }

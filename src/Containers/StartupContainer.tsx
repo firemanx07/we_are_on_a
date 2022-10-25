@@ -27,7 +27,7 @@ const StartupContainer = () => {
         resolve(true)
       }, 2000),
     )
-    reInitialize && (await initDB(dispatch))
+    await initDB(dispatch) 
     await setDefaultTheme({ theme: 'default', darkMode: false })
   }, [reInitialize, dispatch])
 

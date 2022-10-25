@@ -40,7 +40,7 @@ const CustomMenuHeader = ({
         Layout.rowHCenter,
         Gutters.regularHPadding,
         !!backgroundColor && { backgroundColor },
-        { height: Dim.getDimension(44) },
+        { height: Dim.getDimension(55) },
         containerStyle,
       ]}
     >
