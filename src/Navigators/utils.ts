@@ -27,7 +27,7 @@ export interface RootStackParamList extends Record<string, any> {
 
 export const navigationRef = createNavigationContainerRef<RootStackParamList>()
 
-export function navigate(name: keyof RootStackParamList, params: any) {
+export function navigate(name: keyof RootStackParamList, params?: any) {
   if (navigationRef.isReady()) {
     navigationRef.navigate(name, params)
   }
@@ -52,7 +52,6 @@ export function navigateAndSimpleReset(name: string, index = 0) {
         routes: [{ name }],
       }),
     )
-    // StatusBar.setHidden(false)
   }
 }
 

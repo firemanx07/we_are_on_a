@@ -26,7 +26,7 @@ const filterSlice = createSlice({
   reducers: {
     initFilters: (state, action: PayloadAction<InitPayload>) => {
       let { key, data } = action.payload
-     
+
       const filterType = data.map(elem => {
         let elemValues = Object.values(elem)
         let obj: FilterTypeState = {

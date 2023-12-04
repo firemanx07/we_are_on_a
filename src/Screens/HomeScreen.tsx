@@ -30,7 +30,7 @@ import { selectRestaurantsBySelectedZone } from '@/Store/Selectors/RestaurantsSe
 import { selectSelectedZone } from '@/Store/Selectors/RegionsSelectors'
 import PinMarker from '@/Components/PinMarker'
 import { RestaurantTypeState } from '@/Store/Restaurants'
-import SearchContainer from '@/Containers/SearhContainer'
+import SearchContainer from '@/Containers/SearchContainer'
 
 type HomeProps = {}
 
@@ -144,11 +144,14 @@ const HomeScreen = ({}: HomeProps) => {
           Icon={Search}
           onPress={() => searchSheetRef.current?.present()}
         />
-        <FilterButton text={'Chefs'}   onPress={() => handleFilterButton('CHEFS')}
+        <FilterButton
+          text={'Chefs'}
+          onPress={() => handleFilterButton('CHEFS')}
           {...(numberOfFilters.chefs > 0 && {
             counter: numberOfFilters.chefs,
             isSelected: true,
-          })} />
+          })}
+        />
         <FilterButton
           text={'Cuisine'}
           onPress={() => handleFilterButton('CUISINE')}

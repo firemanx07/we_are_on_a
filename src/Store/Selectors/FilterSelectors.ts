@@ -5,8 +5,7 @@ import { FilterSlice } from '@/enums/Slices'
 export const selectFilters = (state: AppState) => state.filters
 export const selectCuisine = (state: AppState) =>
   state.filters[FilterSlice.CUISINE]
-export const selectChefs = (state: AppState) =>
-  state.filters[FilterSlice.CHEFS]
+export const selectChefs = (state: AppState) => state.filters[FilterSlice.CHEFS]
 export const selectMoreFilters = (state: AppState) =>
   state.filters[FilterSlice.MOREFILTERS]
 export const selectCategories = (state: AppState) =>
@@ -17,7 +16,7 @@ export const selectNumberOfFilters = createSelector(
   selectMoreFilters,
   selectCategories,
   selectChefs,
-  (a, b, c,d) => ({
+  (a, b, c, d) => ({
     cuisine: a.length,
     categories: c.length,
     moreFilters: b.length,

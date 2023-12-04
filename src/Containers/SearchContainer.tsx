@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Text, View } from 'react-native'
 import CustomMenuHeader from '@/Components/CustomMenuHeader'
 import ArrowDown from '@/Assets/Images/svg/carret_down.svg'
@@ -9,14 +9,10 @@ import { useTranslation } from 'react-i18next'
 import { BottomSheetView, useBottomSheetModal } from '@gorhom/bottom-sheet'
 import { Modals } from '@/enums/Pages'
 import { ScrollView } from 'react-native-gesture-handler'
-import useSearchDebounce from '../Hooks/useSearchDebounce'
 import { Spacer } from '@/Components/Spacer'
 import SearchItem from '@/Components/SearchItem'
 
-import { selectChefs } from '@/Store/Selectors/ChefsSelectors'
-
 const TopFiveRestaurants = () => {
-  const chefs = useAppSelector(selectChefs)
   return (
     <View>
       <SearchItem.Header title={'Top'} count={5} />
@@ -30,20 +26,17 @@ const TopFiveRestaurants = () => {
 }
 
 const SearchContainer = () => {
-  const { search, searchQuery, setSearchQuery } = useSearchDebounce()
+  //@ts-ignore
+  // let delayedSearch: DebouncedFunc<any> | undefined
+  const { dismiss } = useBottomSheetModal()
   const { t } = useTranslation()
   const { Common, Layout, Colors, Fonts, Gutters } = useTheme()
-  const { dismissAll, dismiss } = useBottomSheetModal()
-  const { textRegular, textMedium, textBeige100, textPrimary, textCenter } =
-    Fonts
+  const [query, setQuery] = useState<string>('')
+  const { textMedium, textPrimary, textCenter } = Fonts
 
-  const handleSearch = (val: string) => {
-    setSearchQuery(val)
+  const updateSearchQuery = (query: string) => {
+    setQuery(query)
   }
-
-  useEffect(() => {
-    console.log(search)
-  }, [search])
 
   //renders
 
@@ -66,8 +59,9 @@ const SearchContainer = () => {
             { height: Dim.getDimension(48) },
           ],
         }}
+        value={query}
         placeholder={'Search...'}
-        onChangeText={handleSearch}
+        onChangeText={updateSearchQuery}
       />
 
       <ScrollView
@@ -75,7 +69,7 @@ const SearchContainer = () => {
         style={[{ width: Dim.getHorizontalDimension(358) }]}
         contentContainerStyle={[Layout.grow]}
       >
-        {search.length > 0 ? (
+        {query.length > 0 ? (
           <View>
             <Text />
           </View>

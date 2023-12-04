@@ -5,7 +5,6 @@ import {
   TransitioningView,
 } from 'react-native-reanimated'
 import { ColorValue } from 'react-native'
-import { Colors } from '@/Theme/Variables'
 
 interface Props {
   First: React.ElementType
